@@ -12,6 +12,7 @@
 
 #include "font_types.h"
 #include "font_prop14x16.c"
+#include "font_rom8x16.c"
 
 unsigned short *fb;
 
@@ -144,6 +145,7 @@ int main(int argc, char *argv[]) {
   char str[]="Goodbye world";
   char *ch=str;
   font_descriptor_t* fdes = &font_winFreeSystem14x16;
+  font_descriptor_t* fdes = &font_rom8x16;
   for (ptr = 0; ptr < 320*480 ; ptr++) {
     fb[ptr]=0u;
   }
