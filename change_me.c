@@ -147,7 +147,6 @@ int main(int argc, char *argv[]) {
   unsigned short number = 0u;
   for (ptr = 0; ptr < 320*480 ; ptr++) {
     fb[ptr]=number;
-    number += 1;
   }
   for (i=0; i<13; i++) {
     draw_char(x, 10, fdes, *ch, 0x1f<<11);
