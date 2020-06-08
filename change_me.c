@@ -118,35 +118,35 @@ int main(int argc, char *argv[]) {
   }
 
   loop_delay.tv_sec = 0;
-  loop_delay.tv_nsec = 150 * 1000 * 1000;
-  for (k=0; k<60; k++) {
+  //loop_delay.tv_nsec = 150 * 1000 * 1000;
+  loop_delay.tv_nsec = 150 * 100 * 100;
+  // for (k=0; k<60; k++) {
     
-    for (ptr = 0; ptr < 320*480 ; ptr++) {
-        fb[ptr]=0u;
-    }
-    // pixel (x,y) -> fb[x+y*480]
-    // for (i=0; i<200; i++) {
-    //   for (j=0; j<20; j++) {
-    //     fb[(i+k)+j+(i+k)*480]=0x1f<<5;
-    //   }
-    // }
+  //   for (ptr = 0; ptr < 320*480 ; ptr++) {
+  //       fb[ptr]=0u;
+  //   }
+  //   // pixel (x,y) -> fb[x+y*480]
+  //   // for (i=0; i<200; i++) {
+  //   //   for (j=0; j<20; j++) {
+  //   //     fb[(i+k)+j+(i+k)*480]=0x1f<<5;
+  //   //   }
+  //   // }
     
-    parlcd_write_cmd(parlcd_mem_base, 0x2c);
-    for (ptr = 0; ptr < 480*320 ; ptr++) {
-        parlcd_write_data(parlcd_mem_base, fb[ptr]);
-    }
+  //   parlcd_write_cmd(parlcd_mem_base, 0x2c);
+  //   for (ptr = 0; ptr < 480*320 ; ptr++) {
+  //       parlcd_write_data(parlcd_mem_base, fb[ptr]);
+  //   }
 
-    clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
-  }
+  //   clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+  // }
   
   int x = 10;
   char str[]="Goodbye world";
   char *ch=str;
   font_descriptor_t* fdes = &font_winFreeSystem14x16;
-  int number = 0;
+  int number = 0u;
   for (ptr = 0; ptr < 320*480 ; ptr++) {
-    //fb[ptr]=0u;
-    fb[ptr]=0x1f<<number;
+    fb[ptr]=number;
     number += 1;
   }
   for (i=0; i<13; i++) {
