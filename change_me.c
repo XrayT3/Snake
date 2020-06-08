@@ -60,7 +60,7 @@ void draw_char(int x, int y, font_descriptor_t* fdes, char ch, unsigned char col
       font_bits_t val = *ptr;
       for (j = 0; j < w; j++){
         if ((val&0x8000) != 0) {
-          draw_pixel(x+8*j, y+8*i, color);
+          draw_pixel8(x+8*j, y+8*i, color);
         }
         val<<=1;
       }
@@ -153,10 +153,10 @@ int main(int argc, char *argv[]) {
     ch++;
   }
 
-  parlcd_write_cmd(parlcd_mem_base, 0x2c);
-    for (ptr = 0; ptr < 480*320 ; ptr++) {
-        parlcd_write_data(parlcd_mem_base, fb[ptr]);
-    }
+  // parlcd_write_cmd(parlcd_mem_base, 0x2c);
+  //   for (ptr = 0; ptr < 480*320 ; ptr++) {
+  //       parlcd_write_data(parlcd_mem_base, fb[ptr]);
+  //   }
     
   printf("Goodbye world\n");
 
