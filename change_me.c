@@ -146,7 +146,7 @@ int main(int argc, char *argv[]) {
   
   for (ptr = 0; ptr < 320*480 ; ptr++) {
     fb[ptr]=0u;
-    fb[ptr]=0x1f<<11;
+    //fb[ptr]=0x1f<<11;
   }
   for (i=0; i<13; i++) {
     draw_char(x, 10, fdes, *ch, 0x1f<<11);
