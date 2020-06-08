@@ -78,9 +78,9 @@ int main(int argc, char *argv[]) {
   unsigned int c;
   fb  = (unsigned short *)malloc(320*480*2);
   
-  printf("Hello world\n");
+  // printf("Hello world\n");
 
-  sleep(1);
+  // sleep(1);
 
   /*
    * Setup memory mapping which provides access to the peripheral
@@ -125,11 +125,11 @@ int main(int argc, char *argv[]) {
         fb[ptr]=0u;
     }
     // pixel (x,y) -> fb[x+y*480]
-    for (i=0; i<200; i++) {
-      for (j=0; j<20; j++) {
-        fb[(i+k)+j+(i+k)*480]=0x1f<<5;
-      }
-    }
+    // for (i=0; i<200; i++) {
+    //   for (j=0; j<20; j++) {
+    //     fb[(i+k)+j+(i+k)*480]=0x1f<<5;
+    //   }
+    // }
     
     parlcd_write_cmd(parlcd_mem_base, 0x2c);
     for (ptr = 0; ptr < 480*320 ; ptr++) {
@@ -144,19 +144,20 @@ int main(int argc, char *argv[]) {
   char *ch=str;
   font_descriptor_t* fdes = &font_winFreeSystem14x16;
   
-//   for (ptr = 0; ptr < 320*480 ; ptr++) {
-//     fb[ptr]=0u;
-//   }
+  for (ptr = 0; ptr < 320*480 ; ptr++) {
+    fb[ptr]=0u;
+    fb[ptr]=0x1f<<11;
+  }
   for (i=0; i<13; i++) {
     draw_char(x, 10, fdes, *ch, 0x1f<<11);
     x+=8*char_width(fdes, *ch)+2;
     ch++;
   }
 
-  // parlcd_write_cmd(parlcd_mem_base, 0x2c);
-  //   for (ptr = 0; ptr < 480*320 ; ptr++) {
-  //       parlcd_write_data(parlcd_mem_base, fb[ptr]);
-  //   }
+  parlcd_write_cmd(parlcd_mem_base, 0x2c);
+    for (ptr = 0; ptr < 480*320 ; ptr++) {
+        parlcd_write_data(parlcd_mem_base, fb[ptr]);
+    }
     
   printf("Goodbye world\n");
 
