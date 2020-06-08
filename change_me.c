@@ -22,7 +22,7 @@ void draw_pixel(int x, int y, unsigned short color) {
   }
 }
 
-void draw_pixel_scale(int x, int y, unsigned short color) {
+void draw_pixel8(int x, int y, unsigned short color) {
   int i, j;
   for (i = 0; i < scale; i++){
     for (j = 0; j < scale; j++){
