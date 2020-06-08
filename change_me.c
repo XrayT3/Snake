@@ -17,6 +17,7 @@ unsigned short *fb;
 
 void draw_pixel(int x, int y, unsigned short color) {
   if (x>=0 && x<480 && y>=0 && y<320) {
+    printf("+");
     fb[x+480*y] = color;
   }
 }
@@ -60,7 +61,7 @@ void draw_char(int x, int y, font_descriptor_t* fdes, char ch, unsigned char col
       font_bits_t val = *ptr;
       for (j = 0; j < w; j++){
         if ((val&0x8000) != 0) {
-          printf("proslo\n");
+          printf("-");
           draw_pixel8(x+8*j, y+8*i, color);
         }
         val<<=1;
