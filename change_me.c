@@ -21,6 +21,15 @@ void draw_pixel(int x, int y, unsigned short color) {
   }
 }
 
+void draw_pixel8(int x, int y, unsigned short color) {
+  int i, j;
+  for (i = 0; i < 8; i++){
+    for (j = 0; j < 8; j++){
+      draw_pixel(x+i, y+i, color);
+    }
+  }
+}
+
 int char_width(font_descriptor_t* fdes, int ch) {
   int width = 0;
   if ((ch >= fdes->firstchar) && (ch-fdes->firstchar < fdes->size)) {
@@ -51,7 +60,7 @@ void draw_char(int x, int y, font_descriptor_t* fdes, char ch, unsigned char col
       font_bits_t val = *ptr;
       for (j = 0; j < w; j++){
         if ((val&0x8000) != 0) {
-          draw_pixel(x+j, y+i, color);
+          draw_pixel(x+8*j, y+8*i, color);
         }
         val<<=1;
       }
@@ -135,12 +144,12 @@ int main(int argc, char *argv[]) {
   char *ch=str;
   font_descriptor_t* fdes = &font_winFreeSystem14x16;
   
-  for (ptr = 0; ptr < 320*480 ; ptr++) {
-    fb[ptr]=0u;
-  }
+//   for (ptr = 0; ptr < 320*480 ; ptr++) {
+//     fb[ptr]=0u;
+//   }
   for (i=0; i<13; i++) {
     draw_char(x, 10, fdes, *ch, 0x1f<<11);
-    x+=char_width(fdes, *ch)+2;
+    x+=8*char_width(fdes, *ch)+2;
     ch++;
   }
 
