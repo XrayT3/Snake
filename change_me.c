@@ -48,9 +48,9 @@ void draw_char(int x, int y, font_descriptor_t* fdes, char ch, unsigned char col
   if (w > 0) {
     const font_bits_t *ptr;
     if (fdes->offset) {
+      ptr = &fdes->bits[fdes->offset[ch-fdes->firstchar]];
       ptr = fdes->bits + fdes->offset[ch-fdes->firstchar];
-    } else
-    {
+    } else {
       int bw = (fdes->maxwidth+15)/16;
       ptr = fdes->bits + (ch-fdes->firstchar)*bw*fdes->height;
     }
@@ -144,7 +144,6 @@ int main(int argc, char *argv[]) {
   char str[]="Goodbye world";
   char *ch=str;
   font_descriptor_t* fdes = &font_winFreeSystem14x16;
-  unsigned short number = 0x1f<<11;
   for (ptr = 0; ptr < 320*480 ; ptr++) {
     fb[ptr]=0x1f<<11;
   }
