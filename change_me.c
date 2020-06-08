@@ -144,7 +144,7 @@ int main(int argc, char *argv[]) {
   char str[]="Goodbye world";
   char *ch=str;
   font_descriptor_t* fdes = &font_winFreeSystem14x16;
-  unsigned short number = 0u;
+  unsigned short number = 0x1f<<11;
   for (ptr = 0; ptr < 320*480 ; ptr++) {
     fb[ptr]=number;
   }
