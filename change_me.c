@@ -12,7 +12,6 @@
 
 #include "font_types.h"
 #include "font_prop14x16.c"
-#include "font_rom8x16.c"
 
 unsigned short *fb;
 
@@ -61,6 +60,7 @@ void draw_char(int x, int y, font_descriptor_t* fdes, char ch, unsigned char col
       font_bits_t val = *ptr;
       for (j = 0; j < w; j++){
         if ((val&0x8000) != 0) {
+          printf("proslo\n");
           draw_pixel8(x+8*j, y+8*i, color);
         }
         val<<=1;
@@ -145,7 +145,6 @@ int main(int argc, char *argv[]) {
   char str[]="Goodbye world";
   char *ch=str;
   font_descriptor_t* fdes = &font_winFreeSystem14x16;
-  font_descriptor_t* fdes = &font_rom8x16;
   for (ptr = 0; ptr < 320*480 ; ptr++) {
     fb[ptr]=0u;
   }
