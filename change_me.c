@@ -75,9 +75,8 @@ int main(int argc, char *argv[]) {
   unsigned char *mem_base;
   unsigned char *parlcd_mem_base;
   uint32_t val_line=5;
-  int i,j;
+  int i;
   int ptr;
-  unsigned int c;
   fb  = (unsigned short *)malloc(320*480*2);
 
   /*
@@ -121,7 +120,6 @@ int main(int argc, char *argv[]) {
   char str[]="Goodbye world";
   char *ch=str;
   font_descriptor_t* fdes = &font_winFreeSystem14x16;
-  int colour = 0;
   for (ptr = 0; ptr < 320*480 ; ptr++) {
     fb[ptr]=0u;
   }
