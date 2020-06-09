@@ -117,7 +117,7 @@ int main(int argc, char *argv[]) {
   
   int x = 10;
   //char str[]="Goodbye world";
-  char str[]="Daltonik ^-^ ";
+  char str[]="I love cats !";
   char *ch=str;
   font_descriptor_t* fdes = &font_winFreeSystem14x16;
   for (ptr = 0; ptr < 320*480 ; ptr++) {
