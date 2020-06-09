@@ -17,18 +17,17 @@
 unsigned short *fb;
 int scale = 6;
 
-void draw_pixel(int x, int y, unsigned short color) {
+void draw_pixel(int x, int y) {
   if (x>=0 && x<480 && y>=0 && y<320) {
-    fb[x+480*y] = color;
     fb[x+480*y] = 0x1f<<11;
   }
 }
 
-void draw_pixel8(int x, int y, unsigned short color) {
+void draw_pixel8(int x, int y) {
   int i, j;
   for (i = 0; i < scale; i++){
     for (j = 0; j < scale; j++){
-      draw_pixel(x+i, y+i, color);
+      draw_pixel(x+i, y+i);
     }
   }
 }
@@ -46,7 +45,7 @@ int char_width(font_descriptor_t* fdes, int ch) {
   return width;
 }
 
-void draw_char(int x, int y, font_descriptor_t* fdes, char ch, unsigned char color) {
+void draw_char(int x, int y, font_descriptor_t* fdes, char ch) {
   int w = char_width(fdes, ch);
   if (w > 0) {
     const font_bits_t *ptr;
@@ -63,7 +62,7 @@ void draw_char(int x, int y, font_descriptor_t* fdes, char ch, unsigned char col
       font_bits_t val = *ptr;
       for (j = 0; j < w; j++){
         if ((val&0x8000) != 0) {
-          draw_pixel8(x+scale*j, y+scale*i, color);
+          draw_pixel8(x+scale*j, y+scale*i);
         }
         val<<=1;
       }
@@ -106,6 +105,7 @@ int main(int argc, char *argv[]) {
   rgb_knobs_value = 191; //
   rgb_knobs_value = 159; //
   rgb_knobs_value = 16711935; //pink
+  rgb_knobs_value = 255; //blue
 
   *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
   *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
@@ -113,8 +113,10 @@ int main(int argc, char *argv[]) {
 
   // LED Line
   struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 100 * 1000 * 1000};
-  char ch1 = 'q';
+  // char ch1 = 'q';
   val_line = 15;
+  val_line = 1227133513;
+  *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
   // for (int k = 0; k < 200; k++)
   // {
   //   *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
@@ -165,19 +167,19 @@ int main(int argc, char *argv[]) {
     fb[ptr]=0u;
   }
   for (i=0; i<5; i++) {
-    draw_char(x, 10, fdes, *ch, 0xF81F);
+    draw_char(x, 10, fdes, *ch);
     x+=scale*char_width(fdes, *ch)+2;
     ch++;
   }
   x = 10;
   for (i=0; i<4; i++) {
-    draw_char(x, 117, fdes, *ch2, 0xF81F);
+    draw_char(x, 117, fdes, *ch2);
     x+=scale*char_width(fdes, *ch2)+2;
     ch2++;
   }
   x = 10;
   for (i=0; i<7; i++) {
-    draw_char(x, 224, fdes, *ch3, 0xF81F);
+    draw_char(x, 224, fdes, *ch3);
     x+=scale*char_width(fdes, *ch3)+2;
     ch3++;
   }
