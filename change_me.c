@@ -116,7 +116,7 @@ int main(int argc, char *argv[]) {
   }
   
   int x = 10;
-  char str[]="Goodbye world";
+  //char str[]="Goodbye world";
   char str[]="Lozamary! ^-^";
   char *ch=str;
   font_descriptor_t* fdes = &font_winFreeSystem14x16;
