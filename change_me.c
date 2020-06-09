@@ -89,10 +89,6 @@ int main(int argc, char *argv[]) {
 
   fb  = (unsigned short *)malloc(320*480*2);
 
-  /*
-   * Setup memory mapping which provides access to the peripheral
-   * registers region of RGB LEDs, knobs and line of yellow LEDs.
-   */
   mem_base = map_phys_address(SPILED_REG_BASE_PHYS, SPILED_REG_SIZE, 0);
 
   /* If mapping fails exit with error code */
@@ -110,9 +106,8 @@ int main(int argc, char *argv[]) {
   *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
   *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
 
-
   // LED Line
-  struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 100 * 1000 * 1000};
+  //struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 100 * 1000 * 1000};
   // char ch1 = 'q';
   val_line = 15;
   val_line = 1227133513;
@@ -165,6 +160,7 @@ int main(int argc, char *argv[]) {
   font_descriptor_t* fdes = &font_winFreeSystem14x16;
   for (ptr = 0; ptr < 320*480 ; ptr++) {
     fb[ptr]=0u;
+    fb[ptr]=0x1f<<11;
   }
   for (i=0; i<5; i++) {
     draw_char(x, 10, fdes, *ch);
@@ -188,8 +184,6 @@ int main(int argc, char *argv[]) {
     for (ptr = 0; ptr < 480*320 ; ptr++) {
         parlcd_write_data(parlcd_mem_base, fb[ptr]);
     }
-    
-  printf("Goodbye world\n");
 
   tcsetattr( STDIN_FILENO, TCSANOW, &oldt);
 
