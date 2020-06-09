@@ -14,7 +14,7 @@
 #include "font_prop14x16.c"
 
 unsigned short *fb;
-int scale = 4;
+int scale = 6;
 
 void draw_pixel(int x, int y, unsigned short color) {
   if (x>=0 && x<480 && y>=0 && y<320) {
