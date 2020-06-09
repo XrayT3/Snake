@@ -94,14 +94,14 @@ int main(int argc, char *argv[]) {
 
   while (1)
   {
-    val_line = 50;
+    val_line = 15;
     for (i=0; i<30; i++) {
       *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
       val_line<<=1;
       //printf("LED val 0x%x\n", val_line);
       clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
     }
-    for (i=30; i>0; i--) {
+    for (i=0; i<30; i++) {
       *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
       val_line>>=1;
       //printf("LED val 0x%x\n", val_line);
