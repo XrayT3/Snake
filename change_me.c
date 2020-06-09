@@ -117,13 +117,12 @@ int main(int argc, char *argv[]) {
   
   int x = 10;
   char str[]="Goodbye world";
-  char str[]="I love kats :)";
   char *ch=str;
   font_descriptor_t* fdes = &font_winFreeSystem14x16;
   for (ptr = 0; ptr < 320*480 ; ptr++) {
-    fb[ptr]=0u;
+    fb[ptr]=1u;
   }
-  for (i=0; i<14; i++) {
+  for (i=0; i<13; i++) {
     draw_char(x, 10, fdes, *ch, 0x1f<<11);
     x+=scale*char_width(fdes, *ch)+2;
     ch++;
