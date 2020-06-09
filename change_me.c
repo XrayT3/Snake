@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include <time.h>
 #include <unistd.h>
-#include <termios.h>
+//#include <termios.h>
 
 #include "mzapo_parlcd.h"
 #include "mzapo_phys.h"
@@ -79,13 +79,13 @@ int main(int argc, char *argv[]) {
   int i;
   int ptr;
 
-  static struct termios oldt, newt;
-  tcgetattr( STDIN_FILENO, &oldt); 
-  newt = oldt; 
-  newt.c_lflag &= ~(ICANON); 
-  newt.c_cc[VMIN] = 0;
-  newt.c_cc[VTIME] = 0;
-  tcsetattr( STDIN_FILENO, TCSANOW, &newt);
+  // static struct termios oldt, newt;
+  // tcgetattr( STDIN_FILENO, &oldt); 
+  // newt = oldt; 
+  // newt.c_lflag &= ~(ICANON); 
+  // newt.c_cc[VMIN] = 0;
+  // newt.c_cc[VTIME] = 0;
+  // tcsetattr( STDIN_FILENO, TCSANOW, &newt);
 
   fb  = (unsigned short *)malloc(320*480*2);
 
@@ -97,11 +97,7 @@ int main(int argc, char *argv[]) {
 
   rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
   rgb_knobs_value = 255; //blue
-  rgb_knobs_value = 223; //
-  rgb_knobs_value = 191; //
-  rgb_knobs_value = 159; //
   rgb_knobs_value = 16711935; //pink
-  rgb_knobs_value = 255; //blue
 
   *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
   *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
@@ -169,7 +165,7 @@ int main(int argc, char *argv[]) {
         parlcd_write_data(parlcd_mem_base, fb[ptr]);
     }
 
-  tcsetattr( STDIN_FILENO, TCSANOW, &oldt);
+  //tcsetattr( STDIN_FILENO, TCSANOW, &oldt);
 
   return 0;
 }
