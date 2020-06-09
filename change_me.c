@@ -140,7 +140,6 @@ int main(int argc, char *argv[]) {
   font_descriptor_t* fdes = &font_winFreeSystem14x16;
   for (ptr = 0; ptr < 320*480 ; ptr++) {
     fb[ptr]=0u;
-    fb[ptr]=0x1f<<11;
   }
   for (i=0; i<5; i++) {
     draw_char(x, 10, fdes, *ch);
