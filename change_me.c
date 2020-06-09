@@ -169,7 +169,7 @@ int main(int argc, char *argv[]) {
     x+=scale*char_width(fdes, *ch)+2;
     ch++;
   }
-  x = 10
+  x = 10;
   for (i=0; i<4; i++) {
     draw_char(x, 117, fdes, *ch2, 0xF81F);
     x+=scale*char_width(fdes, *ch2)+2;
