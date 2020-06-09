@@ -15,7 +15,7 @@
 #include "font_prop14x16.c"
 
 unsigned short *fb;
-int scale = 4;
+int scale = 6;
 
 void draw_pixel(int x, int y, unsigned short color) {
   if (x>=0 && x<480 && y>=0 && y<320) {
@@ -115,22 +115,22 @@ int main(int argc, char *argv[]) {
   struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 100 * 1000 * 1000};
   char ch1 = 'q';
   val_line = 15;
-  for (int k = 0; k < 200; k++)
-  {
-    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
-    int r = read(0, &ch1, 1);
-    if (r==1) {
-      if (ch1 == 'a'){
-        val_line<<=1;
-      } else if (ch1 == 'd'){
-        val_line>>=1;
-      }
-      else {
-        ch1 = 'q';
-      }
-    }
+  // for (int k = 0; k < 200; k++)
+  // {
+  //   *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
+  //   int r = read(0, &ch1, 1);
+  //   if (r==1) {
+  //     if (ch1 == 'a'){
+  //       val_line<<=1;
+  //     } else if (ch1 == 'd'){
+  //       val_line>>=1;
+  //     }
+  //     else {
+  //       ch1 = 'q';
+  //     }
+  //   }
 
-    clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+  //   clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
     // for (i=0; i<30; i++) {
     //   *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
     //   val_line<<=1;
@@ -144,7 +144,7 @@ int main(int argc, char *argv[]) {
     //   //printf("LED val 0x%x\n", val_line);
     //   clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
     // }
-  }
+  // }
   
   parlcd_mem_base = map_phys_address(PARLCD_REG_BASE_PHYS, PARLCD_REG_SIZE, 0);
 
@@ -154,16 +154,32 @@ int main(int argc, char *argv[]) {
   parlcd_hx8357_init(parlcd_mem_base);
   
   int x = 10;
-  char str[]="Goodbye world";
-  char *ch=str;
+  char str1[]="START"; // 5
+  char str2[]="DEMO"; // 4
+  char str3[]="OPTIONS"; // 7
+  char *ch=str1;
+  char *ch2=str2;
+  char *ch3=str3;
   font_descriptor_t* fdes = &font_winFreeSystem14x16;
   for (ptr = 0; ptr < 320*480 ; ptr++) {
     fb[ptr]=0u;
   }
-  for (i=0; i<13; i++) {
+  for (i=0; i<5; i++) {
     draw_char(x, 10, fdes, *ch, 0xF81F);
     x+=scale*char_width(fdes, *ch)+2;
     ch++;
+  }
+  x = 10
+  for (i=0; i<4; i++) {
+    draw_char(x, 117, fdes, *ch2, 0xF81F);
+    x+=scale*char_width(fdes, *ch2)+2;
+    ch2++;
+  }
+  x = 10;
+  for (i=0; i<7; i++) {
+    draw_char(x, 224, fdes, *ch3, 0xF81F);
+    x+=scale*char_width(fdes, *ch3)+2;
+    ch3++;
   }
 
   parlcd_write_cmd(parlcd_mem_base, 0x2c);
