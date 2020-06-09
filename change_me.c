@@ -90,7 +90,7 @@ int main(int argc, char *argv[]) {
   if (mem_base == NULL)
     exit(1);
 
-  struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 20 * 1000 * 1000};
+  struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 40 * 1000 * 1000};
 
   while (1)
   {
@@ -115,16 +115,6 @@ int main(int argc, char *argv[]) {
     exit(1);
 
   parlcd_hx8357_init(parlcd_mem_base);
-
-  // parlcd_write_cmd(parlcd_mem_base, 0x2c);
-  // ptr=0;
-  // for (i = 0; i < 320 ; i++) {
-  //   for (j = 0; j < 480 ; j++) {
-  //     c = 0;
-  //     fb[ptr]=c;
-  //     parlcd_write_data(parlcd_mem_base, fb[ptr++]);
-  //   }
-  // }
   
   int x = 10;
   char str[]="Goodbye world";
