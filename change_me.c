@@ -15,7 +15,7 @@
 #include "font_prop14x16.c"
 
 unsigned short *fb;
-int scale = 6;
+int scale = 4;
 
 void draw_pixel(int x, int y) {
   if (x>=0 && x<480 && y>=0 && y<320) {
@@ -103,7 +103,7 @@ int main(int argc, char *argv[]) {
   *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
 
   // LED Line
-  struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 100 * 1000 * 1000};
+  struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 1 * 1000 * 1000};
   val_line = 15;
   //val_line = 1227133513;
   *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
@@ -142,23 +142,23 @@ int main(int argc, char *argv[]) {
     fb[ptr]=0u;
     fb[ptr]=0x1f<<11;
   }
-  for (i=0; i<5; i++) {
-    draw_char(x, 10, fdes, *ch);
-    x+=scale*char_width(fdes, *ch)+2;
-    ch++;
-  }
-  x = 10;
-  for (i=0; i<4; i++) {
-    draw_char(x, 117, fdes, *ch2);
-    x+=scale*char_width(fdes, *ch2)+2;
-    ch2++;
-  }
-  x = 10;
-  for (i=0; i<7; i++) {
-    draw_char(x, 224, fdes, *ch3);
-    x+=scale*char_width(fdes, *ch3)+2;
-    ch3++;
-  }
+  // for (i=0; i<5; i++) {
+  //   draw_char(x, 10, fdes, *ch);
+  //   x+=scale*char_width(fdes, *ch)+2;
+  //   ch++;
+  // }
+  // x = 10;
+  // for (i=0; i<4; i++) {
+  //   draw_char(x, 117, fdes, *ch2);
+  //   x+=scale*char_width(fdes, *ch2)+2;
+  //   ch2++;
+  // }
+  // x = 10;
+  // for (i=0; i<7; i++) {
+  //   draw_char(x, 224, fdes, *ch3);
+  //   x+=scale*char_width(fdes, *ch3)+2;
+  //   ch3++;
+  // }
 
   parlcd_write_cmd(parlcd_mem_base, 0x2c);
     for (ptr = 0; ptr < 480*320 ; ptr++) {
