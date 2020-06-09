@@ -1,4 +1,5 @@
 #define _POSIX_C_SOURCE 200112L
+#define STDIN_FILENO    0
 
 #include <stdlib.h>
 #include <stdio.h>
