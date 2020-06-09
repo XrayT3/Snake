@@ -94,7 +94,7 @@ int main(int argc, char *argv[]) {
 
   while (1)
   {
-    val_line = 5;
+    val_line = 10;
     for (i=0; i<30; i++) {
       *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
       val_line<<=1;
