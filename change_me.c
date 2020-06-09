@@ -96,6 +96,8 @@ int main(int argc, char *argv[]) {
   rgb_knobs_value = 63; //
   rgb_knobs_value = 31; //
   rgb_knobs_value = 15; //
+  rgb_knobs_value = 7; //
+  rgb_knobs_value = 3; //
 
   *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
   *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
