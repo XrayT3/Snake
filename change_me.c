@@ -94,18 +94,18 @@ int main(int argc, char *argv[]) {
 
   while (1)
   {
-    val_line = 7;
+    val_line = 15;
     for (i=0; i<30; i++) {
       *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
       val_line<<=1;
-      printf("LED val 0x%x\n", val_line);
+      //printf("LED val 0x%x\n", val_line);
       clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
     }
     val_line = 4026531840;
     for (i=0; i<30; i++) {
       *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
       val_line>>=1;
-      printf("LED val 0x%x\n", val_line);
+      //printf("LED val 0x%x\n", val_line);
       clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
     }
   }
