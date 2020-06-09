@@ -111,23 +111,38 @@ int main(int argc, char *argv[]) {
 
 
   // LED Line
-  struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 100 * 1000 * 1000};
-  while (1)
+  struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 10 * 1000 * 1000};
+  char ch1 = 'q';
+  for (int k = 0; k < 200; k++)
   {
     val_line = 15;
-    for (i=0; i<30; i++) {
-      *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
-      val_line<<=1;
-      //printf("LED val 0x%x\n", val_line);
-      clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
+    int r = read(0, &ch1, 1);
+    if (r==1) {
+      if (ch1 == 'a'){
+        val_line<<=1;
+      } else if (ch1 == 'd'){
+        val_line>>=1;
+      }
+      else {
+        ch1 = 'q';
+      }
     }
-    val_line = 4026531840;
-    for (i=0; i<30; i++) {
-      *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
-      val_line>>=1;
-      //printf("LED val 0x%x\n", val_line);
-      clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
-    }
+
+    clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+    // for (i=0; i<30; i++) {
+    //   *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
+    //   val_line<<=1;
+    //   //printf("LED val 0x%x\n", val_line);
+    //   clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+    // }
+    // val_line = 4026531840;
+    // for (i=0; i<30; i++) {
+    //   *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
+    //   val_line>>=1;
+    //   //printf("LED val 0x%x\n", val_line);
+    //   clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+    // }
   }
   
   parlcd_mem_base = map_phys_address(PARLCD_REG_BASE_PHYS, PARLCD_REG_SIZE, 0);
