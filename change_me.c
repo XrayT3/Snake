@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include <time.h>
 #include <unistd.h>
+#include <termios.h>
 
 #include "mzapo_parlcd.h"
 #include "mzapo_phys.h"
@@ -14,20 +15,19 @@
 #include "font_prop14x16.c"
 
 unsigned short *fb;
-int scale = 8;
+int scale = 4;
 
-void draw_pixel(int x, int y, unsigned short color) {
+void draw_pixel(int x, int y) {
   if (x>=0 && x<480 && y>=0 && y<320) {
-    fb[x+480*y] = color;
-    fb[x+480*y] = 0xFF9F;
+    fb[x+480*y] = 0x1f<<11;
   }
 }
 
-void draw_pixel8(int x, int y, unsigned short color) {
+void draw_pixel8(int x, int y) {
   int i, j;
   for (i = 0; i < scale; i++){
     for (j = 0; j < scale; j++){
-      draw_pixel(x+i, y+i, color);
+      draw_pixel(x+i, y+i);
     }
   }
 }
@@ -45,7 +45,7 @@ int char_width(font_descriptor_t* fdes, int ch) {
   return width;
 }
 
-void draw_char(int x, int y, font_descriptor_t* fdes, char ch, unsigned char color) {
+void draw_char(int x, int y, font_descriptor_t* fdes, char ch) {
   int w = char_width(fdes, ch);
   if (w > 0) {
     const font_bits_t *ptr;
@@ -62,7 +62,7 @@ void draw_char(int x, int y, font_descriptor_t* fdes, char ch, unsigned char col
       font_bits_t val = *ptr;
       for (j = 0; j < w; j++){
         if ((val&0x8000) != 0) {
-          draw_pixel8(x+scale*j, y+scale*i, color);
+          draw_pixel8(x+scale*j, y+scale*i);
         }
         val<<=1;
       }
@@ -75,28 +75,53 @@ int main(int argc, char *argv[]) {
   unsigned char *mem_base;
   unsigned char *parlcd_mem_base;
   uint32_t val_line=5;
-  int i,j;
+  uint32_t rgb_knobs_value;
+  int i;
   int ptr;
-  unsigned int c;
+
+  static struct termios oldt, newt;
+  tcgetattr( STDIN_FILENO, &oldt); 
+  newt = oldt; 
+  newt.c_lflag &= ~(ICANON); 
+  newt.c_cc[VMIN] = 0;
+  newt.c_cc[VTIME] = 0;
+  tcsetattr( STDIN_FILENO, TCSANOW, &newt);
+
   fb  = (unsigned short *)malloc(320*480*2);
 
-  /*
-   * Setup memory mapping which provides access to the peripheral
-   * registers region of RGB LEDs, knobs and line of yellow LEDs.
-   */
   mem_base = map_phys_address(SPILED_REG_BASE_PHYS, SPILED_REG_SIZE, 0);
 
   /* If mapping fails exit with error code */
   if (mem_base == NULL)
     exit(1);
 
-  struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 20 * 1000 * 1000};
+  rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
+  rgb_knobs_value = 255; //blue
+  rgb_knobs_value = 16711935; //pink
+
+  *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
+  *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
+
+  // LED Line
+  struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 10 * 1000 * 1000};
+  val_line = 15;
+  // val_line = 1227133513;
+  *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
+  clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
   for (i=0; i<30; i++) {
-     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
-     val_line<<=1;
-     printf("LED val 0x%x\n", val_line);
-     clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
+    val_line<<=1;
+    //printf("LED val 0x%x\n", val_line);
+    clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
   }
+  val_line = 4026531840;
+  for (i=0; i<30; i++) {
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
+    val_line>>=1;
+    //printf("LED val 0x%x\n", val_line);
+    clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+  }
+
   
   parlcd_mem_base = map_phys_address(PARLCD_REG_BASE_PHYS, PARLCD_REG_SIZE, 0);
 
@@ -104,37 +129,43 @@ int main(int argc, char *argv[]) {
     exit(1);
 
   parlcd_hx8357_init(parlcd_mem_base);
-
-  parlcd_write_cmd(parlcd_mem_base, 0x2c);
-  ptr=0;
-  for (i = 0; i < 320 ; i++) {
-    for (j = 0; j < 480 ; j++) {
-      c = 0;
-      fb[ptr]=c;
-      parlcd_write_data(parlcd_mem_base, fb[ptr++]);
-    }
-  }
   
   int x = 10;
-  char str[]="<3 <3 <3";
-  char *ch=str;
+  char str1[]="START"; // 5
+  char str2[]="DEMO"; // 4
+  char str3[]="OPTIONS"; // 7
+  char *ch=str1;
+  char *ch2=str2;
+  char *ch3=str3;
   font_descriptor_t* fdes = &font_winFreeSystem14x16;
   for (ptr = 0; ptr < 320*480 ; ptr++) {
     fb[ptr]=0u;
     fb[ptr]=0x1f<<11;
   }
-  for (i=0; i<15; i++) {
-    draw_char(x, 10, fdes, *ch, 0x19);
+  for (i=0; i<5; i++) {
+    draw_char(x, 10, fdes, *ch);
     x+=scale*char_width(fdes, *ch)+2;
     ch++;
+  }
+  x = 10;
+  for (i=0; i<4; i++) {
+    draw_char(x, 117, fdes, *ch2);
+    x+=scale*char_width(fdes, *ch2)+2;
+    ch2++;
+  }
+  x = 10;
+  for (i=0; i<7; i++) {
+    draw_char(x, 224, fdes, *ch3);
+    x+=scale*char_width(fdes, *ch3)+2;
+    ch3++;
   }
 
   parlcd_write_cmd(parlcd_mem_base, 0x2c);
     for (ptr = 0; ptr < 480*320 ; ptr++) {
         parlcd_write_data(parlcd_mem_base, fb[ptr]);
     }
-    
-  printf("Goodbye world\n");
+
+  tcsetattr( STDIN_FILENO, TCSANOW, &oldt);
 
   return 0;
 }
