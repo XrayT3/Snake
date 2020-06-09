@@ -103,15 +103,15 @@ int main(int argc, char *argv[]) {
   rgb_knobs_value = 16711935; //pink
   rgb_knobs_value = 255; //blue
 
-  *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
-  *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
+  //*(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
+  //*(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
 
   // LED Line
   //struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 100 * 1000 * 1000};
   // char ch1 = 'q';
   val_line = 15;
   val_line = 1227133513;
-  *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
+  //*(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
   // for (int k = 0; k < 200; k++)
   // {
   //   *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
