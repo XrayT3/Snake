@@ -91,7 +91,8 @@ int main(int argc, char *argv[]) {
     exit(1);
 
   rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
-  rgb_knobs_value = 255;
+  rgb_knobs_value = 255; //blue
+  rgb_knobs_value = 223; //
 
   *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
   *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
