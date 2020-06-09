@@ -14,12 +14,12 @@
 #include "font_prop14x16.c"
 
 unsigned short *fb;
-int scale = 6;
+int scale = 4;
 
 void draw_pixel(int x, int y, unsigned short color) {
   if (x>=0 && x<480 && y>=0 && y<320) {
     fb[x+480*y] = color;
-    fb[x+480*y] = 0x881F;
+    //fb[x+480*y] = 0x1f<<11;
   }
 }
 
@@ -116,14 +116,19 @@ int main(int argc, char *argv[]) {
   }
   
   int x = 10;
-  //char str[]="Goodbye world";
-  char str[]="I love cats! <3";
+  char str[]="Goodbye world";
   char *ch=str;
   font_descriptor_t* fdes = &font_winFreeSystem14x16;
+  int colour = 0;
   for (ptr = 0; ptr < 320*480 ; ptr++) {
     fb[ptr]=0u;
+    fb[ptr] = colour;
+    colour +=1;
+    if (colour >= 65535){
+      colour = 0;
+    }
   }
-  for (i=0; i<15; i++) {
+  for (i=0; i<13; i++) {
     draw_char(x, 10, fdes, *ch, 0x1f<<11);
     x+=scale*char_width(fdes, *ch)+2;
     ch++;
