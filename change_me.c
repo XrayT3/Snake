@@ -14,7 +14,7 @@
 #include "font_prop14x16.c"
 
 unsigned short *fb;
-int scale = 4;
+int scale = 5;
 
 void draw_pixel(int x, int y, unsigned short color) {
   if (x>=0 && x<480 && y>=0 && y<320) {
@@ -91,11 +91,14 @@ int main(int argc, char *argv[]) {
     exit(1);
 
   struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 20 * 1000 * 1000};
-  for (i=0; i<30; i++) {
+  while (1)
+  {
+    for (i=0; i<30; i++) {
      *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
      val_line<<=1;
      printf("LED val 0x%x\n", val_line);
      clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+    }
   }
   
   parlcd_mem_base = map_phys_address(PARLCD_REG_BASE_PHYS, PARLCD_REG_SIZE, 0);
@@ -105,15 +108,15 @@ int main(int argc, char *argv[]) {
 
   parlcd_hx8357_init(parlcd_mem_base);
 
-  parlcd_write_cmd(parlcd_mem_base, 0x2c);
-  ptr=0;
-  for (i = 0; i < 320 ; i++) {
-    for (j = 0; j < 480 ; j++) {
-      c = 0;
-      fb[ptr]=c;
-      parlcd_write_data(parlcd_mem_base, fb[ptr++]);
-    }
-  }
+  // parlcd_write_cmd(parlcd_mem_base, 0x2c);
+  // ptr=0;
+  // for (i = 0; i < 320 ; i++) {
+  //   for (j = 0; j < 480 ; j++) {
+  //     c = 0;
+  //     fb[ptr]=c;
+  //     parlcd_write_data(parlcd_mem_base, fb[ptr++]);
+  //   }
+  // }
   
   int x = 10;
   char str[]="Goodbye world";
@@ -124,7 +127,7 @@ int main(int argc, char *argv[]) {
     fb[ptr]=0u;
   }
   for (i=0; i<13; i++) {
-    draw_char(x, 10, fdes, *ch, 63519);
+    draw_char(x, 10, fdes, *ch, 0xF81F);
     x+=scale*char_width(fdes, *ch)+2;
     ch++;
   }
