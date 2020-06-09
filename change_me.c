@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include <time.h>
 #include <unistd.h>
+#include <termios.h>
 
 #include "mzapo_parlcd.h"
 #include "mzapo_phys.h"
@@ -15,6 +16,14 @@
 
 unsigned short *fb;
 int scale = 4;
+
+static struct termios oldt, newt;
+tcgetattr( STDIN_FILENO, &oldt); 
+newt = oldt; 
+newt.c_lflag &= ~(ICANON); 
+newt.c_cc[VMIN] = 0;
+newt.c_cc[VTIME] = 0;
+tcsetattr( STDIN_FILENO, TCSANOW, &newt);
 
 void draw_pixel(int x, int y, unsigned short color) {
   if (x>=0 && x<480 && y>=0 && y<320) {
@@ -91,18 +100,15 @@ int main(int argc, char *argv[]) {
     exit(1);
 
   rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
-  rgb_knobs_value = 16711680; //red
+  rgb_knobs_value = 255; //blue
+  rgb_knobs_value = 223; //
+  rgb_knobs_value = 191; //
+  rgb_knobs_value = 159; //
   rgb_knobs_value = 16711935; //pink
-//   rgb_knobs_value = 255; //blue
-//   rgb_knobs_value = 127; //
-//   rgb_knobs_value = 63; //
-//   rgb_knobs_value = 31; //
-//   rgb_knobs_value = 15; //
-//   rgb_knobs_value = 7; //
-//   rgb_knobs_value = 3; //
 
   *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
   *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
+
 
   // LED Line
   struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 100 * 1000 * 1000};
@@ -150,6 +156,8 @@ int main(int argc, char *argv[]) {
     }
     
   printf("Goodbye world\n");
+
+  tcsetattr( STDIN_FILENO, TCSANOW, &oldt);
 
   return 0;
 }
