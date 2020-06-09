@@ -75,6 +75,7 @@ int main(int argc, char *argv[]) {
   unsigned char *mem_base;
   unsigned char *parlcd_mem_base;
   uint32_t val_line=5;
+  uint32_t rgb_knobs_value;
   int i;
   int ptr;
   fb  = (unsigned short *)malloc(320*480*2);
@@ -89,8 +90,13 @@ int main(int argc, char *argv[]) {
   if (mem_base == NULL)
     exit(1);
 
-  struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 100 * 1000 * 1000};
+  rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
 
+  *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
+  *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
+
+  // LED Line
+  struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 100 * 1000 * 1000};
   while (1)
   {
     val_line = 15;
