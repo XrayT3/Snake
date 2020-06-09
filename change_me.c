@@ -124,7 +124,7 @@ int main(int argc, char *argv[]) {
     fb[ptr]=0u;
   }
   for (i=0; i<13; i++) {
-    draw_char(x, 10, fdes, *ch, 0xF81F);
+    draw_char(x, 10, fdes, *ch, 63519);
     x+=scale*char_width(fdes, *ch)+2;
     ch++;
   }
