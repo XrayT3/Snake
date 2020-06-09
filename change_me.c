@@ -119,9 +119,8 @@ int main(int argc, char *argv[]) {
   char str[]="Goodbye world";
   char *ch=str;
   font_descriptor_t* fdes = &font_winFreeSystem14x16;
-  int colour = 0;
   for (ptr = 0; ptr < 320*480 ; ptr++) {
-    fb[ptr]=0xF81C;
+    fb[ptr]=0xF81E;
   }
   for (i=0; i<13; i++) {
     draw_char(x, 10, fdes, *ch, 0x1f<<11);
