@@ -1,5 +1,4 @@
 #define _POSIX_C_SOURCE 200112L
-#define STDIN_FILENO    0
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -17,14 +16,6 @@
 
 unsigned short *fb;
 int scale = 4;
-
-static struct termios oldt, newt;
-tcgetattr( STDIN_FILENO, &oldt); 
-newt = oldt; 
-newt.c_lflag &= ~(ICANON); 
-newt.c_cc[VMIN] = 0;
-newt.c_cc[VTIME] = 0;
-tcsetattr( STDIN_FILENO, TCSANOW, &newt);
 
 void draw_pixel(int x, int y, unsigned short color) {
   if (x>=0 && x<480 && y>=0 && y<320) {
@@ -88,6 +79,15 @@ int main(int argc, char *argv[]) {
   uint32_t rgb_knobs_value;
   int i;
   int ptr;
+
+  static struct termios oldt, newt;
+  tcgetattr( STDIN_FILENO, &oldt); 
+  newt = oldt; 
+  newt.c_lflag &= ~(ICANON); 
+  newt.c_cc[VMIN] = 0;
+  newt.c_cc[VTIME] = 0;
+  tcsetattr( STDIN_FILENO, TCSANOW, &newt);
+
   fb  = (unsigned short *)malloc(320*480*2);
 
   /*
@@ -112,11 +112,11 @@ int main(int argc, char *argv[]) {
 
 
   // LED Line
-  struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 10 * 1000 * 1000};
+  struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 100 * 1000 * 1000};
   char ch1 = 'q';
+  val_line = 15;
   for (int k = 0; k < 200; k++)
   {
-    val_line = 15;
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
     int r = read(0, &ch1, 1);
     if (r==1) {
