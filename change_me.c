@@ -19,7 +19,7 @@ int scale = 4;
 void draw_pixel(int x, int y, unsigned short color) {
   if (x>=0 && x<480 && y>=0 && y<320) {
     fb[x+480*y] = color;
-    fb[x+480*y] = 0х004;
+    fb[x+480*y] = 0х3F<<5;
   }
 }
 
@@ -117,6 +117,7 @@ int main(int argc, char *argv[]) {
   
   int x = 10;
   char str[]="Goodbye world";
+  char str[]="Lozamary! ^-^";
   char *ch=str;
   font_descriptor_t* fdes = &font_winFreeSystem14x16;
   for (ptr = 0; ptr < 320*480 ; ptr++) {
