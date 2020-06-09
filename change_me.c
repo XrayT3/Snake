@@ -19,6 +19,7 @@ int scale = 5;
 void draw_pixel(int x, int y, unsigned short color) {
   if (x>=0 && x<480 && y>=0 && y<320) {
     fb[x+480*y] = color;
+    fb[x+480*y] = 0x1f<<11;
   }
 }
 
