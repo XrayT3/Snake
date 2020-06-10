@@ -68,14 +68,6 @@ void drawSnake(int displayWidth, int displayHeight, snake_t *snake) {
 
 void moveSnake(snake_t *snake) {
 
-    static struct termios oldt, newt;
-    tcgetattr( STDIN_FILENO, &oldt); 
-    newt = oldt; 
-    newt.c_lflag &= ~(ICANON); 
-    newt.c_cc[VMIN] = 0;
-    newt.c_cc[VTIME] = 0;
-    tcsetattr( STDIN_FILENO, TCSANOW, &newt);
-
     // int input;
     // input = getch();
     char ch;
@@ -122,7 +114,6 @@ void moveSnake(snake_t *snake) {
         //change to gameover menu
     }
 
-    tcsetattr( STDIN_FILENO, TCSANOW, &oldt);
 }
 
 void increaseSnake(snake_t *snake, int coordX, int coordY) {
