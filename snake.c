@@ -337,7 +337,7 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned shor
                 continue;
             }
             else if (j == (desk->endX - 1)) {
-                draw_wall_Down((j-2)*size_cell, (i-1)*size_cell);
+                draw_wall_Down(j*size_cell, (i-1)*size_cell);
                 continue;
             }
             else if (i == desk->startY) {
@@ -345,7 +345,7 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned shor
                 continue;
             }
             else if (i == (desk->endY - 1)) {
-                draw_wall_Rirht((j-1)*size_cell, (i-2)*size_cell);
+                draw_wall_Rirht((j-1)*size_cell, i*size_cell);
                 continue;
             }
             else if (
