@@ -122,6 +122,10 @@ void draw_char(int x, int y, font_descriptor_t* fdes, char ch) {
 }
 
 void draw_score(int score){
+    if (score==0){
+        draw_char(370, 10, fdes, '0');
+        return;
+    }
     char str[5] = "0";
     int idx = 0;
     int x = 10;
