@@ -62,7 +62,7 @@ void draw_pixel8(int x, int y) {
 void draw_wall() {
   // up
   for (int i = 0; i < 18; i++){
-    for (int x = 10; x < size_cell; x++){
+    for (int x = 0; x < size_cell; x++){
       for(int y = 10; y < size_cell; y++){
         draw_pixel(i*size_cell+x, 0+y, 0x1f<<11);
       }
@@ -70,7 +70,7 @@ void draw_wall() {
   }
   // down
   for (int i = 0; i < 18; i++){
-    for (int x = 10; x < size_cell; x++){
+    for (int x = 0; x < size_cell; x++){
       for(int y = 10; y < size_cell; y++){
         draw_pixel(i*size_cell+x, 300+y, 0x1f<<11);
       }
@@ -79,14 +79,14 @@ void draw_wall() {
   // left
   for (int i = 1; i < 16-1; i++){
     for (int x = 10; x < size_cell; x++){
-      for(int y = 10; y < size_cell; y++){
+      for(int y = 0; y < size_cell; y++){
         draw_pixel(0+x, i*size_cell+y, 0x1f<<11);
       }
     }
   }
   // right
   for (int i = 1; i < 16-1; i++){
-    for (int x = 10; x < size_cell; x++){
+    for (int x = 5; x < size_cell; x++){
       for(int y = 10; y < size_cell; y++){
         draw_pixel(340+x, i*size_cell+y, 0x1f<<11);
       }
@@ -153,7 +153,7 @@ void draw_char(int x, int y, font_descriptor_t* fdes, char ch) {
 
 void draw_score(int score){
     int y = 20;
-    int x = 375;
+    int x = 380;
     if (score==0){
         draw_char(x, y, fdes, '0');
         return;
@@ -174,7 +174,7 @@ void draw_score(int score){
 
 void draw_time(int sec){
   int y = 127;
-  int x = 375;
+  int x = 380;
   if (sec==0){
       draw_char(x, y, fdes, '0');
       return;
@@ -341,23 +341,7 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned shor
 
     for (int i = desk->startY; i < desk->endY; i ++) {
         for (int j = desk->startX; j < desk->endX; j++) {
-            if (j == desk->startX) {
-                //draw_wall_LU(j*size_cell, i*size_cell);
-                continue;
-            }
-            else if (j == (desk->endX - 1)) {
-                //draw_wall_Down((j+1)*size_cell, (i-1)*size_cell);
-                continue;
-            }
-            else if (i == desk->startY) {
-                //draw_wall_LU(j*size_cell, i*size_cell);
-                continue;
-            }
-            else if (i == (desk->endY - 1)) {
-                //draw_wall_Rirht((j-1)*size_cell, (i+1)*size_cell);
-                continue;
-            }
-            else if (
+            if (
                 (j == food->coord[0]) &&
                 (i == food->coord[1])
             )
