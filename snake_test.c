@@ -48,7 +48,7 @@ int main() {
     desk_t desk;
     food_t food;
 
-    desk = initDesk(200, 200, 0, 0);
+    desk = initDesk(200, 200, 50, 50);
     snake = initSnake(200, 200, 5, 10, 10);
     food = initFood(7, 7);
 
