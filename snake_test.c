@@ -94,9 +94,9 @@ int main() {
         exit(1);
     parlcd_hx8357_init(parlcd_mem_base);
     
-    for (ptr = 0; ptr < 320*480 ; ptr++) {
-        fb[ptr]=0u;
-    }
+    // for (ptr = 0; ptr < 320*480 ; ptr++) {
+    //     fb[ptr]=0u;
+    // }
 
     parlcd_write_cmd(parlcd_mem_base, 0x2c);
         for (ptr = 0; ptr < 480*320 ; ptr++) {
