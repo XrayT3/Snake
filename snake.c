@@ -27,8 +27,9 @@ snake_t initSnake(int displayWidth, int displayHeight, int initialSnakeLength, i
     for (int i = 0; i < initialSnakeLength; i++) {
         snake->snake_skeleton[i].coords[0] = initSnakeX + i;
         snake->snake_skeleton[i].coords[1] = initSnakeY;
-        // printf("Coords - %d %d\n", )
+        printf("Coords - %d %d\n", snake->snake_skeleton[i].coords[0], snake->snake_skeleton[i].coords[1]);
     }
+    getchar();
     return *snake;
 }
 
