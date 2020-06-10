@@ -43,6 +43,7 @@ food_t initFood(int coordX, int coordY) {
 void draw_pixel(int x, int y) {
   if (x>=0 && x<480 && y>=0 && y<320) {
     fb[x+480*y] = 0x1f<<11;
+    printf("%d %d\n", x, y);
   }
 }
 
