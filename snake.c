@@ -43,7 +43,6 @@ food_t initFood(int coordX, int coordY) {
 void draw_pixel(int x, int y) {
   if (x>=0 && x<480 && y>=0 && y<320) {
     fb[x+480*y] = 0x1f<<11;
-    printf("%d %d\n", x, y);
   }
 }
 
@@ -51,7 +50,7 @@ void draw_pixel8(int x, int y) {
   int i, j;
   for (i = 0; i < scale; i++){
     for (j = 0; j < scale; j++){
-      draw_pixel(x+i, y+i);
+      draw_pixel(x+i, y+j);
     }
   }
 }
@@ -60,7 +59,7 @@ void draw_wall(int x, int y) {
   int i, j;
   for (i = 0; i < size_cell; i++){
     for (j = 0; j < size_cell; j++){
-      draw_pixel(x+i, y+i);
+      draw_pixel(x+i, y+j);
     }
   }
 }
