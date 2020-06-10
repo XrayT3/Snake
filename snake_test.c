@@ -47,8 +47,8 @@ int main() {
     desk_t desk;
     food_t food;
 
-    desk = initDesk(16, 16, 0, 0);
-    snake = initSnake(16, 16, 3, 5, 5);
+    desk = initDesk(14, 14, 20, 20);
+    snake = initSnake(14, 14, 3, 5, 5);
     food = initFood(10, 10);
 
     struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 1000 * 1000 * 1000};
