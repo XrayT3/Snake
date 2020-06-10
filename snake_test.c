@@ -64,7 +64,7 @@ int main() {
         now = clock();
         ns = (now-start) / 1000;
         sec = ns / 1000;
-        if (ns % 500 == 0){
+        if (ns % 1000 == 0){
             printf("%d\n", ns);
             drawDesk(&desk, &snake, &food, sec, fb);
             moveSnake(&snake, &food, &desk);
