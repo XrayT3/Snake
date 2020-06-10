@@ -39,9 +39,9 @@ food_t initFood(int coordX, int coordY) {
     return *food;
 }
 
-void draw_pixel(int x, int y) {
+void draw_pixel(int x, int y, int color) {
   if (x>=0 && x<480 && y>=0 && y<320) {
-    fb[x+480*y] = 0x1f<<11;
+    fb[x+480*y] = color;
   }
 }
 
@@ -49,7 +49,7 @@ void draw_wall(int x, int y) {
   int i, j;
   for (i = 0; i < size_cell; i++){
     for (j = 0; j < size_cell; j++){
-      draw_pixel(x-i, y-j);
+      draw_pixel(x-i, y-j, 0x1f<<11);
     }
   }
 }
@@ -58,7 +58,7 @@ void draw_food(int x, int y) {
   int i, j;
   for (i = 0; i < size_cell; i++){
     for (j = 0; j < size_cell; j++){
-      draw_pixel(x+i, y+j);
+      draw_pixel(x+i, y+j, 0x1f<<11);
     }
   }
 }
@@ -67,7 +67,7 @@ void draw_snake(int x, int y) {
   int i, j;
   for (i = 0; i < size_cell; i++){
     for (j = 0; j < size_cell; j++){
-      draw_pixel(x+i, y+j);
+      draw_pixel(x+i, y+j, 0x1f<<5);
     }
   }
 }
