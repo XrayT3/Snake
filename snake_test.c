@@ -53,6 +53,7 @@ int main() {
 
     int start, now, sec;
     start = clock();
+    printf("%d\n", start);
 
     struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 1000 * 1000 * 1000};
     while (1) {
