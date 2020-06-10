@@ -200,22 +200,22 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food) {
             else if (
                 j == food->coord[0] &&
                 i == food->coord[1]
-            )
+            ){
                 printf("A");
-                draw_pixel(i, j);
-            else {
+                draw_pixel(i, j);}
+            else{
                 for (int k = 0; k < snake->length; k++) {
 
                     if (
                         j == snake->snake_skeleton[k].coords[0] &&
                         i == snake->snake_skeleton[k].coords[1] 
-                    )
+                    ){
                         printf("@");
-                        draw_pixel(i, j);
+                        draw_pixel(i, j);}
                     
-                    else if (k == 0)
+                    else if (k == 0){
                         printf(" - ");
-                        draw_pixel(i, j);
+                        draw_pixel(i, j);}
                 }
             }
         }
