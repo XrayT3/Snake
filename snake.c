@@ -88,7 +88,7 @@ void draw_wall_Down(int x, int y) {
 
 void draw_wall() {
   // up
-  for (int i = 0; i < 18-1; i++){
+  for (int i = 0; i < 18; i++){
     for (int x = 0; x < size_cell; x++){
       for(int y = 0; y < size_cell; y++){
         draw_pixel(i*size_cell+x, 0+y, 0x1f<<11);
@@ -96,7 +96,7 @@ void draw_wall() {
     }
   }
   // down
-  for (int i = 0; i < 18-1; i++){
+  for (int i = 0; i < 18; i++){
     for (int x = 0; x < size_cell; x++){
       for(int y = 0; y < size_cell; y++){
         draw_pixel(i*size_cell+x, 300+y, 0x1f<<11);
