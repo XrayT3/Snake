@@ -13,7 +13,7 @@
 
 unsigned short *fb;
 unsigned char *parlcd_mem_base;
-int scale = 4;
+int scale = 8;
 
 snake_t initSnake(int displayWidth, int displayHeight, int initialSnakeLength, int initSnakeX, int initSnakeY) {
 
@@ -41,6 +41,15 @@ food_t initFood(int coordX, int coordY) {
 void draw_pixel(int x, int y) {
   if (x>=0 && x<480 && y>=0 && y<320) {
     fb[x+480*y] = 0x1f<<11;
+  }
+}
+
+void draw_pixel8(int x, int y) {
+  int i, j;
+  for (i = 0; i < scale; i++){
+    for (j = 0; j < scale; j++){
+      draw_pixel(x+i, y+i);
+    }
   }
 }
 
@@ -185,20 +194,20 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food) {
 
     for (int i = desk->startY; i < desk->endY; i ++) {
         for (int j = desk->startX; j < desk->endX; j++) {
-            draw_pixel(i, j);
+            //draw_pixel(i, j);
             if (j == 0) {
-                draw_pixel(i, j);
+                draw_pixel8(i, j);
                 continue;
             }
             else if (j == (desk->endX - 1)) {
-                draw_pixel(i, j);
+                draw_pixel8(i, j);
                 continue;
             }
             else if (
                 j == food->coord[0] &&
                 i == food->coord[1]
             )
-            draw_pixel(i, j); // food
+            draw_pixel8(i, j); // food
             else{
                 for (int k = 0; k < snake->length; k++) {
 
@@ -206,8 +215,7 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food) {
                         j == snake->snake_skeleton[k].coords[0] &&
                         i == snake->snake_skeleton[k].coords[1] 
                     )
-                    draw_pixel(i, j); // snake
-                    
+                    draw_pixel8(i, j); // snake
                 }
             }
         }
