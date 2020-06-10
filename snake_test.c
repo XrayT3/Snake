@@ -17,13 +17,6 @@
 
 unsigned short *fb;
 
-void initKeyboard() {
-
-    initscr();
-    keypad(stdscr, true);
-    noecho();
-}
-
 int main() {
 
     unsigned char *mem_base;
@@ -50,8 +43,6 @@ int main() {
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
 
-    initKeyboard();
-
     snake_t snake;
     desk_t desk;
     food_t food;
@@ -64,7 +55,7 @@ int main() {
     while (1) {
 
         drawDesk(&desk, &snake, &food);
-        moveSnake(&snake);
+        moveSnake(&snake, &food, &desk);
         clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
     }
 
