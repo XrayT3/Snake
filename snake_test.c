@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include <unistd.h>
 #include <time.h>
+#include <stdbool.h>
 #include <termios.h>
 
 #include "snake.h"

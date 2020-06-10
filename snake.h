@@ -4,6 +4,8 @@
 #define RIGHT 2221
 #define INIT_LEN 2
 
+#include <stdbool.h>
+
 typedef struct {
     
     int coord[2];
