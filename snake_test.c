@@ -37,12 +37,18 @@ int main() {
     fb  = (unsigned short *)malloc(320*480*2);
     mem_base = map_phys_address(SPILED_REG_BASE_PHYS, SPILED_REG_SIZE, 0);
 
+    rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
+    rgb_knobs_value = 16711935; //pink
+
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
+
 
     snake_t snake;
     desk_t desk;
     food_t food;
 
-    desk = initDesk(200, 200, 50, 50);
+    desk = initDesk(200, 200, 0, 0);
     snake = initSnake(200, 200, 5, 10, 10);
     food = initFood(7, 7);
 
