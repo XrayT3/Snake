@@ -63,8 +63,7 @@ int main() {
         drawDesk(&desk, &snake, &food, sec, fb);
         moveSnake(&snake, &food, &desk);
         clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
-        clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
-        clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+        sleep(2);
     }
 
     /* If mapping fails exit with error code */

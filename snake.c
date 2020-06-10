@@ -404,8 +404,4 @@ void snakeStep(snake_t *snake) {
             snake->snake_skeleton[0].coords[1] += 1;
             break;
     }
-
-    // for (int i = 0; i < snake->length; i++) {
-    //     printf("Snake Coords: %d %d\n\r", snake->snake_skeleton[i].coords[0], snake->snake_skeleton[i].coords[1]);
-    // }
 }
