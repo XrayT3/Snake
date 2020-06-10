@@ -16,7 +16,7 @@
 unsigned short *fb;
 font_descriptor_t* fdes = &font_winFreeSystem14x16;
 unsigned char *parlcd_mem_base;
-int size_cell = 20;
+int size_cell = 40;
 int size_score = 4;
 
 snake_t initSnake(int displayWidth, int displayHeight, int initSnakeX, int initSnakeY) {
@@ -337,7 +337,7 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned shor
     }
     draw_score(snake->score);
     draw_time(sec);
-    draw_wall(16, 14); // dobavit parametry
+    draw_wall(8, 7); // dobavit parametry
 
     for (int i = desk->startY; i < desk->endY; i ++) {
         for (int j = desk->startX; j < desk->endX; j++) {
