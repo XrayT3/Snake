@@ -275,8 +275,8 @@ desk_t initDesk(int width, int height, int startX, int startY) {
 void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned short *fb1) {
 
     int ptr;
-    //fb  = (unsigned short *)malloc(320*480*2);
-    fb = fb1;
+    fb  = (unsigned short *)malloc(320*480*2);
+    //fb = fb1;
     draw_score(snake->score);
     draw_time(sec);
 
@@ -318,9 +318,10 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned shor
 
     // draw LCD
     parlcd_write_cmd(parlcd_mem_base, 0x2c);
-        for (ptr = 0; ptr < 480*320 ; ptr++) {
-            parlcd_write_data(parlcd_mem_base, fb[ptr]);
-        }
+    for (ptr = 0; ptr < 480*320 ; ptr++) {
+        parlcd_write_data(parlcd_mem_base, fb[ptr]);
+    }
+    free(fb);
 }
 
 void updateFood(desk_t *desk, food_t *food) {
