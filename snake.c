@@ -29,7 +29,6 @@ snake_t initSnake(int displayWidth, int displayHeight, int initialSnakeLength, i
         snake->snake_skeleton[i].coords[0] = initSnakeX + i;
         snake->snake_skeleton[i].coords[1] = initSnakeY;
     }
-    draw_score(snake->score);
     return *snake;
 }
 
@@ -200,7 +199,6 @@ void snakeEats(food_t *food, snake_t *snake, desk_t *desk, int lastCoordX, int l
     ) {
 
         snake->score += 1;
-        draw_score(snake->score);
         increaseSnake(snake, lastCoordX, lastCoordY);
         updateFood(desk, food);
     }
@@ -251,6 +249,7 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food) {
 
     int ptr;
     fb  = (unsigned short *)malloc(320*480*2);
+    draw_score(snake->score);
 
     for (int i = desk->startY; i < desk->endY; i ++) {
         for (int j = desk->startX; j < desk->endX; j++) {
