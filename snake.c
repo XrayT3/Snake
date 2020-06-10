@@ -16,6 +16,7 @@
 unsigned short *fb;
 font_descriptor_t* fdes = &font_winFreeSystem14x16;
 unsigned char *parlcd_mem_base;
+struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 100 * 1000 * 1000};
 int size_cell = 20;
 int size_score = 4;
 
@@ -167,7 +168,6 @@ void draw_time(int sec){
   }
 }
 
-struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 100 * 1000 * 1000};
 void moveSnake(snake_t *snake, food_t *food, desk_t *desk) {
     char ch;
     int r = read(0, &ch, 1);
@@ -313,6 +313,7 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned shor
     }
     draw_score(snake->score);
     draw_time(sec);
+    clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
 
     for (int i = desk->startY; i < desk->endY; i ++) {
         for (int j = desk->startX; j < desk->endX; j++) {
