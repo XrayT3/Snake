@@ -306,16 +306,16 @@ desk_t initDesk(int width, int height, int startX, int startY) {
     desk->endX = startX + width;
     desk->endY = startY + height;
 
-    // int ptr;
-    // fb  = (unsigned short *)malloc(320*480*2);
-    // parlcd_mem_base = map_phys_address(PARLCD_REG_BASE_PHYS, PARLCD_REG_SIZE, 0);
-    // if (parlcd_mem_base == NULL)
-    //     exit(1);
-    // parlcd_hx8357_init(parlcd_mem_base);
+    int ptr;
+    fb  = (unsigned short *)malloc(320*480*2);
+    parlcd_mem_base = map_phys_address(PARLCD_REG_BASE_PHYS, PARLCD_REG_SIZE, 0);
+    if (parlcd_mem_base == NULL)
+        exit(1);
+    parlcd_hx8357_init(parlcd_mem_base);
 
-    // for (ptr = 0; ptr < 320*480 ; ptr++) {
-    //     fb[ptr]=0u;
-    // }
+    for (ptr = 0; ptr < 320*480 ; ptr++) {
+        fb[ptr]=0u;
+    }
 
     return *desk;
 }
