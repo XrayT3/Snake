@@ -104,7 +104,7 @@ int main() {
     snake = initSnake(100, 100, 5, 2, 1);
     food = initFood(7, 7);
 
-    struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 100 * 1000 * 1000};
+    struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 10 * 1000 * 1000};
     while (1) {
 
         drawDesk(&desk, &snake, &food);
@@ -123,7 +123,6 @@ int main() {
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
 
     // LED Line
-    struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 10 * 1000 * 1000};
     val_line = 15;
     // val_line = 1227133513;
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
