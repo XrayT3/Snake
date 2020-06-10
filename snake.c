@@ -86,6 +86,25 @@ void draw_wall_Down(int x, int y) {
   }
 }
 
+void draw_wall() {
+  // up
+  for (int i = 0; i < 18-1; i++){
+    for (int x = 0; x < size_cell; x++){
+      for(int y = 0; y < size_cell; y++){
+        draw_pixel(i+x, 0+y, 0x1f<<11);
+      }
+    }
+  }
+  // left
+  for (int i = 1; i < 16-1; i++){
+    for (int x = 0; x < size_cell; x++){
+      for(int y = 0; y < size_cell; y++){
+        draw_pixel(0+x, i+y, 0x1f<<11);
+      }
+    }
+  }
+}
+
 void draw_food(int x, int y) {
   int i, j;
   for (i = 0; i < size_cell; i++){
@@ -329,23 +348,24 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned shor
     }
     draw_score(snake->score);
     draw_time(sec);
+    draw_time();
 
     for (int i = desk->startY; i < desk->endY; i ++) {
         for (int j = desk->startX; j < desk->endX; j++) {
             if (j == desk->startX) {
-                draw_wall_LU(j*size_cell, i*size_cell);
+                //draw_wall_LU(j*size_cell, i*size_cell);
                 continue;
             }
             else if (j == (desk->endX - 1)) {
-                draw_wall_Down((j+1)*size_cell, (i-1)*size_cell);
+                //draw_wall_Down((j+1)*size_cell, (i-1)*size_cell);
                 continue;
             }
             else if (i == desk->startY) {
-                draw_wall_LU(j*size_cell, i*size_cell);
+                //draw_wall_LU(j*size_cell, i*size_cell);
                 continue;
             }
             else if (i == (desk->endY - 1)) {
-                draw_wall_Rirht((j-1)*size_cell, (i+1)*size_cell);
+                //draw_wall_Rirht((j-1)*size_cell, (i+1)*size_cell);
                 continue;
             }
             else if (
