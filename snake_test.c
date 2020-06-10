@@ -57,7 +57,7 @@ int main() {
     struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 1000 * 1000 * 1000};
     while (1) {
 
-        now clock();
+        now = clock();
         sec = (now-start) / 10*1000;
         drawDesk(&desk, &snake, &food, sec);
         moveSnake(&snake, &food, &desk);

@@ -31,7 +31,7 @@ snake_t initSnake(int displayWidth, int displayHeight, int initialSnakeLength, i
 
 food_t initFood(int coordX, int coordY);
 
-void drawSnake(int displayWidth, int displayHeight, snake_t *snake);
+void drawSnake(int displayWidth, int displayHeight, snake_t *snake, int sec);
 
 void moveSnake(snake_t *snake, food_t *food, desk_t *desk);
 
