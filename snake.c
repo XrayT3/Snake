@@ -163,7 +163,6 @@ desk_t initDesk(int width, int height, int startX, int startY) {
     desk->endX = startX + width;
     desk->endY = startY + height;
 
-    unsigned char *mem_base;
     unsigned char *parlcd_mem_base;
     int ptr;
     fb  = (unsigned short *)malloc(320*480*2);
@@ -183,9 +182,7 @@ desk_t initDesk(int width, int height, int startX, int startY) {
 
 void drawDesk(desk_t *desk, snake_t *snake, food_t *food) {
 
-    unsigned char *mem_base;
     unsigned char *parlcd_mem_base;
-    int i;
     int ptr;
     
     fb  = (unsigned short *)malloc(320*480*2);
