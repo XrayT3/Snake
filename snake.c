@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h> 
+#include <time.h>
 #include <termios.h>
 
 #include "snake.h"
@@ -140,7 +141,7 @@ void increaseSnake(snake_t *snake, int coordX, int coordY) {
     snake->snake_skeleton[snake->length].coords[1] = coordY;
 }
 
-void snakeEats(food_t *food, snake_t *snake, int lastCoordX, int lastCoordY) {
+void snakeEats(food_t *food, snake_t *snake, desk_t *desk, int lastCoordX, int lastCoordY) {
 
     if (
         snake->snake_skeleton[0].coords[0] == food->coord[0] &&
