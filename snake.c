@@ -118,6 +118,7 @@ void moveSnake(snake_t *snake, food_t *food, desk_t *desk) {
             snake->snake_skeleton->coords[1] += 1;
             break;
         }
+        snakeEats(food, snake, desk, lastCoords[0], lastCoords[1]);
     }
 
     if (checkCollisions(snake)) {
@@ -127,7 +128,6 @@ void moveSnake(snake_t *snake, food_t *food, desk_t *desk) {
         //change to gameover menu
     }
 
-    snakeEats(food, snake, desk, lastCoords[0], lastCoords[1]);
 }
 
 void increaseSnake(snake_t *snake, int coordX, int coordY) {
@@ -147,7 +147,6 @@ void snakeEats(food_t *food, snake_t *snake, desk_t *desk, int lastCoordX, int l
         snake->score += 1;
         increaseSnake(snake, lastCoordX, lastCoordY);
         updateFood(desk, food);
-        printf("\n\rsome\n\r");
     }
 }
 
