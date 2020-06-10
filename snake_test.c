@@ -54,15 +54,15 @@ int main() {
     int start, now, sec;
     start = clock();
 
-    struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 1000 * 1000 * 1000};
+    struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 10000 * 1000 * 1000};
+    clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
     while (1) {
 
         now = clock();
         sec = (now-start) / (1000*1000);
         drawDesk(&desk, &snake, &food, sec);
         moveSnake(&snake, &food, &desk);
-        sleep(2);
-        //clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+        clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
     }
 
     /* If mapping fails exit with error code */
