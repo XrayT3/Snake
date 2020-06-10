@@ -68,11 +68,20 @@ void draw_wall_LU(int x, int y) {
   }
 }
 
-void draw_wall_RD(int x, int y) {
+void draw_wall_Rirht(int x, int y) {
   int i, j;
   for (i = 0; i < size_cell; i++){
     for (j = 0; j < size_cell; j++){
-      draw_pixel(x+i+size_cell, y+j+size_cell, 0x1f<<11);
+      draw_pixel(x+i, y+j+size_cell, 0x1f<<11);
+    }
+  }
+}
+
+void draw_wall_Down(int x, int y) {
+  int i, j;
+  for (i = 0; i < size_cell; i++){
+    for (j = 0; j < size_cell; j++){
+      draw_pixel(x+i+size_cell, y+j, 0x1f<<11);
     }
   }
 }
@@ -328,7 +337,7 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned shor
                 continue;
             }
             else if (j == (desk->endX - 1)) {
-                draw_wall_RD(j*size_cell, i*size_cell);
+                draw_wall_D(j*size_cell, i*size_cell);
                 continue;
             }
             else if (i == desk->startY) {
@@ -336,7 +345,7 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned shor
                 continue;
             }
             else if (i == (desk->endY - 1)) {
-                draw_wall_RD(j*size_cell, i*size_cell);
+                draw_wall_R(j*size_cell, i*size_cell);
                 continue;
             }
             else if (
