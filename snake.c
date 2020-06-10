@@ -122,13 +122,13 @@ void draw_char(int x, int y, font_descriptor_t* fdes, char ch) {
 }
 
 void draw_score(int score){
+    int x = 20;
     if (score==0){
-        draw_char(370, 10, fdes, '0');
+        draw_char(370, x, fdes, '0');
         return;
     }
     char str[5] = "0";
     int idx = 0;
-    int x = 10;
     while (score!=0)
     {
         str[idx] = score % 10 + '0';
@@ -139,6 +139,26 @@ void draw_score(int score){
         draw_char(370, x, fdes, str[i]);
         x+=size_score*char_width(fdes, str[i])+2;
     }
+}
+
+void draw_time(int sec){
+  int x = 127;
+  if (sec==0){
+      draw_char(370, x, fdes, '0');
+      return;
+  }
+  char str[5] = "0";
+  int idx = 0;
+  while (sec!=0)
+  {
+      str[idx] = sec % 10 + '0';
+      sec /= 10;
+      idx++;
+  }
+  for (int i = idx-1; i >= 0; i--){
+      draw_char(370, x, fdes, str[i]);
+      x+=size_score*char_width(fdes, str[i])+2;
+  }
 }
 
 void moveSnake(snake_t *snake, food_t *food, desk_t *desk) {
@@ -250,11 +270,12 @@ desk_t initDesk(int width, int height, int startX, int startY) {
     return *desk;
 }
 
-void drawDesk(desk_t *desk, snake_t *snake, food_t *food) {
+void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec) {
 
     int ptr;
     fb  = (unsigned short *)malloc(320*480*2);
     draw_score(snake->score);
+    draw_time(sec);
 
     for (int i = desk->startY; i < desk->endY; i ++) {
         for (int j = desk->startX; j < desk->endX; j++) {

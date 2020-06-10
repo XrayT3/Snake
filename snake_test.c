@@ -51,10 +51,15 @@ int main() {
     snake = initSnake(17, 15, 3, 5, 5);
     food = initFood(10, 10);
 
+    int start, now, sec;
+    start = clock();
+
     struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 1000 * 1000 * 1000};
     while (1) {
 
-        drawDesk(&desk, &snake, &food);
+        now clock();
+        sec = (now-start) / 10*1000;
+        drawDesk(&desk, &snake, &food, sec);
         moveSnake(&snake, &food, &desk);
         clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
     }
