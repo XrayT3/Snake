@@ -143,19 +143,19 @@ int main(int argc, char *argv[]) {
   }
   x = 150;
   for (i=0; i<5; i++) {
-    draw_char(x, 10, fdes, *ch);
+    draw_char(x, 15, fdes, *ch);
     x+=scale*char_width(fdes, *ch)+2;
     ch++;
   }
   x = 155;
   for (i=0; i<4; i++) {
-    draw_char(x, 117, fdes, *ch2);
+    draw_char(x, 122, fdes, *ch2);
     x+=scale*char_width(fdes, *ch2)+2;
     ch2++;
   }
   x = 114;
   for (i=0; i<7; i++) {
-    draw_char(x, 224, fdes, *ch3);
+    draw_char(x, 229, fdes, *ch3);
     x+=scale*char_width(fdes, *ch3)+2;
     ch3++;
   }
