@@ -51,8 +51,8 @@ int main() {
     desk_t desk;
     food_t food;
 
-    desk = initDesk(17, 15, 1, 1);
-    snake = initSnake(17, 15, 5, 5);
+    desk = initDesk(15, 13, 1, 1);
+    snake = initSnake(15, 13, 5, 5);
     food = initFood(10, 10);
 
     int start, now, sec, ns;
