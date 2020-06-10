@@ -56,8 +56,8 @@ void draw_pixel8(int x, int y) {
 }
 
 void draw_wall(int x, int y){
-  for (int i = 0; i < 20; i++){
-      for (int j = 0; j < 20; j++){
+  for (int i = 0; i <= 20; i++){
+      for (int j = 0; j <= 20; j++){
           draw_pixel(x+i, y+i);
       }
   }
