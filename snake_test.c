@@ -55,15 +55,16 @@ int main() {
     snake = initSnake(17, 15, 5, 5);
     food = initFood(10, 10);
 
-    int start, now, sec;
+    int start, now, sec, ns;
     start = clock();
 
     // struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 100 * 1000 * 1000};
     // clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
     while (snake.life) {
         now = clock();
-        sec = (now-start) / (1000*1000);
-        if (sec % 2 == 0){
+        ns = (now-start) / 1000;
+        sec = ns / 1000;
+        if (ns % 500 == 0){
             printf("%d\n", sec);
             drawDesk(&desk, &snake, &food, sec, fb);
             moveSnake(&snake, &food, &desk);
