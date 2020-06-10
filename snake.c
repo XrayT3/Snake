@@ -18,7 +18,7 @@ unsigned char *parlcd_mem_base;
 int size_cell = 20;
 int size_score = 4;
 
-snake_t initSnake(int displayWidth, int displayHeight, int initialSnakeLength, int initSnakeX, int initSnakeY) {
+snake_t initSnake(int displayWidth, int displayHeight, int initSnakeX, int initSnakeY) {
 
     snake_t *snake = (snake_t *)malloc(sizeof(snake_t));
     snake->length = INIT_LEN;
@@ -272,7 +272,7 @@ void snakeEats(food_t *food, snake_t *snake, desk_t *desk, int lastCoordX, int l
     }
 }
 
-int checkCollisions(snake_t *snake) {
+int checkCollisions(snake_t *snake, desk_t *desk) {
     int ret = 0;
     for (int k = 1; k < snake->length ; k++) {
 

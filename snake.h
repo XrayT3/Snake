@@ -44,7 +44,7 @@ void increaseSnake(snake_t *snake, int coordX, int coordY);
 
 void snakeEats(food_t *food, snake_t *snake, desk_t *desk, int lastCoordX, int lastCoordY);
 
-int checkCollisions(snake_t *snake);
+int checkCollisions(snake_t *snake, desk_t *desk);
 
 desk_t initDesk(int width, int height, int startX, int startY);
 
