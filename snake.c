@@ -166,8 +166,6 @@ desk_t initDesk(int width, int height, int startX, int startY) {
     unsigned char *parlcd_mem_base;
     int ptr;
     fb  = (unsigned short *)malloc(320*480*2);
-    mem_base = map_phys_address(SPILED_REG_BASE_PHYS, SPILED_REG_SIZE, 0);
-
     parlcd_mem_base = map_phys_address(PARLCD_REG_BASE_PHYS, PARLCD_REG_SIZE, 0);
     if (parlcd_mem_base == NULL)
         exit(1);
@@ -186,7 +184,6 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food) {
     int ptr;
     
     fb  = (unsigned short *)malloc(320*480*2);
-    mem_base = map_phys_address(SPILED_REG_BASE_PHYS, SPILED_REG_SIZE, 0);
 
     parlcd_mem_base = map_phys_address(PARLCD_REG_BASE_PHYS, PARLCD_REG_SIZE, 0);
     if (parlcd_mem_base == NULL)
