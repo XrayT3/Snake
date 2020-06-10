@@ -17,7 +17,6 @@
 #include "font_prop14x16.c"
 
 unsigned short *fb;
-int scale = 4;
 
 int main() {
 
@@ -83,7 +82,6 @@ int main() {
         exit(1);
     parlcd_hx8357_init(parlcd_mem_base);
     
-    font_descriptor_t* fdes = &font_winFreeSystem14x16;
     for (ptr = 0; ptr < 320*480 ; ptr++) {
         fb[ptr]=0u;
     }
