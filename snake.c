@@ -15,6 +15,7 @@
 unsigned short *fb;
 unsigned char *parlcd_mem_base;
 int scale = 25;
+int size_cell = 20;
 
 snake_t initSnake(int displayWidth, int displayHeight, int initialSnakeLength, int initSnakeX, int initSnakeY) {
 
@@ -51,6 +52,14 @@ void draw_pixel8(int x, int y) {
     for (j = 0; j < scale; j++){
       draw_pixel(x+i, y+i);
     }
+  }
+}
+
+void draw_wall(int x, in y){
+  for (int i = 0; i < 10; i++){
+      for (int j = 0; j < 10; j++){
+          draw_pixel(x, y);
+      }
   }
 }
 
@@ -205,26 +214,26 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food) {
         for (int j = desk->startX; j < desk->endX; j++) {
             //draw_pixel(i, j);
             if (j == desk->startX) {
-                draw_pixel8(j, i);
+                draw_wall(j*size_cell, i*size_cell);
                 continue;
             }
             else if (j == (desk->endX - 1)) {
-                draw_pixel8(j, i);
+                draw_wall(j*size_cell, i*size_cell);
                 continue;
             }
             else if (i == desk->startY) {
-                draw_pixel8(j, i);
+                draw_wall(j*size_cell, i*size_cell);
                 continue;
             }
             else if (i == (desk->endY - 1)) {
-                draw_pixel8(j, i);
+                draw_wall(j*size_cell, i*size_cell);
                 continue;
             }
             else if (
                 (j == food->coord[0]) &&
                 (i == food->coord[1])
             )
-            draw_pixel8(j, i); // food
+            draw_pixel8(j*size_cell, i*size_cell); // food
             //printf("food\n");
             else{
                 for (int k = 0; k < snake->length; k++) {
@@ -233,7 +242,7 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food) {
                         (j == snake->snake_skeleton[k].coords[0]) &&
                         (i == snake->snake_skeleton[k].coords[1]) 
                     )
-                    draw_pixel8(j, i); // snake
+                    draw_pixel8(j*size_cell, i*size_cell); // snake
                 }
             }
         }
