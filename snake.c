@@ -25,8 +25,8 @@ snake_t initSnake(int displayWidth, int displayHeight, int initialSnakeLength, i
     snake->score = 0;
     snake->snake_skeleton = (section_t *)malloc(sizeof(section_t) * snake->max_length);
     for (int i = 0; i < initialSnakeLength; i++) {
-        snake->snake_skeleton.[i].coords[0] = initSnakeX + i;
-        snake->snake_skeleton.[i].coords[1] = initSnakeY;
+        snake->snake_skeleton[i].coords[0] = initSnakeX + i;
+        snake->snake_skeleton[i].coords[1] = initSnakeY;
         // printf("Coords - %d %d\n", )
     }
     return *snake;
