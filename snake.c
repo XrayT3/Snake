@@ -106,7 +106,7 @@ void draw_char(int x, int y, font_descriptor_t* fdes, char ch) {
       int bw = (fdes->maxwidth+15)/16;
       ptr = fdes->bits + (ch-fdes->firstchar)*bw*fdes->height;
     }
-    printf("Znak %c na %i, %i, sirka %i\n", ch, x, y, w);
+    //printf("Znak %c na %i, %i, sirka %i\n", ch, x, y, w);
     int i, j;
     for (i = 0; i < fdes->height; i++){
       font_bits_t val = *ptr;
@@ -199,6 +199,7 @@ void snakeEats(food_t *food, snake_t *snake, desk_t *desk, int lastCoordX, int l
     ) {
 
         snake->score += 1;
+        draw_score(snake->score);
         increaseSnake(snake, lastCoordX, lastCoordY);
         updateFood(desk, food);
     }
