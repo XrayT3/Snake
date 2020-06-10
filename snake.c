@@ -162,6 +162,19 @@ desk_t initDesk(int width, int height, int startX, int startY) {
     desk->startY = startY;
     desk->endX = startX + width;
     desk->endY = startY + height;
+
+    fb  = (unsigned short *)malloc(320*480*2);
+    mem_base = map_phys_address(SPILED_REG_BASE_PHYS, SPILED_REG_SIZE, 0);
+
+    parlcd_mem_base = map_phys_address(PARLCD_REG_BASE_PHYS, PARLCD_REG_SIZE, 0);
+    if (parlcd_mem_base == NULL)
+        exit(1);
+    parlcd_hx8357_init(parlcd_mem_base);
+
+    for (ptr = 0; ptr < 320*480 ; ptr++) {
+        fb[ptr]=0u;
+    }
+
     return *desk;
 }
 
@@ -180,10 +193,6 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food) {
         exit(1);
     parlcd_hx8357_init(parlcd_mem_base);
 
-    font_descriptor_t* fdes = &font_winFreeSystem14x16;
-    for (ptr = 0; ptr < 320*480 ; ptr++) {
-        fb[ptr]=0u;
-    }
 
     for (int i = desk->startY; i < desk->endY; i ++) {
 
@@ -200,18 +209,16 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food) {
             else if (
                 j == food->coord[0] &&
                 i == food->coord[1]
-            ){
-                printf("A"); // food
-                draw_pixel(i, j);}
+            )
+            draw_pixel(i, j); // food
             else{
                 for (int k = 0; k < snake->length; k++) {
 
                     if (
                         j == snake->snake_skeleton[k].coords[0] &&
                         i == snake->snake_skeleton[k].coords[1] 
-                    ){
-                        printf("@"); // snake
-                        draw_pixel(i, j);}
+                    )
+                    draw_pixel(i, j); // snake
                     
                 }
             }
