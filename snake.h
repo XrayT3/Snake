@@ -31,8 +31,6 @@ snake_t initSnake(int displayWidth, int displayHeight, int initialSnakeLength, i
 
 food_t initFood(int coordX, int coordY);
 
-void drawSnake(int displayWidth, int displayHeight, snake_t *snake, int sec);
-
 void moveSnake(snake_t *snake, food_t *food, desk_t *desk);
 
 void increaseSnake(snake_t *snake, int coordX, int coordY);
@@ -43,6 +41,6 @@ int checkCollisions(snake_t *snake);
 
 desk_t initDesk(int width, int height, int startX, int startY);
 
-void drawDesk(desk_t *desk, snake_t *snake, food_t *food);
+void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec);
 
 void updateFood(desk_t *desk, food_t *food);
