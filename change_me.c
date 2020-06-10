@@ -141,7 +141,7 @@ int main(int argc, char *argv[]) {
   for (ptr = 0; ptr < 320*480 ; ptr++) {
     fb[ptr]=0u;
   }
-  x = 160;
+  x = 150;
   for (i=0; i<5; i++) {
     draw_char(x, 10, fdes, *ch);
     x+=scale*char_width(fdes, *ch)+2;
