@@ -27,7 +27,6 @@ snake_t initSnake(int displayWidth, int displayHeight, int initialSnakeLength, i
     for (int i = 0; i < initialSnakeLength; i++) {
         snake->snake_skeleton[i].coords[0] = initSnakeX + i;
         snake->snake_skeleton[i].coords[1] = initSnakeY;
-        printf("Coords - %d %d\n", snake->snake_skeleton[i].coords[0], snake->snake_skeleton[i].coords[1]);
     }
     getchar();
     return *snake;
@@ -227,10 +226,7 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food) {
                         j == (snake->snake_skeleton[k].coords[0]) &&
                         i == (snake->snake_skeleton[k].coords[1]) 
                     )
-                    {
-                    printf("%d %d ----- %d\n", i, j, k);
-                    draw_snake(j*size_cell, i*size_cell); 
-                    }// snake
+                    draw_snake(j*size_cell, i*size_cell); // snake
                 }
             }
         }
