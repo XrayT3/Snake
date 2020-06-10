@@ -42,11 +42,11 @@ int main() {
     desk_t desk;
     food_t food;
 
-    desk = initDesk(100, 100, 0, 0);
+    desk = initDesk(100, 100, 50, 50);
     snake = initSnake(100, 100, 5, 2, 1);
     food = initFood(7, 7);
 
-    struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 10 * 1000 * 1000};
+    struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 100 * 1000 * 1000};
     while (1) {
 
         drawDesk(&desk, &snake, &food);
