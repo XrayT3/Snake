@@ -59,7 +59,7 @@ int main() {
     while (1) {
 
         now = clock();
-        sec = (now-start) / 1000*1000;
+        sec = (now-start) / (1000*1000);
         drawDesk(&desk, &snake, &food, sec);
         moveSnake(&snake, &food, &desk);
         clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);

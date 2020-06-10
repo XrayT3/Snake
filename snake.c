@@ -143,9 +143,6 @@ void draw_score(int score){
 }
 
 void draw_time(int sec){
-  while (sec > 100){
-    sec /= 10;
-  }
   int y = 127;
   int x = 370;
   if (sec==0){
@@ -284,7 +281,6 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec) {
 
     for (int i = desk->startY; i < desk->endY; i ++) {
         for (int j = desk->startX; j < desk->endX; j++) {
-            //draw_pixel(i, j);
             if (j == desk->startX) {
                 draw_wall(j*size_cell, i*size_cell);
                 continue;
