@@ -12,7 +12,9 @@
 #include "font_prop14x16.c"
 
 unsigned short *fb;
+unsigned char *parlcd_mem_base;
 int scale = 4;
+fb  = (unsigned short *)malloc(320*480*2);
 
 snake_t initSnake(int displayWidth, int displayHeight, int initialSnakeLength, int initSnakeX, int initSnakeY) {
 
@@ -163,7 +165,6 @@ desk_t initDesk(int width, int height, int startX, int startY) {
     desk->endX = startX + width;
     desk->endY = startY + height;
 
-    unsigned char *parlcd_mem_base;
     int ptr;
     fb  = (unsigned short *)malloc(320*480*2);
     parlcd_mem_base = map_phys_address(PARLCD_REG_BASE_PHYS, PARLCD_REG_SIZE, 0);
@@ -180,16 +181,7 @@ desk_t initDesk(int width, int height, int startX, int startY) {
 
 void drawDesk(desk_t *desk, snake_t *snake, food_t *food) {
 
-    unsigned char *parlcd_mem_base;
     int ptr;
-    
-    fb  = (unsigned short *)malloc(320*480*2);
-
-    parlcd_mem_base = map_phys_address(PARLCD_REG_BASE_PHYS, PARLCD_REG_SIZE, 0);
-    if (parlcd_mem_base == NULL)
-        exit(1);
-    parlcd_hx8357_init(parlcd_mem_base);
-
 
     for (int i = desk->startY; i < desk->endY; i ++) {
         for (int j = desk->startX; j < desk->endX; j++) {
