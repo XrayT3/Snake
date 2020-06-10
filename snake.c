@@ -15,7 +15,7 @@
 unsigned short *fb;
 unsigned char *parlcd_mem_base;
 int scale = 25;
-int size_cell = 10;
+int size_cell = 20;
 
 snake_t initSnake(int displayWidth, int displayHeight, int initialSnakeLength, int initSnakeX, int initSnakeY) {
 
@@ -58,7 +58,7 @@ void draw_pixel8(int x, int y) {
 void draw_wall(int x, int y){
   for (int i = 0; i < 10; i++){
       for (int j = 0; j < 10; j++){
-          draw_pixel(x, y);
+          draw_pixel(x+i, y+i);
       }
   }
 }
