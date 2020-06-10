@@ -50,7 +50,7 @@ int main() {
 
     desk = initDesk(200, 200, 0, 0);
     snake = initSnake(200, 200, 5, 100, 100);
-    food = initFood(70, 70);
+    food = initFood(50, 50);
 
     struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 1000 * 1000 * 1000};
     while (1) {

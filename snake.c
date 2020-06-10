@@ -212,8 +212,8 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food) {
                 continue;
             }
             else if (
-                j == food->coord[0] &&
-                i == food->coord[1]
+                (j == food->coord[0]) &&
+                (i == food->coord[1])
             )
             draw_pixel8(i, j); // food
             else{
