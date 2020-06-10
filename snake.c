@@ -163,6 +163,9 @@ desk_t initDesk(int width, int height, int startX, int startY) {
     desk->endX = startX + width;
     desk->endY = startY + height;
 
+    unsigned char *mem_base;
+    unsigned char *parlcd_mem_base;
+    int ptr;
     fb  = (unsigned short *)malloc(320*480*2);
     mem_base = map_phys_address(SPILED_REG_BASE_PHYS, SPILED_REG_SIZE, 0);
 
