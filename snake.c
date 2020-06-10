@@ -82,7 +82,7 @@ void drawSnake(int displayWidth, int displayHeight, snake_t *snake) {
     }
 }
 
-void moveSnake(snake_t *snake) {
+void moveSnake(snake_t *snake, food_t *food, desk_t *desk) {
 
     // int input;
     // input = getch();
@@ -130,6 +130,7 @@ void moveSnake(snake_t *snake) {
         //change to gameover menu
     }
 
+    snakeEats(food, snake, desk, lastCoords[0], lastCoords[1]);
 }
 
 void increaseSnake(snake_t *snake, int coordX, int coordY) {
@@ -141,9 +142,16 @@ void increaseSnake(snake_t *snake, int coordX, int coordY) {
 
 void snakeEats(food_t *food, snake_t *snake, int lastCoordX, int lastCoordY) {
 
-    snake->score += 1;
-    increaseSnake(snake, lastCoordX, lastCoordY);
-    food = NULL;
+    if (
+        snake->snake_skeleton[0].coords[0] == food->coord[0] &&
+        snake->snake_skeleton[0].coords[1] == food->coord[1]
+    ) {
+
+        snake->score += 1;
+        increaseSnake(snake, lastCoordX, lastCoordY);
+        updateFood(desk, food);
+        printf("\n\rsome\n\r");
+    }
 }
 
 int checkCollisions(snake_t *snake) {
@@ -235,4 +243,18 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food) {
         for (ptr = 0; ptr < 480*320 ; ptr++) {
             parlcd_write_data(parlcd_mem_base, fb[ptr]);
         }
+}
+
+void updateFood(desk_t *desk, food_t *food) {
+
+    int newX, newY;
+    int maxX = desk->endX, minX = desk->startX;
+    int maxY = desk->endY, minY = desk->startY;
+    srand(time(NULL));
+
+    newX = rand() % (maxX - minX) + minX;
+    newY = rand() % (maxY - minY) + minY;
+    printf("New coords: %d %d\n", newX, newY);
+    food->coord[0] = newX;
+    food->coord[1] = newY;
 }

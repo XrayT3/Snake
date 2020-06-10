@@ -17,6 +17,13 @@
 
 unsigned short *fb;
 
+void initKeyboard() {
+
+    initscr();
+    keypad(stdscr, true);
+    noecho();
+}
+
 int main() {
 
     unsigned char *mem_base;
@@ -43,6 +50,7 @@ int main() {
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
 
+    initKeyboard();
 
     snake_t snake;
     desk_t desk;
