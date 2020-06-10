@@ -5,6 +5,12 @@
 
 #include "snake.h"
 
+#include "mzapo_parlcd.h"
+#include "mzapo_phys.h"
+#include "mzapo_regs.h"
+#include "font_types.h"
+#include "font_prop14x16.c"
+
 unsigned short *fb;
 int scale = 4;
 
@@ -163,8 +169,6 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food) {
 
     unsigned char *mem_base;
     unsigned char *parlcd_mem_base;
-    uint32_t val_line=5;
-    uint32_t rgb_knobs_value;
     int i;
     int ptr;
     
