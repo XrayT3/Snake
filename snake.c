@@ -64,7 +64,7 @@ void draw_wall() {
   for (int i = 0; i < 18-1; i++){
     for (int x = 0; x < size_cell; x++){
       for(int y = 10; y < size_cell; y++){
-        draw_pixel(i*size_cell+x+5, 0+y, 0x1f<<11);
+        draw_pixel(i*size_cell+x+5, 0+y, 65535);
       }
     }
   }
@@ -72,7 +72,7 @@ void draw_wall() {
   for (int i = 0; i < 18-1; i++){
     for (int x = 0; x < size_cell; x++){
       for(int y = 10; y < size_cell; y++){
-        draw_pixel(i*size_cell+x+5, 300+y-10, 0x1f<<11);
+        draw_pixel(i*size_cell+x+5, 300+y-10, 65535);
       }
     }
   }
@@ -80,7 +80,7 @@ void draw_wall() {
   for (int i = 1; i < 16-1; i++){
     for (int x = 10; x < size_cell; x++){
       for(int y = 0; y < size_cell; y++){
-        draw_pixel(0+x, i*size_cell+y+5, 0x1f<<11);
+        draw_pixel(0+x, i*size_cell+y+5, 65535);
       }
     }
   }
@@ -88,7 +88,7 @@ void draw_wall() {
   for (int i = 1; i < 16-1; i++){
     for (int x = 10; x < size_cell; x++){
       for(int y = 0; y < size_cell; y++){
-        draw_pixel(340+x-10, i*size_cell+y+5, 0x1f<<11);
+        draw_pixel(340+x-10, i*size_cell+y+5, 65535);
       }
     }
   }
