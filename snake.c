@@ -64,39 +64,25 @@ void draw_wall(int x, int y) {
   }
 }
 
-void drawSnake(int displayWidth, int displayHeight, snake_t *snake) {
-
-    for (int i = 0; i < displayHeight; i ++) {
-
-        for (int j = 0; j < displayWidth; j++) {
-
-            if (j == 0) {
-                printf("|");
-                continue;
-            }
-            else if (j == (displayWidth - 1)) {
-                printf("|\n\r");
-                continue;
-            }
-            for (int k = 0; k < snake->length; k++) {
-
-                if (
-                    j == snake->snake_skeleton[k].coords[0] &&
-                    i == snake->snake_skeleton[k].coords[1] 
-                ) {
-                    printf("@");
-                }
-                else if (k == 0)
-                    printf(" - ");
-            }
-        }
+void draw_food(int x, int y) {
+  int i, j;
+  for (i = 0; i < size_cell; i++){
+    for (j = 0; j < size_cell; j++){
+      draw_pixel(x+i, y+j);
     }
+  }
+}
+
+void draw_snake(int x, int y) {
+  int i, j;
+  for (i = 0; i < size_cell; i++){
+    for (j = 0; j < size_cell; j++){
+      draw_pixel(x+i, y+j);
+    }
+  }
 }
 
 void moveSnake(snake_t *snake, food_t *food, desk_t *desk) {
-
-    // int input;
-    // input = getch();
     char ch;
     int r = read(0, &ch, 1);
 
@@ -234,8 +220,7 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food) {
                 (j == food->coord[0]) &&
                 (i == food->coord[1])
             )
-            draw_pixel8(j*size_cell, i*size_cell); // food
-            //printf("food\n");
+            draw_food(j*size_cell, i*size_cell); // food
             else{
                 for (int k = 0; k < snake->length; k++) {
 
@@ -243,7 +228,7 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food) {
                         (j == snake->snake_skeleton[k].coords[0]) &&
                         (i == snake->snake_skeleton[k].coords[1]) 
                     )
-                    draw_pixel8(j*size_cell, i*size_cell); // snake
+                    draw_snake(j*size_cell, i*size_cell); // snake
                 }
             }
         }
