@@ -17,7 +17,7 @@ unsigned short *fb;
 font_descriptor_t* fdes = &font_winFreeSystem14x16;
 unsigned char *parlcd_mem_base;
 int size_cell = 20;
-int size_score = 4;
+int size_score = 3;
 
 snake_t initSnake(int displayWidth, int displayHeight, int initSnakeX, int initSnakeY) {
 
@@ -54,7 +54,7 @@ void draw_pixel8(int x, int y) {
   int i, j;
   for (i = 0; i < size_score; i++){
     for (j = 0; j < size_score; j++){
-      draw_pixel(x-i, y-j, 0x1f<<11);
+      draw_pixel(x-i, y-j, 63519);
     }
   }
 }
