@@ -128,7 +128,7 @@ void draw_score(int score){
         draw_char(x, y, fdes, '0');
         return;
     }
-    char str[5] = "0";
+    char str[3] = "0";
     int idx = 0;
     while (score!=0)
     {
@@ -143,13 +143,16 @@ void draw_score(int score){
 }
 
 void draw_time(int sec){
+  while (sec > 100){
+    sec /= 10;
+  }
   int y = 127;
   int x = 370;
   if (sec==0){
       draw_char(x, y, fdes, '0');
       return;
   }
-  char str[5] = "0";
+  char str[3] = "0";
   int idx = 0;
   while (sec!=0)
   {
