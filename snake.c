@@ -87,19 +87,18 @@ void moveSnake(snake_t *snake, food_t *food, desk_t *desk) {
     char ch;
     int r = read(0, &ch, 1);
 
-    int lastCoords[2] = {
-        snake->snake_skeleton[snake->length].coords[0],
-        snake->snake_skeleton[snake->length].coords[1], 
-    };
-
-    for (int k = snake->length; k > 0; k--) {
-
-        snake->snake_skeleton[k].coords[0] = snake->snake_skeleton[k - 1].coords[0];
-        snake->snake_skeleton[k].coords[1] = snake->snake_skeleton[k - 1].coords[1];
-    }
-
     if (r==1)
     {
+        int lastCoords[2] = {
+        snake->snake_skeleton[snake->length].coords[0],
+        snake->snake_skeleton[snake->length].coords[1], 
+        };
+
+        for (int k = snake->length; k > 0; k--) {
+            snake->snake_skeleton[k].coords[0] = snake->snake_skeleton[k - 1].coords[0];
+            snake->snake_skeleton[k].coords[1] = snake->snake_skeleton[k - 1].coords[1];
+        }
+
         switch (ch) {
         
         case 'a':
