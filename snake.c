@@ -215,7 +215,7 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food) {
                 (j == food->coord[0]) &&
                 (i == food->coord[1])
             )
-            draw_pixel8(j, i); // food
+            //draw_pixel8(j, i); // food
             else{
                 for (int k = 0; k < snake->length; k++) {
 

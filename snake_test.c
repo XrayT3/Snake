@@ -56,7 +56,7 @@ int main() {
     while (1) {
 
         drawDesk(&desk, &snake, &food);
-        //moveSnake(&snake);
+        moveSnake(&snake);
         clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
     }
 
