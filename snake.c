@@ -25,8 +25,8 @@ snake_t initSnake(int displayWidth, int displayHeight, int initialSnakeLength, i
     snake->score = 0;
     snake->snake_skeleton = (section_t *)malloc(sizeof(section_t) * snake->max_length);
     for (int i = 0; i < initialSnakeLength; i++) {
-        (snake->snake_skeleton.[i].coords[0] = initSnakeX + i;
-        (snake->snake_skeleton.[i].coords[1] = initSnakeY;
+        snake->snake_skeleton.[i].coords[0] = initSnakeX + i;
+        snake->snake_skeleton.[i].coords[1] = initSnakeY;
         // printf("Coords - %d %d\n", )
     }
     return *snake;
@@ -225,8 +225,8 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food) {
                 for (int k = 0; k < snake->length; k++) {
 
                     if (
-                        (j == (snake->snake_skeleton[k].coords[0]) &&
-                        (i == (snake->snake_skeleton[k].coords[1]) 
+                        j == (snake->snake_skeleton[k].coords[0]) &&
+                        i == (snake->snake_skeleton[k].coords[1]) 
                     )
                     {
                     printf("%d %d ----- %d\n", i, j, k);
