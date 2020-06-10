@@ -14,7 +14,7 @@
 
 unsigned short *fb;
 unsigned char *parlcd_mem_base;
-int scale = 8;
+int scale = 15;
 
 snake_t initSnake(int displayWidth, int displayHeight, int initialSnakeLength, int initSnakeX, int initSnakeY) {
 
@@ -126,7 +126,7 @@ void moveSnake(snake_t *snake, food_t *food, desk_t *desk) {
 
     if (checkCollisions(snake)) {
 
-        printf("Gameover!\n");
+        //printf("Gameover!\n");
         // exit(1);
         //change to gameover menu
     }
