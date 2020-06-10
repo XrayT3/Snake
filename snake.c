@@ -167,7 +167,7 @@ void draw_time(int sec){
   }
 }
 
-struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 100 * 1000 * 1000};
+struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 1000 * 1000 * 1000};
 void moveSnake(snake_t *snake, food_t *food, desk_t *desk) {
     char ch;
     int r = read(0, &ch, 1);
