@@ -15,7 +15,7 @@
 unsigned short *fb;
 unsigned char *parlcd_mem_base;
 int scale = 25;
-int size_cell = 1;
+int size_cell = 10;
 
 snake_t initSnake(int displayWidth, int displayHeight, int initialSnakeLength, int initSnakeX, int initSnakeY) {
 
