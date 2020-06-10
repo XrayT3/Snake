@@ -21,6 +21,7 @@ typedef struct {
     int max_length;
     int score;
     int direction;
+    bool life;
     section_t *snake_skeleton;
 } snake_t;
 

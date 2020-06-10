@@ -21,6 +21,7 @@ int size_score = 4;
 snake_t initSnake(int displayWidth, int displayHeight, int initSnakeX, int initSnakeY) {
 
     snake_t *snake = (snake_t *)malloc(sizeof(snake_t));
+    snake->life = true;
     snake->length = INIT_LEN;
     snake->max_length = displayWidth * displayHeight;
     snake->score = 0;
@@ -217,33 +218,13 @@ void moveSnake(snake_t *snake, food_t *food, desk_t *desk) {
                     break;
             }
         }
-
-        // switch (ch) {
-        
-        // case 'a':
-        //     printf("left");
-        //     snake->snake_skeleton->coords[0] -= 1;
-        //     break;
-        // case 'd':
-        //     printf("right");
-        //     snake->snake_skeleton->coords[0] += 1;
-        //     break;
-        // case 'w':
-        //     printf("up");
-        //     snake->snake_skeleton->coords[1] -= 1;
-        //     break;
-        // case 's':
-        //     printf("down");
-        //     snake->snake_skeleton->coords[1] += 1;
-        //     break;
-        // }
     }
 
     //logic part--------
     snakeStep(snake);
     if (checkCollisions(snake, desk)) {
         printf("Gameover!\n");
-        //exit(1);
+        snake->life = false;
         //change to gameover menu
     }
 

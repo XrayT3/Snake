@@ -36,6 +36,9 @@ int main() {
 
     fb  = (unsigned short *)malloc(320*480*2);
     mem_base = map_phys_address(SPILED_REG_BASE_PHYS, SPILED_REG_SIZE, 0);
+    /* If mapping fails exit with error code */
+    if (mem_base == NULL)
+        exit(1);
 
     rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
     rgb_knobs_value = 16711935; //pink
@@ -56,22 +59,16 @@ int main() {
 
     struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 1000 * 1000 * 1000};
     clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
-    while (1) {
-
+    while (snake->life) {
         now = clock();
         sec = (now-start) / (1000*1000);
         drawDesk(&desk, &snake, &food, sec, fb);
         moveSnake(&snake, &food, &desk);
         clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
-        sleep(1);
     }
 
-    /* If mapping fails exit with error code */
-    if (mem_base == NULL)
-        exit(1);
-
     rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
-    rgb_knobs_value = 16711935; //pink
+    rgb_knobs_value =16711680; //red
 
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
