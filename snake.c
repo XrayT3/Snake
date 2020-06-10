@@ -272,10 +272,11 @@ desk_t initDesk(int width, int height, int startX, int startY) {
     return *desk;
 }
 
-void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec) {
+void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned short *fb1) {
 
     int ptr;
-    fb  = (unsigned short *)malloc(320*480*2);
+    //fb  = (unsigned short *)malloc(320*480*2);
+    fb = fb1;
     draw_score(snake->score);
     draw_time(sec);
 

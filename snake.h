@@ -41,6 +41,6 @@ int checkCollisions(snake_t *snake);
 
 desk_t initDesk(int width, int height, int startX, int startY);
 
-void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec);
+void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned short *fb1);
 
 void updateFood(desk_t *desk, food_t *food);
