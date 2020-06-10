@@ -26,7 +26,7 @@ snake_t initSnake(int displayWidth, int displayHeight, int initSnakeX, int initS
     snake->length = INIT_LEN;
     snake->max_length = displayWidth * displayHeight;
     snake->score = 0;
-    snake->direction = UP;
+    snake->direction = DOWN;
     snake->snake_skeleton = (section_t *)malloc(sizeof(section_t) * snake->max_length);
     for (int i = 0; i < INIT_LEN; i++) {
 
