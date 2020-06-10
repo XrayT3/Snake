@@ -122,9 +122,10 @@ void draw_char(int x, int y, font_descriptor_t* fdes, char ch) {
 }
 
 void draw_score(int score){
-    int x = 20;
+    int y = 20;
+    int x = 370;
     if (score==0){
-        draw_char(370, x, fdes, '0');
+        draw_char(x, y, fdes, '0');
         return;
     }
     char str[5] = "0";
@@ -136,15 +137,16 @@ void draw_score(int score){
         idx++;
     }
     for (int i = idx-1; i >= 0; i--){
-        draw_char(370, x, fdes, str[i]);
+        draw_char(x, y, fdes, str[i]);
         x+=size_score*char_width(fdes, str[i])+2;
     }
 }
 
 void draw_time(int sec){
-  int x = 127;
+  int y = 127;
+  int x = 370;
   if (sec==0){
-      draw_char(370, x, fdes, '0');
+      draw_char(x, y, fdes, '0');
       return;
   }
   char str[5] = "0";
@@ -156,7 +158,7 @@ void draw_time(int sec){
       idx++;
   }
   for (int i = idx-1; i >= 0; i--){
-      draw_char(370, x, fdes, str[i]);
+      draw_char(x, y, fdes, str[i]);
       x+=size_score*char_width(fdes, str[i])+2;
   }
 }
