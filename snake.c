@@ -227,7 +227,10 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food) {
                         (j == (snake->snake_skeleton + k)->coords[0]) &&
                         (i == (snake->snake_skeleton + k)->coords[1]) 
                     )
-                    draw_snake(j*size_cell, i*size_cell); // snake
+                    {
+                    printf("%d %d\n", i, j);
+                    draw_snake(j*size_cell, i*size_cell); 
+                    }// snake
                 }
             }
         }
