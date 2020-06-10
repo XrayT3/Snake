@@ -13,8 +13,10 @@
 #include "font_prop14x16.c"
 
 unsigned short *fb;
+font_descriptor_t* fdes = &font_winFreeSystem14x16;
 unsigned char *parlcd_mem_base;
 int size_cell = 20;
+int size_score = 4;
 
 snake_t initSnake(int displayWidth, int displayHeight, int initialSnakeLength, int initSnakeX, int initSnakeY) {
 
@@ -27,7 +29,7 @@ snake_t initSnake(int displayWidth, int displayHeight, int initialSnakeLength, i
         snake->snake_skeleton[i].coords[0] = initSnakeX + i;
         snake->snake_skeleton[i].coords[1] = initSnakeY;
     }
-    getchar();
+    draw_score(snake->score);
     return *snake;
 }
 
@@ -42,6 +44,15 @@ food_t initFood(int coordX, int coordY) {
 void draw_pixel(int x, int y, int color) {
   if (x>=0 && x<480 && y>=0 && y<320) {
     fb[x+480*y] = color;
+  }
+}
+
+void draw_pixel8(int x, int y) {
+  int i, j;
+  for (i = 0; i < size_score; i++){
+    for (j = 0; j < size_score; j++){
+      draw_pixel(x-i, y-j, 0x1f<<11);
+    }
   }
 }
 
@@ -70,6 +81,61 @@ void draw_snake(int x, int y) {
       draw_pixel(x+i, y+j, 0x1f<<0);
     }
   }
+}
+
+int char_width(font_descriptor_t* fdes, int ch) {
+  int width = 0;
+  if ((ch >= fdes->firstchar) && (ch-fdes->firstchar < fdes->size)) {
+    ch -= fdes->firstchar;
+    if (!fdes->width) {
+      width = fdes->maxwidth;
+    } else {
+      width = fdes->width[ch];
+    }
+  }
+  return width;
+}
+
+void draw_char(int x, int y, font_descriptor_t* fdes, char ch) {
+  int w = char_width(fdes, ch);
+  if (w > 0) {
+    const font_bits_t *ptr;
+    if (fdes->offset) {
+      ptr = &fdes->bits[fdes->offset[ch-fdes->firstchar]];
+      ptr = fdes->bits + fdes->offset[ch-fdes->firstchar];
+    } else {
+      int bw = (fdes->maxwidth+15)/16;
+      ptr = fdes->bits + (ch-fdes->firstchar)*bw*fdes->height;
+    }
+    printf("Znak %c na %i, %i, sirka %i\n", ch, x, y, w);
+    int i, j;
+    for (i = 0; i < fdes->height; i++){
+      font_bits_t val = *ptr;
+      for (j = 0; j < w; j++){
+        if ((val&0x8000) != 0) {
+          draw_pixel8(x+size_score*j, y+size_score*i);
+        }
+        val<<=1;
+      }
+      ptr++;
+    }
+  }
+}
+
+void draw_score(int score){
+    char str[5] = "0";
+    int idx = 0;
+    int x = 10;
+    while (score!=0)
+    {
+        str[idx] = score % 10 + '0';
+        score /= 10;
+        idx++;
+    }
+    for (int i = idx-1; i >= 0; i--){
+        draw_char(370, x, fdes, str[i]);
+        x+=size_score*char_width(fdes, str[i])+2;
+    }
 }
 
 void moveSnake(snake_t *snake, food_t *food, desk_t *desk) {
@@ -134,6 +200,7 @@ void snakeEats(food_t *food, snake_t *snake, desk_t *desk, int lastCoordX, int l
     ) {
 
         snake->score += 1;
+        draw_score(snake->score);
         increaseSnake(snake, lastCoordX, lastCoordY);
         updateFood(desk, food);
     }
