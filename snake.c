@@ -196,34 +196,34 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food) {
         for (int j = desk->startX; j < desk->endX; j++) {
             //draw_pixel(i, j);
             if (j == desk->startX) {
-                draw_pixel8(i, j);
+                draw_pixel8(j, i);
                 continue;
             }
             else if (j == (desk->endX - 1)) {
-                draw_pixel8(i, j);
+                draw_pixel8(j, i);
                 continue;
             }
             else if (i == desk->startY) {
-                draw_pixel8(i, j);
+                draw_pixel8(j, i);
                 continue;
             }
             else if (i == (desk->endY - 1)) {
-                draw_pixel8(i, j);
+                draw_pixel8(j, i);
                 continue;
             }
             else if (
                 (j == food->coord[0]) &&
                 (i == food->coord[1])
             )
-            draw_pixel8(i, j); // food
+            draw_pixel8(j, i); // food
             else{
                 for (int k = 0; k < snake->length; k++) {
 
                     if (
-                        j == snake->snake_skeleton[k].coords[0] &&
-                        i == snake->snake_skeleton[k].coords[1] 
+                        (j == snake->snake_skeleton[k].coords[0]) &&
+                        (i == snake->snake_skeleton[k].coords[1]) 
                     )
-                    draw_pixel8(i, j); // snake
+                    draw_pixel8(j, i); // snake
                 }
             }
         }
