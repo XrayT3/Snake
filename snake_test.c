@@ -58,14 +58,15 @@ int main() {
     int start, now, sec;
     start = clock();
 
-    struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 100 * 1000 * 1000};
-    clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+    // struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 100 * 1000 * 1000};
+    // clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
     while (snake.life) {
         now = clock();
         sec = (now-start) / (1000*1000);
-        drawDesk(&desk, &snake, &food, sec, fb);
-        moveSnake(&snake, &food, &desk);
-        clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+        if (sec % 2 == 0){
+            drawDesk(&desk, &snake, &food, sec, fb);
+            moveSnake(&snake, &food, &desk);
+        }
     }
 
     rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
@@ -78,7 +79,7 @@ int main() {
     val_line = 15;
     // val_line = 1227133513;
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
-    clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+    struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 100 * 1000 * 1000};
     for (i=0; i<30; i++) {
         *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
         val_line<<=1;
