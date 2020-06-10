@@ -59,36 +59,36 @@ void draw_pixel8(int x, int y) {
   }
 }
 
-void draw_wall() {
+void draw_wall(int c, int r) {
   // up
-  for (int i = 0; i < 18-1; i++){
+  for (int i = 0; i < c+1; i++){
     for (int x = 0; x < size_cell; x++){
-      for(int y = 10; y < size_cell; y++){
-        draw_pixel(i*size_cell+x+5, 0+y, 65535);
+      for(int y = size_cell/2; y < size_cell; y++){
+        draw_pixel(i*size_cell+x+(size_cell/4), 0+y, 65535);
       }
     }
   }
   // down
-  for (int i = 0; i < 18-1; i++){
+  for (int i = 0; i < c+1; i++){
     for (int x = 0; x < size_cell; x++){
-      for(int y = 10; y < size_cell; y++){
-        draw_pixel(i*size_cell+x+5, 300+y-10, 65535);
+      for(int y = size_cell/2; y < size_cell; y++){
+        draw_pixel(i*size_cell+x+(size_cell/4), 300+y-(size_cell/2), 65535);
       }
     }
   }
   // left
-  for (int i = 1; i < 16-1; i++){
-    for (int x = 10; x < size_cell; x++){
+  for (int i = 1; i < r+1; i++){
+    for (int x = size_cell/2; x < size_cell; x++){
       for(int y = 0; y < size_cell; y++){
-        draw_pixel(0+x, i*size_cell+y+5, 65535);
+        draw_pixel(0+x, i*size_cell+y+(size_cell/4), 65535);
       }
     }
   }
   // right
-  for (int i = 1; i < 16-1; i++){
-    for (int x = 10; x < size_cell; x++){
+  for (int i = 1; i < r+1; i++){
+    for (int x = size_cell/2; x < size_cell; x++){
       for(int y = 0; y < size_cell; y++){
-        draw_pixel(340+x-10, i*size_cell+y+5, 65535);
+        draw_pixel(340+x-(size_cell/2), i*size_cell+y+(size_cell/4), 65535);
       }
     }
   }
@@ -337,7 +337,7 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned shor
     }
     draw_score(snake->score);
     draw_time(sec);
-    draw_wall(); // dobavit parametry
+    draw_wall(16, 14); // dobavit parametry
 
     for (int i = desk->startY; i < desk->endY; i ++) {
         for (int j = desk->startX; j < desk->endX; j++) {
