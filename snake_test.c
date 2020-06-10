@@ -19,62 +19,6 @@
 unsigned short *fb;
 int scale = 4;
 
-void draw_pixel(int x, int y) {
-  if (x>=0 && x<480 && y>=0 && y<320) {
-    fb[x+480*y] = 0x1f<<11;
-  }
-}
-
-void draw_pixel8(int x, int y) {
-  int i, j;
-  for (i = 0; i < scale; i++){
-    for (j = 0; j < scale; j++){
-      draw_pixel(x+i, y+i);
-    }
-  }
-}
-
-int char_width(font_descriptor_t* fdes, int ch) {
-  int width = 0;
-  if ((ch >= fdes->firstchar) && (ch-fdes->firstchar < fdes->size)) {
-    ch -= fdes->firstchar;
-    if (!fdes->width) {
-      width = fdes->maxwidth;
-    } else {
-      width = fdes->width[ch];
-    }
-  }
-  return width;
-}
-
-void draw_char(int x, int y, font_descriptor_t* fdes, char ch) {
-  int w = char_width(fdes, ch);
-  if (w > 0) {
-    const font_bits_t *ptr;
-    if (fdes->offset) {
-      ptr = &fdes->bits[fdes->offset[ch-fdes->firstchar]];
-      ptr = fdes->bits + fdes->offset[ch-fdes->firstchar];
-    } else {
-      int bw = (fdes->maxwidth+15)/16;
-      ptr = fdes->bits + (ch-fdes->firstchar)*bw*fdes->height;
-    }
-    printf("Znak %c na %i, %i, sirka %i\n", ch, x, y, w);
-    int i, j;
-    for (i = 0; i < fdes->height; i++){
-      font_bits_t val = *ptr;
-      for (j = 0; j < w; j++){
-        if ((val&0x8000) != 0) {
-          draw_pixel8(x+scale*j, y+scale*i);
-        }
-        val<<=1;
-      }
-      ptr++;
-    }
-  }
-}
-
-
-
 int main() {
 
     unsigned char *mem_base;
