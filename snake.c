@@ -20,6 +20,10 @@ int size_cell = 20;
 int size_score = 5;
 int size_time = 4;
 int size_GameOver = 6;
+int size_retry = 5;
+int size_RETRY = 7;
+int size_quit = 5;
+int size_QUIT = 7;
 
 snake_t initSnake(int displayWidth, int displayHeight, int initSnakeX, int initSnakeY) {
 
@@ -195,7 +199,7 @@ void draw_time(int sec){
   }
 }
 
-void draw_EndGame(unsigned short *fb1, int score){
+void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
   int ptr;
   fb = fb1;
   for (ptr = 0; ptr < 320*480 ; ptr++) {
@@ -205,7 +209,7 @@ void draw_EndGame(unsigned short *fb1, int score){
   char *ch = str;
   int x = 19;
   for (int i=0; i<9; i++) {
-      draw_char(x, 127, fdes, *ch, size_GameOver);
+      draw_char(x, 70, fdes, *ch, size_GameOver);
       x+=size_GameOver*char_width(fdes, *ch)+2;
       ch++;
   }
@@ -223,8 +227,24 @@ void draw_EndGame(unsigned short *fb1, int score){
       idx++;
   }
   for (int i = idx-1; i >= 0; i--){
-      draw_char(x, 224, fdes, str1[i], size_score);
+      draw_char(x, 150, fdes, str1[i], size_score);
       x+=size_score*char_width(fdes, str1[i])+2;
+  }
+  char RETRY[] = "RETRY"; // 5
+  char *RE = RETRY;
+  int x = 19;
+  for (int i=0; i<5; i++) {
+      draw_char(x, 230, fdes, *RE, size_retry+retry*2);
+      x+=size_GameOver*char_width(fdes, *RE)+2;
+      RE++;
+  }
+  char QUIT[] = "QUIT"; // 4
+  char *QU = QUIT;
+  int x = 19;
+  for (int i=0; i<4; i++) {
+      draw_char(x, 310, fdes, *QU, size_quit+quit*2);
+      x+=size_GameOver*char_width(fdes, *QU)+2;
+      QU++;
   }
 
   // draw LCD
@@ -247,7 +267,6 @@ void moveSnakeManual(snake_t *snake, food_t *food, desk_t *desk) {
         snake->snake_skeleton[k].coords[0] = snake->snake_skeleton[k - 1].coords[0];
         snake->snake_skeleton[k].coords[1] = snake->snake_skeleton[k - 1].coords[1];
     }
-
     if (r==1)
     {   
         if (ch == 'a') {

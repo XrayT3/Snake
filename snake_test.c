@@ -70,8 +70,32 @@ int main() {
 
         }
     }
-    sleep(2);
-    draw_EndGame(fb, snake.score);
+    sleep(1);
+    draw_EndGame(fb, snake.score, 1, 0);
+    sleep(1);
+    char ch = '1';
+    int retry = 1;
+    int quit = 0;
+    while (ch!=' ')
+    {
+        int r = read(0, &ch, 1);
+        if (r==1)
+        {   
+            if (ch == 'w') {
+                retry = 1 - retry;
+                quit = 1 - quit;
+                draw_EndGame(fb, snake.score, retry, quit);
+            }
+            else if (ch == 's') {
+                retry = 1 - retry;
+                quit = 1 - quit;
+                draw_EndGame(fb, snake.score, retry, quit);
+            }
+            else if (ch == ' ') {
+                break;
+            }
+        }
+    }
 
     rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
     rgb_knobs_value =16711680; //red
