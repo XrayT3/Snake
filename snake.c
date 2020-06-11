@@ -107,7 +107,7 @@ void draw_snake(int x, int y) {
   int i, j;
   for (i = 0; i < size_cell; i++){
     for (j = 0; j < size_cell; j++){
-      draw_pixel(x+i, y+j, 0x1f<<0);
+      draw_pixel(x+i, y+j, 63488);
     }
   }
 }
