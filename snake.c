@@ -211,7 +211,7 @@ void draw_EndGame(unsigned short *fb1, int score){
   }
   x = 220;
   if (score==0){
-      draw_char(x, y, fdes, '0', size_score);
+      draw_char(x, 224, fdes, '0', size_score);
       return;
   }
   char str1[3] = "0";
