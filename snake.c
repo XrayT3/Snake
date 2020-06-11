@@ -209,7 +209,7 @@ void draw_EndGame(unsigned short *fb1){
       x+=size_GameOver*char_width(fdes, *ch)+2;
       ch++;
   }
-  
+
   // draw LCD
     parlcd_write_cmd(parlcd_mem_base, 0x2c);
     for (ptr = 0; ptr < 480*320 ; ptr++) {
@@ -299,9 +299,8 @@ void snakeEats(food_t *food, snake_t *snake, desk_t *desk, int lastCoordX, int l
     ) {
 
         snake->score += 1;
-        draw_score(snake->score);
         increaseSnake(snake, lastCoordX, lastCoordY);
-        updateFood(desk, food);
+        updateFood(desk, food, snake);
     }
 }
 
@@ -391,16 +390,26 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned shor
     }
 }
 
-void updateFood(desk_t *desk, food_t *food) {
+void updateFood(desk_t *desk, food_t *food, snake_t *snake) {
 
     int newX, newY;
     int maxX = desk->endX - 1, minX = desk->startX + 1;
     int maxY = desk->endY - 1, minY = desk->startY + 1;
     srand(time(NULL));
 
+    calculate:
     newX = rand() % (maxX - minX) + minX;
     newY = rand() % (maxY - minY) + minY;
-    printf("New coords: %d %d\n", newY, newX);
+
+    for (int k = 0; k < snake->length; k++) {
+    
+        if (
+            newX == snake->snake_skeleton[k].coords[0] &&
+            newY == snake->snake_skeleton[k].coords[1]
+        )   goto calculate;
+    }
+
+    printf("New coords: %d %d\n", newX, newY);
     food->coord[0] = newX;
     food->coord[1] = newY;
 }
@@ -430,31 +439,48 @@ void snakeController(snake_t *snake, desk_t *desk, food_t *food) {
 
     dx = food->coord[0] - snake->snake_skeleton[0].coords[0];
     dy = food->coord[1] - snake->snake_skeleton[0].coords[1];
+    
+    switch (snake->direction) {
+
+        case LEFT:
+            if (dy < 0) snakeTurnRight(snake);
+            else if (dy > 0) snakeTurnLeft(snake);
+            else if (dx > 0 && dy == 0) snakeTurnLeft(snake);
+            break;
+        case RIGHT:
+            if (dy < 0) snakeTurnLeft(snake);
+            else if (dy > 0) snakeTurnRight(snake);
+            else if (dx < 0 && dy == 0) snakeTurnLeft(snake);
+            break;
+        case UP:
+            if (dx > 0) snakeTurnRight(snake);
+            else if (dx < 0) snakeTurnLeft(snake);
+            else if (dy > 0 && dx == 0) snakeTurnLeft(snake);
+            break;
+        case DOWN:
+            if (dx < 0) snakeTurnRight(snake);
+            else if (dx > 0) snakeTurnLeft(snake);
+            else if (dy < 0 && dx == 0) snakeTurnLeft(snake);
+            break;
+    }
 
     if (obstacleBeforeSnake(snake, desk) && obstacleLeftOfSnake(snake, desk))
-        snakeTurnRight(snake);
+        {
+            snakeTurnRight(snake);
+            printf("Obstacle front and left\n\r");
+        }
     
     else if (obstacleBeforeSnake(snake, desk) && obstacleRightOfSnake(snake, desk))
-        snakeTurnLeft(snake);
+        {
+            snakeTurnLeft(snake);
+            printf("Obstacle front and right\n\r");
+        }
 
     else if (obstacleBeforeSnake(snake, desk))
-        snakeTurnLeft(snake);
-    
-    else if (dx < 0)
-        snake->direction = LEFT;
-
-    else if (dx > 0)
-        snake->direction = RIGHT;
-
-    else if (
-        (dx == 0) &&
-        dy < 0
-    )   snake->direction = UP;
-    
-    else if (
-        (dx == 0) &&
-        dy > 0
-    )   snake->direction = DOWN;
+        {
+            snakeTurnLeft(snake);
+            printf("Obstacle front\n\r");
+        }
 }
 
 int obstacleBeforeSnake(snake_t *snake, desk_t *desk) {
@@ -692,5 +718,4 @@ void snakeTurnRight(snake_t *snake) {
             break;
     }
 }
-
 
