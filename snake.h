@@ -41,6 +41,14 @@ snake_t initSnake(int displayWidth, int displayHeight, int initSnakeX, int initS
 
 food_t initFood(int coordX, int coordY);
 
+void draw_pixel(int x, int y, int color);
+
+void draw_pixel_size(int x, int y, int size);
+
+int char_width(font_descriptor_t* fdes, int ch);
+
+void draw_char(int x, int y, font_descriptor_t* fdes, char ch, int size);
+
 void moveSnakeManual(snake_t *snake, food_t *food, desk_t *desk);
 
 void moveSnakeAI(snake_t *snake, food_t *food, desk_t *desk);

@@ -18,7 +18,7 @@
 #include "font_prop14x16.c"
 
 unsigned short *fb;
-
+font_descriptor_t* fdes = &font_winFreeSystem14x16;
 
 int scale = 5;
 
@@ -102,13 +102,12 @@ int main() {
     
 
     // draw Menu
-    int ptr;
     for (ptr = 0; ptr < 320*480 ; ptr++) {
         fb[ptr]=0u;
     }
     char str[] = "Game over"; // 9
     char *ch = str;
-    x = 20;
+    int x = 20;
     for (int i=0; i<9; i++) {
         draw_char(x, 100, fdes, *ch, scale);
         x+=scale*char_width(fdes, *ch)+2;
