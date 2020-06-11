@@ -15,7 +15,7 @@
 #include "mzapo_phys.h"
 #include "mzapo_regs.h"
 #include "font_types.h"
-#include "font_prop14x16.c"
+// #include "font_prop14x16.c"
 
 unsigned short *fb;
 font_descriptor_t* fdes = &font_winFreeSystem14x16;
