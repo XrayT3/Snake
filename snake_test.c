@@ -14,8 +14,6 @@
 #include "mzapo_parlcd.h"
 #include "mzapo_phys.h"
 #include "mzapo_regs.h"
-// #include "font_types.h"
-// #include "font_prop14x16.c"
 
 unsigned short *fb;
 int scale = 5;
@@ -65,7 +63,7 @@ int main() {
         now = clock();
         ns = (now-start) / 1000;
         sec = ns / 1000;
-        if (ns % 100 == 0){
+        if (ns % 250 == 0){
             printf("%d\n", ns);
             drawDesk(&desk, &snake, &food, sec, fb);
             moveSnakeAI(&snake, &food, &desk);
