@@ -67,7 +67,9 @@ int main() {
         if (ns % 1000 == 0){
             printf("%d\n", ns);
             drawDesk(&desk, &snake, &food, sec, fb);
-            moveSnakeManual(&snake, &food, &desk);
+            moveSnakeAI(&snake, &food, &desk);
+            // moveSnakeManual(&snake, &food, &desk);
+
         }
     }
 
