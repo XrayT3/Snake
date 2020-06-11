@@ -439,7 +439,7 @@ void snakeController(snake_t *snake, desk_t *desk, food_t *food) {
 
     dx = food->coord[0] - snake->snake_skeleton[0].coords[0];
     dy = food->coord[1] - snake->snake_skeleton[0].coords[1];
-    
+
     switch (snake->direction) {
 
         case LEFT:
@@ -462,8 +462,8 @@ void snakeController(snake_t *snake, desk_t *desk, food_t *food) {
             else if (dx > 0) snakeTurnLeft(snake);
             else if (dy < 0 && dx == 0) snakeTurnLeft(snake);
             break;
-    }
-
+        }
+    
     if (obstacleBeforeSnake(snake, desk) && obstacleLeftOfSnake(snake, desk))
         {
             snakeTurnRight(snake);
@@ -475,6 +475,18 @@ void snakeController(snake_t *snake, desk_t *desk, food_t *food) {
             snakeTurnLeft(snake);
             printf("Obstacle front and right\n\r");
         }
+
+    else if (obstacleLeftOfSnake(snake, desk)) {
+
+        snake->direction = snake->direction;
+        printf("Obstacle left\n\r");
+    }
+
+    else if (obstacleRightOfSnake(snake, desk)) {
+
+        snake->direction = snake->direction;
+        printf("Obstacle right\n\r");
+    }
 
     else if (obstacleBeforeSnake(snake, desk))
         {
@@ -518,29 +530,33 @@ int obstacleBeforeSnake(snake_t *snake, desk_t *desk) {
     for (int k = 0; k < snake->length; k++) {
 
         if (
-            snake->direction == UP &&
-            snake->snake_skeleton[0].coords[1] == (snake->snake_skeleton[k].coords[1] + 1)
+            snake->direction == UP                                                          &&
+            snake->snake_skeleton[0].coords[1] == (snake->snake_skeleton[k].coords[1] + 1)  &&
+            snake->snake_skeleton[0].coords[0] == snake->snake_skeleton[k].coords[0]
         ) {
             ret = 1;
             return ret;
         }
         else if (
-            snake->direction == DOWN &&
-            snake->snake_skeleton[0].coords[1] == (snake->snake_skeleton[k].coords[1] - 1)
+            snake->direction == DOWN                                                        &&
+            snake->snake_skeleton[0].coords[1] == (snake->snake_skeleton[k].coords[1] - 1)  &&
+            snake->snake_skeleton[0].coords[0] == snake->snake_skeleton[k].coords[0]
         ) {
             ret = 1;
             return ret;
         }
         else if (
-            snake->direction == LEFT &&
-            snake->snake_skeleton[0].coords[0] == (snake->snake_skeleton[k].coords[0] + 1)
+            snake->direction == LEFT                                                        &&
+            snake->snake_skeleton[0].coords[0] == (snake->snake_skeleton[k].coords[0] + 1)  &&
+            snake->snake_skeleton[0].coords[1] == snake->snake_skeleton[k].coords[1]  
         ) {
             ret = 1;
             return ret;
         }
         else if (
-            snake->direction == RIGHT &&
-            snake->snake_skeleton[0].coords[0] == (snake->snake_skeleton[k].coords[0] - 1)
+            snake->direction == RIGHT                                                       &&
+            snake->snake_skeleton[0].coords[0] == (snake->snake_skeleton[k].coords[0] - 1)  &&
+            snake->snake_skeleton[0].coords[1] == snake->snake_skeleton[k].coords[1]  
         ) {
             ret = 1;
             return ret;
@@ -581,35 +597,42 @@ int obstacleLeftOfSnake(snake_t *snake, desk_t *desk) {
         ret = 1;
         return ret;
     }
-    for (int k = 0; k < snake->length; k++) {
+    else {
+
+        for (int k = 0; k < snake->length; k++) {
 
         if (
-            snake->direction == UP &&
-            snake->snake_skeleton[0].coords[0] == (snake->snake_skeleton[k].coords[0] + 1)
+            snake->direction == UP                                                          &&
+            snake->snake_skeleton[0].coords[0] == (snake->snake_skeleton[k].coords[0] + 1)  &&
+            snake->snake_skeleton[0].coords[1] == snake->snake_skeleton[k].coords[1]
         ) {
             ret = 1;
             return ret;
         }
         else if (
-            snake->direction == DOWN &&
-            snake->snake_skeleton[0].coords[0] == (snake->snake_skeleton[k].coords[0] - 1)
+            snake->direction == DOWN                                                        &&
+            snake->snake_skeleton[0].coords[0] == (snake->snake_skeleton[k].coords[0] - 1)  &&
+            snake->snake_skeleton[0].coords[1] == snake->snake_skeleton[k].coords[1]
         ) {
             ret = 1;
             return ret;
         }
         else if (
-            snake->direction == LEFT &&
-            snake->snake_skeleton[0].coords[1] == (snake->snake_skeleton[k].coords[1] + 1)
+            snake->direction == LEFT                                                        &&
+            snake->snake_skeleton[0].coords[1] == (snake->snake_skeleton[k].coords[1] - 1)  &&
+            snake->snake_skeleton[0].coords[0] == snake->snake_skeleton[k].coords[0]
         ) {
             ret = 1;
             return ret;
         }
         else if (
-            snake->direction == RIGHT &&
-            snake->snake_skeleton[0].coords[1] == (snake->snake_skeleton[k].coords[1] - 1)
+            snake->direction == RIGHT                                                       &&
+            snake->snake_skeleton[0].coords[1] == (snake->snake_skeleton[k].coords[1] + 1)  &&
+            snake->snake_skeleton[0].coords[0] == snake->snake_skeleton[k].coords[0]
         ) {
             ret = 1;
             return ret;
+        }
         }
     }
     return ret;
@@ -647,35 +670,42 @@ int obstacleRightOfSnake(snake_t *snake, desk_t *desk) {
         ret = 1;
         return ret;
     }
-    for (int k = 0; k < snake->length; k++) {
+    else {
+
+        for (int k = 0; k < snake->length; k++) {
 
         if (
-            snake->direction == UP &&
-            snake->snake_skeleton[0].coords[0] == (snake->snake_skeleton[k].coords[0] - 1)
+            snake->direction == UP                                                          &&
+            snake->snake_skeleton[0].coords[0] == (snake->snake_skeleton[k].coords[0] - 1)  &&
+            snake->snake_skeleton[0].coords[1] == snake->snake_skeleton[k].coords[1]
         ) {
             ret = 1;
             return ret;
         }
         else if (
-            snake->direction == DOWN &&
-            snake->snake_skeleton[0].coords[0] == (snake->snake_skeleton[k].coords[0] + 1)
+            snake->direction == DOWN                                                        &&
+            snake->snake_skeleton[0].coords[0] == (snake->snake_skeleton[k].coords[0] + 1)  &&
+            snake->snake_skeleton[0].coords[1] == snake->snake_skeleton[k].coords[1]
         ) {
             ret = 1;
             return ret;
         }
         else if (
-            snake->direction == LEFT &&
-            snake->snake_skeleton[0].coords[1] == (snake->snake_skeleton[k].coords[1] - 1)
+            snake->direction == LEFT                                                        &&
+            snake->snake_skeleton[0].coords[1] == (snake->snake_skeleton[k].coords[1] + 1)  &&
+            snake->snake_skeleton[0].coords[0] == snake->snake_skeleton[k].coords[0]
         ) {
             ret = 1;
             return ret;
         }
         else if (
-            snake->direction == RIGHT &&
-            snake->snake_skeleton[0].coords[1] == (snake->snake_skeleton[k].coords[1] + 1)
+            snake->direction == RIGHT                                                       &&
+            snake->snake_skeleton[0].coords[1] == (snake->snake_skeleton[k].coords[1] - 1)  &&
+            snake->snake_skeleton[0].coords[0] == snake->snake_skeleton[k].coords[0]
         ) {
             ret = 1;
             return ret;
+        }
         }
     }
     return ret;

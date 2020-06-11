@@ -17,6 +17,7 @@
 
 unsigned short *fb;
 int scale = 5;
+int speed = 250;
 
 int main() {
 
@@ -57,13 +58,11 @@ int main() {
     int start, now, sec, ns;
     start = clock();
 
-    // struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 100 * 1000 * 1000};
-    // clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
     while (snake.life) {
         now = clock();
         ns = (now-start) / 1000;
         sec = ns / 1000;
-        if (ns % 250 == 0){
+        if (ns % speed == 0){
             printf("%d\n", ns);
             drawDesk(&desk, &snake, &food, sec, fb);
             moveSnakeAI(&snake, &food, &desk);
@@ -95,20 +94,6 @@ int main() {
     if (parlcd_mem_base == NULL)
         exit(1);
     parlcd_hx8357_init(parlcd_mem_base);
-    
-
-    // draw Menu
-    // for (ptr = 0; ptr < 320*480 ; ptr++) {
-    //     fb[ptr]=0u;
-    // }
-    // char str[] = "Game over"; // 9
-    // char *ch = str;
-    // int x = 20;
-    // for (int i=0; i<9; i++) {
-    //     draw_char(x, 100, fdes1, *ch, scale);
-    //     x+=scale*char_width(fdes1, *ch)+2;
-    //     ch++;
-    // }
 
     // parlcd_write_cmd(parlcd_mem_base, 0x2c);
     // for (ptr = 0; ptr < 480*320 ; ptr++) {
