@@ -18,7 +18,7 @@
 // #include "font_prop14x16.c"
 
 unsigned short *fb;
-font_descriptor_t* fdes = &font_winFreeSystem14x16;
+// font_descriptor_t* fdes = &font_winFreeSystem14x16;
 
 int scale = 5;
 
