@@ -191,11 +191,11 @@ void draw_time(int sec){
   }
   for (int i = idx-1; i >= 0; i--){
       draw_char(x, y, fdes, str[i], size_time);
-      x+=size_score*char_width(fdes, str[i])+2;
+      x+=size_time*char_width(fdes, str[i])+2;
   }
 }
 
-void draw_EndGame(unsigned short *fb1){
+void draw_EndGame(unsigned short *fb1, int score){
   int ptr;
   fb = fb1;
   for (ptr = 0; ptr < 320*480 ; ptr++) {
@@ -208,6 +208,23 @@ void draw_EndGame(unsigned short *fb1){
       draw_char(x, 127, fdes, *ch, size_GameOver);
       x+=size_GameOver*char_width(fdes, *ch)+2;
       ch++;
+  }
+  x = 220;
+  if (score==0){
+      draw_char(x, y, fdes, '0', size_score);
+      return;
+  }
+  char str1[3] = "0";
+  int idx = 0;
+  while (score!=0)
+  {
+      str[idx] = score % 10 + '0';
+      score /= 10;
+      idx++;
+  }
+  for (int i = idx-1; i >= 0; i--){
+      draw_char(x, 224, fdes, str1[i], size_score);
+      x+=size_score*char_width(fdes, str1[i])+2;
   }
 
   // draw LCD
