@@ -253,7 +253,7 @@ void moveSnakeAI(snake_t *snake, food_t *food, desk_t *desk) {
     if (checkCollisions(snake, desk)) {
 
         printf("Gameover!\n");
-        exit(1);
+        snake->life = false;
         //change to gameover menu
     }
 
