@@ -232,7 +232,7 @@ void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
   }
   char RETRY[] = "RETRY"; // 5
   char *RE = RETRY;
-  int x = 19;
+  x = 19;
   for (int i=0; i<5; i++) {
       draw_char(x, 230, fdes, *RE, size_retry+retry*2);
       x+=size_GameOver*char_width(fdes, *RE)+2;
@@ -240,7 +240,7 @@ void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
   }
   char QUIT[] = "QUIT"; // 4
   char *QU = QUIT;
-  int x = 19;
+  x = 19;
   for (int i=0; i<4; i++) {
       draw_char(x, 310, fdes, *QU, size_quit+quit*2);
       x+=size_GameOver*char_width(fdes, *QU)+2;
