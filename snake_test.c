@@ -19,61 +19,8 @@
 
 unsigned short *fb;
 
+
 int scale = 5;
-
-void draw_pixel(int x, int y, int color) {
-  if (x>=0 && x<480 && y>=0 && y<320) {
-    fb[x+480*y] = color;
-  }
-}
-
-void draw_pixel_size(int x, int y, int size) {
-  int i, j;
-  for (i = 0; i < size; i++){
-    for (j = 0; j < size; j++){
-      draw_pixel(x-i, y-j, 63519);
-    }
-  }
-}
-
-int char_width(font_descriptor_t* fdes, int ch) {
-  int width = 0;
-  if ((ch >= fdes->firstchar) && (ch-fdes->firstchar < fdes->size)) {
-    ch -= fdes->firstchar;
-    if (!fdes->width) {
-      width = fdes->maxwidth;
-    } else {
-      width = fdes->width[ch];
-    }
-  }
-  return width;
-}
-
-void draw_char(int x, int y, font_descriptor_t* fdes, char ch) {
-  int w = char_width(fdes, ch);
-  if (w > 0) {
-    const font_bits_t *ptr;
-    if (fdes->offset) {
-      ptr = &fdes->bits[fdes->offset[ch-fdes->firstchar]];
-      ptr = fdes->bits + fdes->offset[ch-fdes->firstchar];
-    } else {
-      int bw = (fdes->maxwidth+15)/16;
-      ptr = fdes->bits + (ch-fdes->firstchar)*bw*fdes->height;
-    }
-    //printf("Znak %c na %i, %i, sirka %i\n", ch, x, y, w);
-    int i, j;
-    for (i = 0; i < fdes->height; i++){
-      font_bits_t val = *ptr;
-      for (j = 0; j < w; j++){
-        if ((val&0x8000) != 0) {
-          draw_pixel_size(x+scale*j, y+scale*i, scale);
-        }
-        val<<=1;
-      }
-      ptr++;
-    }
-  }
-}
 
 int main() {
 
@@ -155,10 +102,18 @@ int main() {
     
 
     // draw Menu
-
-    // for (ptr = 0; ptr < 320*480 ; ptr++) {
-    //     fb[ptr]=0u;
-    // }
+    int ptr;
+    for (ptr = 0; ptr < 320*480 ; ptr++) {
+        fb[ptr]=0u;
+    }
+    char str[] = "Game over"; // 9
+    char *ch = str;
+    x = 20;
+    for (int i=0; i<9; i++) {
+        draw_char(x, 100, fdes, *ch, scale);
+        x+=scale*char_width(fdes, *ch)+2;
+        ch++;
+    }
 
     parlcd_write_cmd(parlcd_mem_base, 0x2c);
         for (ptr = 0; ptr < 480*320 ; ptr++) {
