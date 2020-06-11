@@ -19,7 +19,7 @@ unsigned char *parlcd_mem_base;
 int size_cell = 20;
 int size_score = 5;
 int size_time = 4;
-int size_GameOver = 5;
+int size_GameOver = 6;
 
 snake_t initSnake(int displayWidth, int displayHeight, int initSnakeX, int initSnakeY) {
 
@@ -138,7 +138,7 @@ void draw_char(int x, int y, font_descriptor_t* fdes, char ch, int size) {
       int bw = (fdes->maxwidth+15)/16;
       ptr = fdes->bits + (ch-fdes->firstchar)*bw*fdes->height;
     }
-    //printf("Znak %c na %i, %i, sirka %i\n", ch, x, y, w);
+    printf("Znak %c na %i, %i, sirka %i\n", ch, x, y, w);
     int i, j;
     for (i = 0; i < fdes->height; i++){
       font_bits_t val = *ptr;
@@ -205,7 +205,7 @@ void draw_EndGame(unsigned short *fb1){
   char *ch = str;
   int x = 20;
   for (int i=0; i<9; i++) {
-      draw_char(x, 100, fdes, *ch, size_GameOver);
+      draw_char(x, 127, fdes, *ch, size_GameOver);
       x+=size_GameOver*char_width(fdes, *ch)+2;
       ch++;
   }
