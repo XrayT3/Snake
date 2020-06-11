@@ -143,7 +143,7 @@ void draw_char(int x, int y, font_descriptor_t* fdes, char ch, int size) {
       font_bits_t val = *ptr;
       for (j = 0; j < w; j++){
         if ((val&0x8000) != 0) {
-          draw_pixel_size(x+size_score*j, y+size_score*i, size);
+          draw_pixel_size(x+size*j, y+size*i, size);
         }
         val<<=1;
       }

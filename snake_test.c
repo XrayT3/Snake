@@ -19,6 +19,17 @@
 
 unsigned short *fb;
 
+int scale = 5;
+
+void draw_pixel_size(int x, int y, int size) {
+  int i, j;
+  for (i = 0; i < size; i++){
+    for (j = 0; j < size; j++){
+      draw_pixel(x-i, y-j, 63519);
+    }
+  }
+}
+
 int char_width(font_descriptor_t* fdes, int ch) {
   int width = 0;
   if ((ch >= fdes->firstchar) && (ch-fdes->firstchar < fdes->size)) {
@@ -49,7 +60,7 @@ void draw_char(int x, int y, font_descriptor_t* fdes, char ch) {
       font_bits_t val = *ptr;
       for (j = 0; j < w; j++){
         if ((val&0x8000) != 0) {
-          draw_pixel8(x+size_score*j, y+size_score*i);
+          draw_pixel_size(x+scale*j, y+scale*i, scale);
         }
         val<<=1;
       }
