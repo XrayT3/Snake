@@ -10,11 +10,11 @@
 #include "mzapo_parlcd.h"
 #include "mzapo_phys.h"
 #include "mzapo_regs.h"
-// #include "font_types.h"
-// #include "font_prop14x16.c"
+#include "font_types.h"
+#include "font_prop14x16.c"
 
 unsigned short *fb;
-// font_descriptor_t* fdes = &font_winFreeSystem14x16;
+font_descriptor_t* fdes = &font_winFreeSystem14x16;
 unsigned char *parlcd_mem_base;
 int size_cell = 20;
 int size_score = 5;
