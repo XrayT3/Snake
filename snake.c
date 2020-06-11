@@ -203,7 +203,7 @@ void draw_EndGame(unsigned short *fb1){
   }
   char str[] = "Game over"; // 9
   char *ch = str;
-  int x = 49;
+  int x = 19;
   for (int i=0; i<9; i++) {
       draw_char(x, 127, fdes, *ch, size_GameOver);
       x+=size_GameOver*char_width(fdes, *ch)+2;
@@ -244,7 +244,7 @@ void moveSnakeManual(snake_t *snake, food_t *food, desk_t *desk) {
     //logic part--------
     snakeStep(snake);
     if (checkCollisions(snake, desk)) {
-        printf("Gameover!\n");
+        printf("Game over!\n");
         snake->life = false;
         //change to gameover menu
     }
@@ -276,7 +276,7 @@ void moveSnakeAI(snake_t *snake, food_t *food, desk_t *desk) {
 
     if (checkCollisions(snake, desk)) {
 
-        printf("Gameover!\n");
+        printf("Game over!\n");
         snake->life = false;
         //change to gameover menu
     }
