@@ -98,7 +98,7 @@ void draw_food(int x, int y) {
   int i, j;
   for (i = 0; i < size_cell; i++){
     for (j = 0; j < size_cell; j++){
-      draw_pixel(x+i, y+j, 0x1f<<5);
+      draw_pixel(x+i, y+j, 2016);
     }
   }
 }
