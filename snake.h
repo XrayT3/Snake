@@ -41,7 +41,9 @@ snake_t initSnake(int displayWidth, int displayHeight, int initSnakeX, int initS
 
 food_t initFood(int coordX, int coordY);
 
-void moveSnake(snake_t *snake, food_t *food, desk_t *desk);
+void moveSnakeManual(snake_t *snake, food_t *food, desk_t *desk);
+
+void moveSnakeAI(snake_t *snake, food_t *food, desk_t *desk);
 
 void increaseSnake(snake_t *snake, int coordX, int coordY);
 
@@ -56,3 +58,15 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned shor
 void updateFood(desk_t *desk, food_t *food);
 
 void snakeStep(snake_t *snake);
+
+void snakeController(snake_t *snake, desk_t *desk, food_t *food);
+
+int obstacleBeforeSnake(snake_t *snake, desk_t *desk);
+
+int obstacleLeftOfSnake(snake_t *snake, desk_t *desk);
+
+int obstacleRightOfSnake(snake_t *snake, desk_t *desk);
+
+void snakeTurnLeft(snake_t *snake);
+
+void snakeTurnRight(snake_t *snake);

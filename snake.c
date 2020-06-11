@@ -193,7 +193,7 @@ void draw_time(int sec){
   }
 }
 
-void moveSnake(snake_t *snake, food_t *food, desk_t *desk) {
+void moveSnakeManual(snake_t *snake, food_t *food, desk_t *desk) {
     char ch;
     int r = read(0, &ch, 1);
 
@@ -210,40 +210,10 @@ void moveSnake(snake_t *snake, food_t *food, desk_t *desk) {
     if (r==1)
     {   
         if (ch == 'a') {
-
-          switch (snake->direction) {
-
-              case LEFT:
-                  snake->direction = DOWN;
-                  break;
-              case DOWN:
-                  snake->direction = RIGHT;
-                  break;              
-              case RIGHT:
-                  snake->direction = UP;
-                  break;
-              case UP:
-                  snake->direction = LEFT;
-                  break;
-          }
+          snakeTurnLeft(snake);
         }
         else if (ch == 'd') {
-
-            switch (snake->direction) {
-
-                case LEFT:
-                    snake->direction = UP;
-                    break;
-                case DOWN:
-                    snake->direction = LEFT;
-                    break;              
-                case RIGHT:
-                    snake->direction = DOWN;
-                    break;
-                case UP:
-                    snake->direction = RIGHT;
-                    break;
-            }
+          snakeTurnRight(snake);
         }
     }
 
@@ -257,6 +227,37 @@ void moveSnake(snake_t *snake, food_t *food, desk_t *desk) {
 
     snakeEats(food, snake, desk, lastCoords[0], lastCoords[1]);
 
+}
+
+void moveSnakeAI(snake_t *snake, food_t *food, desk_t *desk) {
+
+    //inputs part-------
+    int lastCoords[2] = {
+        snake->snake_skeleton[snake->length].coords[0],
+        snake->snake_skeleton[snake->length].coords[1], 
+    };
+
+    for (int k = snake->length; k > 0; k--) {
+
+        snake->snake_skeleton[k].coords[0] = snake->snake_skeleton[k - 1].coords[0];
+        snake->snake_skeleton[k].coords[1] = snake->snake_skeleton[k - 1].coords[1];
+    }
+
+    snakeController(snake, desk, food);
+
+    //logic part--------
+    snakeStep(snake);
+
+    
+
+    if (checkCollisions(snake, desk)) {
+
+        printf("Gameover!\n");
+        exit(1);
+        //change to gameover menu
+    }
+
+    snakeEats(food, snake, desk, lastCoords[0], lastCoords[1]);
 }
 
 void increaseSnake(snake_t *snake, int coordX, int coordY) {
@@ -398,3 +399,274 @@ void snakeStep(snake_t *snake) {
             break;
     }
 }
+
+void snakeController(snake_t *snake, desk_t *desk, food_t *food) {
+
+    int dx, dy;
+
+    dx = food->coord[0] - snake->snake_skeleton[0].coords[0];
+    dy = food->coord[1] - snake->snake_skeleton[0].coords[1];
+
+    if (obstacleBeforeSnake(snake, desk) && obstacleLeftOfSnake(snake, desk))
+        snakeTurnRight(snake);
+    
+    else if (obstacleBeforeSnake(snake, desk) && obstacleRightOfSnake(snake, desk))
+        snakeTurnLeft(snake);
+
+    else if (obstacleBeforeSnake(snake, desk))
+        snakeTurnLeft(snake);
+    
+    else if (dx < 0)
+        snake->direction = LEFT;
+
+    else if (dx > 0)
+        snake->direction = RIGHT;
+
+    else if (
+        (dx == 0) &&
+        dy < 0
+    )   snake->direction = UP;
+    
+    else if (
+        (dx == 0) &&
+        dy > 0
+    )   snake->direction = DOWN;
+}
+
+int obstacleBeforeSnake(snake_t *snake, desk_t *desk) {
+
+    int ret = 0;
+
+    if (
+        snake->direction == UP &&
+        snake->snake_skeleton[0].coords[1] == (desk->startY + 1)
+    ) {
+        ret = 1;
+        return ret;
+    }
+    else if (
+        snake->direction == DOWN &&
+        snake->snake_skeleton[0].coords[1] == (desk->endY - 1)
+    ) {
+        ret = 1;
+        return ret;
+    }
+    else if (
+        snake->direction == LEFT &&
+        snake->snake_skeleton[0].coords[0] == (desk->startX + 1)
+    ) {
+        ret = 1;
+        return ret;
+    }
+    else if (
+        snake->direction == RIGHT &&
+        snake->snake_skeleton[0].coords[0] == (desk->endX - 1)
+    ) {
+        ret = 1;
+        return ret;
+    }
+    for (int k = 0; k < snake->length; k++) {
+
+        if (
+            snake->direction == UP &&
+            snake->snake_skeleton[0].coords[1] == (snake->snake_skeleton[k].coords[1] + 1)
+        ) {
+            ret = 1;
+            return ret;
+        }
+        else if (
+            snake->direction == DOWN &&
+            snake->snake_skeleton[0].coords[1] == (snake->snake_skeleton[k].coords[1] - 1)
+        ) {
+            ret = 1;
+            return ret;
+        }
+        else if (
+            snake->direction == LEFT &&
+            snake->snake_skeleton[0].coords[0] == (snake->snake_skeleton[k].coords[0] + 1)
+        ) {
+            ret = 1;
+            return ret;
+        }
+        else if (
+            snake->direction == RIGHT &&
+            snake->snake_skeleton[0].coords[0] == (snake->snake_skeleton[k].coords[0] - 1)
+        ) {
+            ret = 1;
+            return ret;
+        }
+    }
+    return ret;
+}
+
+int obstacleLeftOfSnake(snake_t *snake, desk_t *desk) {
+
+    int ret = 0;
+
+    if (
+        snake->direction == UP &&
+        snake->snake_skeleton[0].coords[0] == (desk->startX + 1)
+    ) {
+        ret = 1;
+        return ret;
+    }
+    else if (
+        snake->direction == DOWN &&
+        snake->snake_skeleton[0].coords[0] == (desk->endX - 1)
+    ) {
+        ret = 1;
+        return ret;
+    }
+    else if (
+        snake->direction == LEFT &&
+        snake->snake_skeleton[0].coords[1] == (desk->endY - 1)
+    ) {
+        ret = 1;
+        return ret;
+    }
+    else if (
+        snake->direction == RIGHT &&
+        snake->snake_skeleton[0].coords[1] == (desk->startY + 1)
+    ) {
+        ret = 1;
+        return ret;
+    }
+    for (int k = 0; k < snake->length; k++) {
+
+        if (
+            snake->direction == UP &&
+            snake->snake_skeleton[0].coords[0] == (snake->snake_skeleton[k].coords[0] + 1)
+        ) {
+            ret = 1;
+            return ret;
+        }
+        else if (
+            snake->direction == DOWN &&
+            snake->snake_skeleton[0].coords[0] == (snake->snake_skeleton[k].coords[0] - 1)
+        ) {
+            ret = 1;
+            return ret;
+        }
+        else if (
+            snake->direction == LEFT &&
+            snake->snake_skeleton[0].coords[1] == (snake->snake_skeleton[k].coords[1] + 1)
+        ) {
+            ret = 1;
+            return ret;
+        }
+        else if (
+            snake->direction == RIGHT &&
+            snake->snake_skeleton[0].coords[1] == (snake->snake_skeleton[k].coords[1] - 1)
+        ) {
+            ret = 1;
+            return ret;
+        }
+    }
+    return ret;
+}
+
+int obstacleRightOfSnake(snake_t *snake, desk_t *desk) {
+
+    int ret = 0;
+
+    if (
+        snake->direction == UP &&
+        snake->snake_skeleton[0].coords[0] == (desk->endX - 1)
+    ) {
+        ret = 1;
+        return ret;
+    }
+    else if (
+        snake->direction == DOWN &&
+        snake->snake_skeleton[0].coords[0] == (desk->startX + 1)
+    ) {
+        ret = 1;
+        return ret;
+    }
+    else if (
+        snake->direction == LEFT &&
+        snake->snake_skeleton[0].coords[1] == (desk->startY + 1)
+    ) {
+        ret = 1;
+        return ret;
+    }
+    else if (
+        snake->direction == RIGHT &&
+        snake->snake_skeleton[0].coords[1] == (desk->endY - 1)
+    ) {
+        ret = 1;
+        return ret;
+    }
+    for (int k = 0; k < snake->length; k++) {
+
+        if (
+            snake->direction == UP &&
+            snake->snake_skeleton[0].coords[0] == (snake->snake_skeleton[k].coords[0] - 1)
+        ) {
+            ret = 1;
+            return ret;
+        }
+        else if (
+            snake->direction == DOWN &&
+            snake->snake_skeleton[0].coords[0] == (snake->snake_skeleton[k].coords[0] + 1)
+        ) {
+            ret = 1;
+            return ret;
+        }
+        else if (
+            snake->direction == LEFT &&
+            snake->snake_skeleton[0].coords[1] == (snake->snake_skeleton[k].coords[1] - 1)
+        ) {
+            ret = 1;
+            return ret;
+        }
+        else if (
+            snake->direction == RIGHT &&
+            snake->snake_skeleton[0].coords[1] == (snake->snake_skeleton[k].coords[1] + 1)
+        ) {
+            ret = 1;
+            return ret;
+        }
+    }
+    return ret;
+}
+
+void snakeTurnLeft(snake_t *snake) {
+
+    switch (snake->direction) {
+
+        case LEFT:
+            snake->direction = DOWN;
+            break;
+        case DOWN:
+            snake->direction = RIGHT;
+            break;              
+        case RIGHT:
+            snake->direction = UP;
+            break;
+        case UP:
+            snake->direction = LEFT;
+            break;
+    }
+}
+
+void snakeTurnRight(snake_t *snake) {
+
+    switch (snake->direction) {
+
+        case LEFT:
+            snake->direction = UP;
+            break;
+        case DOWN:
+            snake->direction = LEFT;
+            break;              
+        case RIGHT:
+            snake->direction = DOWN;
+            break;
+        case UP:
+            snake->direction = RIGHT;
+            break;
+    }
+}
+
+
