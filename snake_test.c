@@ -21,6 +21,12 @@ unsigned short *fb;
 
 int scale = 5;
 
+void draw_pixel(int x, int y, int color) {
+  if (x>=0 && x<480 && y>=0 && y<320) {
+    fb[x+480*y] = color;
+  }
+}
+
 void draw_pixel_size(int x, int y, int size) {
   int i, j;
   for (i = 0; i < size; i++){
