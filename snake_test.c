@@ -18,8 +18,6 @@
 #include "font_prop14x16.c"
 
 unsigned short *fb;
-font_descriptor_t* fdes1 = &font_winFreeSystem14x16;
-
 int scale = 5;
 
 int main() {
@@ -29,7 +27,6 @@ int main() {
     uint32_t val_line=5;
     uint32_t rgb_knobs_value;
     int i;
-    int ptr;
 
     static struct termios oldt, newt;
     tcgetattr( STDIN_FILENO, &oldt); 
