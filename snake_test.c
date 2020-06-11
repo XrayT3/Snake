@@ -15,8 +15,48 @@
 #include "mzapo_phys.h"
 #include "mzapo_regs.h"
 #include "font_types.h"
+#include "font_prop14x16.c"
 
 unsigned short *fb;
+
+int char_width(font_descriptor_t* fdes, int ch) {
+  int width = 0;
+  if ((ch >= fdes->firstchar) && (ch-fdes->firstchar < fdes->size)) {
+    ch -= fdes->firstchar;
+    if (!fdes->width) {
+      width = fdes->maxwidth;
+    } else {
+      width = fdes->width[ch];
+    }
+  }
+  return width;
+}
+
+void draw_char(int x, int y, font_descriptor_t* fdes, char ch) {
+  int w = char_width(fdes, ch);
+  if (w > 0) {
+    const font_bits_t *ptr;
+    if (fdes->offset) {
+      ptr = &fdes->bits[fdes->offset[ch-fdes->firstchar]];
+      ptr = fdes->bits + fdes->offset[ch-fdes->firstchar];
+    } else {
+      int bw = (fdes->maxwidth+15)/16;
+      ptr = fdes->bits + (ch-fdes->firstchar)*bw*fdes->height;
+    }
+    //printf("Znak %c na %i, %i, sirka %i\n", ch, x, y, w);
+    int i, j;
+    for (i = 0; i < fdes->height; i++){
+      font_bits_t val = *ptr;
+      for (j = 0; j < w; j++){
+        if ((val&0x8000) != 0) {
+          draw_pixel8(x+size_score*j, y+size_score*i);
+        }
+        val<<=1;
+      }
+      ptr++;
+    }
+  }
+}
 
 int main() {
 
@@ -64,7 +104,7 @@ int main() {
         now = clock();
         ns = (now-start) / 1000;
         sec = ns / 1000;
-        if (ns % 10 == 0){
+        if (ns % 100 == 0){
             printf("%d\n", ns);
             drawDesk(&desk, &snake, &food, sec, fb);
             moveSnakeAI(&snake, &food, &desk);
@@ -83,7 +123,7 @@ int main() {
     val_line = 15;
     // val_line = 1227133513;
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
-    struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 100 * 1000 * 1000};
+    struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 50 * 1000 * 1000};
     for (i=0; i<30; i++) {
         *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
         val_line<<=1;
@@ -96,6 +136,9 @@ int main() {
         exit(1);
     parlcd_hx8357_init(parlcd_mem_base);
     
+
+    // draw Menu
+
     // for (ptr = 0; ptr < 320*480 ; ptr++) {
     //     fb[ptr]=0u;
     // }
