@@ -203,7 +203,7 @@ void draw_EndGame(unsigned short *fb1){
   }
   char str[] = "Game over"; // 9
   char *ch = str;
-  int x = 20;
+  int x = 49;
   for (int i=0; i<9; i++) {
       draw_char(x, 127, fdes, *ch, size_GameOver);
       x+=size_GameOver*char_width(fdes, *ch)+2;
