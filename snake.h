@@ -51,6 +51,8 @@ int char_width(font_descriptor_t* fdes, int ch);
 
 void draw_char(int x, int y, font_descriptor_t* fdes, char ch, int size);
 
+void draw_EndGame(unsigned short *fb1);
+
 void moveSnakeManual(snake_t *snake, food_t *food, desk_t *desk);
 
 void moveSnakeAI(snake_t *snake, food_t *food, desk_t *desk);

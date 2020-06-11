@@ -19,6 +19,7 @@ unsigned char *parlcd_mem_base;
 int size_cell = 20;
 int size_score = 5;
 int size_time = 4;
+int size_GameOver = 5;
 
 snake_t initSnake(int displayWidth, int displayHeight, int initSnakeX, int initSnakeY) {
 
@@ -192,6 +193,28 @@ void draw_time(int sec){
       draw_char(x, y, fdes, str[i], size_time);
       x+=size_score*char_width(fdes, str[i])+2;
   }
+}
+
+void draw_EndGame(unsigned short *fb1){
+  int ptr;
+  fb = fb1;
+  for (ptr = 0; ptr < 320*480 ; ptr++) {
+        fb[ptr]=0u;
+  }
+  char str[] = "Game over"; // 9
+  char *ch = str;
+  int x = 20;
+  for (int i=0; i<9; i++) {
+      draw_char(x, 100, fdes, *ch, size_GameOver);
+      x+=size_GameOver*char_width(fdes, *ch)+2;
+      ch++;
+  }
+  
+  // draw LCD
+    parlcd_write_cmd(parlcd_mem_base, 0x2c);
+    for (ptr = 0; ptr < 480*320 ; ptr++) {
+        parlcd_write_data(parlcd_mem_base, fb[ptr]);
+    }
 }
 
 void moveSnakeManual(snake_t *snake, food_t *food, desk_t *desk) {

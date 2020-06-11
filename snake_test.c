@@ -76,6 +76,7 @@ int main() {
 
         }
     }
+    draw_EndGame(fb);
 
     rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
     rgb_knobs_value =16711680; //red
@@ -102,22 +103,22 @@ int main() {
     
 
     // draw Menu
-    for (ptr = 0; ptr < 320*480 ; ptr++) {
-        fb[ptr]=0u;
-    }
-    char str[] = "Game over"; // 9
-    char *ch = str;
-    int x = 20;
-    for (int i=0; i<9; i++) {
-        draw_char(x, 100, fdes1, *ch, scale);
-        x+=scale*char_width(fdes1, *ch)+2;
-        ch++;
-    }
+    // for (ptr = 0; ptr < 320*480 ; ptr++) {
+    //     fb[ptr]=0u;
+    // }
+    // char str[] = "Game over"; // 9
+    // char *ch = str;
+    // int x = 20;
+    // for (int i=0; i<9; i++) {
+    //     draw_char(x, 100, fdes1, *ch, scale);
+    //     x+=scale*char_width(fdes1, *ch)+2;
+    //     ch++;
+    // }
 
-    parlcd_write_cmd(parlcd_mem_base, 0x2c);
-        for (ptr = 0; ptr < 480*320 ; ptr++) {
-            parlcd_write_data(parlcd_mem_base, fb[ptr]);
-        }
+    // parlcd_write_cmd(parlcd_mem_base, 0x2c);
+    // for (ptr = 0; ptr < 480*320 ; ptr++) {
+    //     parlcd_write_data(parlcd_mem_base, fb[ptr]);
+    // }
 
     tcsetattr( STDIN_FILENO, TCSANOW, &oldt);
     return 0;
