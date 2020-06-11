@@ -218,7 +218,7 @@ void draw_EndGame(unsigned short *fb1, int score){
   int idx = 0;
   while (score!=0)
   {
-      st1[idx] = score % 10 + '0';
+      str1[idx] = score % 10 + '0';
       score /= 10;
       idx++;
   }
