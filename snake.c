@@ -273,9 +273,9 @@ void draw_Menu(unsigned short *fb1, int standard, int demo){
   }
   char str1[] = "DEMO"; // 8
   char *ch1 = str1;
-  x = 160;
+  x = 134;
   for (int i=0; i<8; i++) {
-      draw_char(x, 10, fdes, *ch1, size_demo+demo, 63519+(2016*demo));
+      draw_char(x, 170, fdes, *ch1, size_demo+demo, 63519+(2016*demo));
       x+=(size_demo+demo)*char_width(fdes, *ch1)+2;
       ch1++;
   }
