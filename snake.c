@@ -20,10 +20,10 @@ int size_cell = 20;
 int size_score = 5;
 int size_time = 4;
 int size_GameOver = 6;
-int size_retry = 3;
-int size_RETRY = 7;
-int size_quit = 3;
-int size_QUIT = 7;
+int size_retry = 4;
+int size_RETRY = 6;
+int size_quit = 4;
+int size_QUIT = 6;
 
 snake_t initSnake(int displayWidth, int displayHeight, int initSnakeX, int initSnakeY) {
 
@@ -209,7 +209,7 @@ void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
   char *ch = str;
   int x = 19;
   for (int i=0; i<9; i++) {
-      draw_char(x, 70, fdes, *ch, size_GameOver);
+      draw_char(x, 50, fdes, *ch, size_GameOver);
       x+=size_GameOver*char_width(fdes, *ch)+2;
       ch++;
   }
@@ -227,7 +227,7 @@ void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
       idx++;
   }
   for (int i = idx-1; i >= 0; i--){
-      draw_char(x, 150, fdes, str1[i], size_score);
+      draw_char(x, 130, fdes, str1[i], size_score);
       x+=size_score*char_width(fdes, str1[i])+2;
   }
   char RETRY[] = "RETRY"; // 5
