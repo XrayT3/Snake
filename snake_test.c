@@ -110,9 +110,11 @@ int main() {
 
     Menu:
     draw_Menu(fb, standard, demo);
+    printf("1\n");
     ch = '1';
     while (ch!=' ')
     {
+        printf("2\n");
         int r = read(0, &ch, 1);
         if (r==1)
         {   

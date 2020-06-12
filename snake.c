@@ -266,6 +266,7 @@ void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
 void draw_Menu(unsigned short *fb1, int standard, int demo){
   int ptr;
   fb = fb1;
+  printf("0\n");
   for (ptr = 0; ptr < 320*480 ; ptr++) {
         fb[ptr]=0u;
   }
