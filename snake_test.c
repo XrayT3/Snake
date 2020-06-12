@@ -60,7 +60,7 @@ int main() {
     snake = initSnake(16, 14, 5, 5);
     food = initFood(10, 10);
 
-    goto Menu;
+    // goto Menu;
 
     start_game:
     start = clock();
