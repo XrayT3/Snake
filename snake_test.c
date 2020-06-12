@@ -95,7 +95,8 @@ int main() {
         }
     }
     if (retry==1){
-        snake.life = true;
+        snake = initSnake(16, 14, 5, 5);
+        // snake.life = true;
         goto retry_game;
     }
     else

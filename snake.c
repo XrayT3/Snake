@@ -159,7 +159,7 @@ void draw_score(int score){
     int y = 20;
     int x = 380;
     if (score==0){
-        draw_char(x, y, fdes, '0', size_score, 63519);
+        draw_char(x, y, fdes, '0', size_score+1, 63519);
         return;
     }
     char str[3] = "0";
@@ -171,7 +171,7 @@ void draw_score(int score){
         idx++;
     }
     for (int i = idx-1; i >= 0; i--){
-        draw_char(x, y, fdes, str[i], size_score, 63519);
+        draw_char(x, y, fdes, str[i], size_score+1, 63519);
         x+=size_score*char_width(fdes, str[i])+2;
     }
 }
@@ -207,13 +207,13 @@ void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
   char *ch = str;
   int x = 54;
   for (int i=0; i<9; i++) {
-      draw_char(x, 20, fdes, *ch, size_GameOver, 63519);
+      draw_char(x, 10, fdes, *ch, size_GameOver, 63519);
       x+=size_GameOver*char_width(fdes, *ch)+2;
       ch++;
   }
   x = 220;
   if (score==0){
-      draw_char(x, 224, fdes, '0', size_score, 63519);
+      draw_char(x, 100, fdes, '0', size_score, 63519);
       return;
   }
   char str1[3] = "0";
@@ -225,7 +225,7 @@ void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
       idx++;
   }
   for (int i = idx-1; i >= 0; i--){
-      draw_char(x, 110, fdes, str1[i], size_score, 63519);
+      draw_char(x, 100, fdes, str1[i], size_score, 63519);
       x+=size_score*char_width(fdes, str1[i])+2;
   }
   char RETRY[] = "RETRY"; // 5
