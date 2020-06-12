@@ -49,6 +49,8 @@ void draw_pixel_size(int x, int y, int size, int color);
 
 void draw_EndGame(unsigned short *fb1, int score, int retry, int quit);
 
+void draw_Menu(unsigned short *fb1, int standard, int demo);
+
 void moveSnakeManual(snake_t *snake, food_t *food, desk_t *desk);
 
 void moveSnakeAI(snake_t *snake, food_t *food, desk_t *desk);

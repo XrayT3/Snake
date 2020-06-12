@@ -18,6 +18,8 @@
 unsigned short *fb;
 int scale = 5;
 int speed = 250;
+int standard = 1;
+int demo = 0;
 
 int main() {
     unsigned char *mem_base;
@@ -100,7 +102,7 @@ int main() {
     }
     else
     {
-        draw_Menu();
+        draw_Menu(fb, standard, demo);
     }
     
 
