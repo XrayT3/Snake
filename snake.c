@@ -21,9 +21,7 @@ int size_score = 5;
 int size_time = 4;
 int size_GameOver = 6;
 int size_retry = 4;
-int size_RETRY = 6;
 int size_quit = 4;
-int size_QUIT = 6;
 
 snake_t initSnake(int displayWidth, int displayHeight, int initSnakeX, int initSnakeY) {
 
@@ -232,15 +230,15 @@ void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
   }
   char RETRY[] = "RETRY"; // 5
   char *RE = RETRY;
-  x = 19;
+  x = 142-(24*retry);
   for (int i=0; i<5; i++) {
-      draw_char(x, 170, fdes, *RE, retry+size_retry);
+      draw_char(x, 180, fdes, *RE, retry+size_retry);
       x+=(size_retry+retry)*char_width(fdes, *RE)+2;
       RE++;
   }
   char QUIT[] = "QUIT"; // 4
   char *QU = QUIT;
-  x = 19;
+  x = 173-(13*quit);
   for (int i=0; i<4; i++) {
       draw_char(x, 250, fdes, *QU, quit+size_quit);
       x+=(size_quit+quit)*char_width(fdes, *QU)+2;
