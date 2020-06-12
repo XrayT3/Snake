@@ -20,6 +20,8 @@ int scale = 5;
 int speed = 250;
 int standard = 0;
 int demo = 1;
+int retry = 1;
+int quit = 0;
 
 int main() {
     unsigned char *mem_base;
@@ -77,10 +79,8 @@ int main() {
     }
     printf("Game oooooover!!!\n");
     sleep(1);
-    draw_EndGame(fb, snake.score, 1, 0);
+    draw_EndGame(fb, snake.score, retry, quit);
     char ch = '1';
-    int retry = 1;
-    int quit = 0;
     while (ch!=' ')
     {
         int r = read(0, &ch, 1);
