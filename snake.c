@@ -19,7 +19,7 @@ unsigned char *parlcd_mem_base;
 int size_cell = 20;
 int size_score = 5;
 int size_time = 4;
-int size_GameOver = 6;
+int size_GameOver = 5;
 int size_retry = 4;
 int size_quit = 4;
 
@@ -205,7 +205,7 @@ void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
   }
   char str[] = "Game over"; // 9
   char *ch = str;
-  int x = 19;
+  int x = 54;
   for (int i=0; i<9; i++) {
       draw_char(x, 30, fdes, *ch, size_GameOver);
       x+=size_GameOver*char_width(fdes, *ch)+2;
