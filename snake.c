@@ -209,7 +209,7 @@ void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
   char *ch = str;
   int x = 19;
   for (int i=0; i<9; i++) {
-      draw_char(x, 50, fdes, *ch, size_GameOver);
+      draw_char(x, 30, fdes, *ch, size_GameOver);
       x+=size_GameOver*char_width(fdes, *ch)+2;
       ch++;
   }
@@ -227,23 +227,23 @@ void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
       idx++;
   }
   for (int i = idx-1; i >= 0; i--){
-      draw_char(x, 130, fdes, str1[i], size_score);
+      draw_char(x, 110, fdes, str1[i], size_score);
       x+=size_score*char_width(fdes, str1[i])+2;
   }
   char RETRY[] = "RETRY"; // 5
   char *RE = RETRY;
   x = 19;
-  // for (int i=0; i<5; i++) {
-  //     draw_char(x, 150, fdes, *RE, retry*2+size_retry);
-  //     x+=size_GameOver*char_width(fdes, *RE)+2;
-  //     RE++;
-  // }
+  for (int i=0; i<5; i++) {
+      draw_char(x, 150, fdes, *RE, retry*2+size_retry);
+      x+=(size_retry+retry*2)*char_width(fdes, *RE)+2;
+      RE++;
+  }
   char QUIT[] = "QUIT"; // 4
   char *QU = QUIT;
   x = 19;
   for (int i=0; i<4; i++) {
       draw_char(x, 250, fdes, *QU, size_quit+quit*2);
-      x+=size_GameOver*char_width(fdes, *QU)+2;
+      x+=(size_quit+quit*2)*char_width(fdes, *QU)+2;
       QU++;
   }
 
