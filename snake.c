@@ -331,6 +331,11 @@ void draw_speed_ctrl(unsigned short *fb1, int slow, int medium, int fast){
         x+=4*char_width(fdes, *ch3)+2;
         ch3++;
     }
+    // draw LCD
+    parlcd_write_cmd(parlcd_mem_base, 0x2c);
+    for (ptr = 0; ptr < 480*320 ; ptr++) {
+        parlcd_write_data(parlcd_mem_base, fb[ptr]);
+    }
 }
 
 void moveSnakeManual(snake_t *snake, food_t *food, desk_t *desk) {
