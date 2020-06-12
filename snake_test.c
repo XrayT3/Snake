@@ -107,12 +107,9 @@ int main() {
         snake = initSnake(16, 14, 5, 5);
         goto start_game;
     }
-    else
-    {
-        draw_Menu(fb, standard, demo);
-    }
 
     Menu:
+    draw_Menu(fb, standard, demo);
     ch = '1';
     while (ch!=' ')
     {
