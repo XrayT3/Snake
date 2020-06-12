@@ -20,7 +20,6 @@ int scale = 5;
 int speed = 100;
 
 int main() {
-
     unsigned char *mem_base;
     unsigned char *parlcd_mem_base;
     uint32_t val_line=5;
@@ -57,7 +56,7 @@ int main() {
 
     int start, now, sec, ns;
     start = clock();
-
+    retry_game:
     while (snake.life) {
         now = clock();
         ns = (now-start) / 1000;
@@ -72,7 +71,6 @@ int main() {
     }
     sleep(1);
     draw_EndGame(fb, snake.score, 1, 0);
-    sleep(1);
     char ch = '1';
     int retry = 1;
     int quit = 0;
@@ -96,6 +94,15 @@ int main() {
             }
         }
     }
+    if (retry==1){
+        snake.life = true;
+        goto retry_game;
+    }
+    else
+    {
+        printf("quit\n");
+    }
+    
 
     rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
     rgb_knobs_value =16711680; //red

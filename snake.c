@@ -207,7 +207,7 @@ void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
   char *ch = str;
   int x = 54;
   for (int i=0; i<9; i++) {
-      draw_char(x, 30, fdes, *ch, size_GameOver, 63519);
+      draw_char(x, 20, fdes, *ch, size_GameOver, 63519);
       x+=size_GameOver*char_width(fdes, *ch)+2;
       ch++;
   }
