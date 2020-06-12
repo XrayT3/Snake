@@ -17,7 +17,7 @@
 
 unsigned short *fb;
 int scale = 5;
-int speed = 250;
+int speed = 100;
 int standard = 0;
 int demo = 1;
 int retry = 1;
@@ -60,7 +60,31 @@ int main() {
     snake = initSnake(16, 14, 5, 5);
     food = initFood(10, 10);
 
-    // goto Menu;
+    Menu:
+    draw_Menu(fb, standard, demo);
+    ch = '1';
+    while (ch!=' ')
+    {
+        int r = read(0, &ch, 1);
+        if (r==1)
+        {   
+            if (ch == 'w') {
+                standard = 1 - standard;
+                demo = 1 - demo;
+                draw_Menu(fb, standard, demo);
+            }
+            else if (ch == 's') {
+                standard = 1 - standard;
+                demo = 1 - demo;
+                draw_Menu(fb, standard, demo);
+            }
+            else if (ch == ' ') {
+                break;
+            }
+        }
+    }
+        
+    snake = initSnake(16, 14, 5, 5);
 
     start_game:
     start = clock();
@@ -107,41 +131,10 @@ int main() {
         snake = initSnake(16, 14, 5, 5);
         goto start_game;
     }
-
-    Menu:
-    draw_Menu(fb, standard, demo);
-    printf("5\n");
-    ch = '1';
-    while (ch!=' ')
-    {
-        int r = read(0, &ch, 1);
-        if (r==1)
-        {   
-            if (ch == 'w') {
-                standard = 1 - standard;
-                demo = 1 - demo;
-                draw_Menu(fb, standard, demo);
-            }
-            else if (ch == 's') {
-                standard = 1 - standard;
-                demo = 1 - demo;
-                draw_Menu(fb, standard, demo);
-            }
-            else if (ch == ' ') {
-                break;
-            }
-        }
+    else {
+        goto Menu;
     }
-        
-    if (standard==1){
-        snake = initSnake(16, 14, 5, 5);
-        goto start_game;
-    }
-    else
-    {
-        snake = initSnake(16, 14, 5, 5);
-        goto start_game;
-    }
+    
 
     rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
     rgb_knobs_value =16711935; //purple

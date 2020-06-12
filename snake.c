@@ -285,22 +285,18 @@ void draw_Menu(unsigned short *fb1, int standard, int demo){
       x+=(size_demo+demo)*char_width(fdes, *ch1)+2;
       ch1++;
   }
-  printf("0\n");
   // draw LCD
     parlcd_write_cmd(parlcd_mem_base, 0x2c);
     for (ptr = 0; ptr < 480*320 ; ptr++) {
         parlcd_write_data(parlcd_mem_base, fb[ptr]);
     }
 
-    printf("1\n");
     //draw LED
     rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
     rgb_knobs_value = 16711935; //purple
-    printf("2\n");
 
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
-    printf("3\n");
 }
 
 void moveSnakeManual(snake_t *snake, food_t *food, desk_t *desk) {
