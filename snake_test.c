@@ -18,8 +18,8 @@
 unsigned short *fb;
 int scale = 5;
 int speed = 250;
-int standard = 1;
-int demo = 0;
+int standard = 0;
+int demo = 1;
 
 int main() {
     unsigned char *mem_base;
@@ -57,7 +57,7 @@ int main() {
     food = initFood(10, 10);
 
     int start, now, sec, ns;
-    retry_game:
+    start_game:
     start = clock();
     while (snake.life) {
         now = clock();
@@ -66,9 +66,13 @@ int main() {
         if (ns % speed == 0){
             printf("%d\n", ns);
             drawDesk(&desk, &snake, &food, sec, fb);
-            moveSnakeAI(&snake, &food, &desk);
-            // moveSnakeManual(&snake, &food, &desk);
-
+            if (standard==1){
+                moveSnakeManual(&snake, &food, &desk);
+            }
+            else
+            {
+                moveSnakeAI(&snake, &food, &desk);
+            }
         }
     }
     sleep(1);
@@ -96,18 +100,50 @@ int main() {
             }
         }
     }
+
     if (retry==1){
         snake = initSnake(16, 14, 5, 5);
-        goto retry_game;
+        goto start_game;
     }
     else
     {
         draw_Menu(fb, standard, demo);
     }
-    
+
+    ch = '1';
+    while (ch!=' ')
+    {
+        int r = read(0, &ch, 1);
+        if (r==1)
+        {   
+            if (ch == 'w') {
+                standard = 1 - standard;
+                demo = 1 - demo;
+                draw_Menu(fb, standard, demo);
+            }
+            else if (ch == 's') {
+                standard = 1 - standard;
+                demo = 1 - demo;
+                draw_Menu(fb, standard, demo);
+            }
+            else if (ch == ' ') {
+                break;
+            }
+        }
+    }
+        
+    if (standard==1){
+        snake = initSnake(16, 14, 5, 5);
+        goto start_game;
+    }
+    else
+    {
+        snake = initSnake(16, 14, 5, 5);
+        goto start_game;
+    }
 
     rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
-    rgb_knobs_value =16711680; //red
+    rgb_knobs_value =16711935; //purple
 
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
