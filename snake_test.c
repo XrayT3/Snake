@@ -75,6 +75,7 @@ int main() {
             }
         }
     }
+    printf("Game oooooover!!!\n");
     sleep(1);
     draw_EndGame(fb, snake.score, 1, 0);
     char ch = '1';
