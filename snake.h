@@ -45,7 +45,7 @@ food_t initFood(int coordX, int coordY);
 
 void draw_pixel(int x, int y, int color);
 
-void draw_pixel_size(int x, int y, int size);
+void draw_pixel_size(int x, int y, int size, int color);
 
 void draw_EndGame(unsigned short *fb1, int score, int retry, int quit);
 

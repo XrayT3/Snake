@@ -17,7 +17,7 @@ unsigned short *fb;
 font_descriptor_t* fdes = &font_winFreeSystem14x16;
 unsigned char *parlcd_mem_base;
 int size_cell = 20;
-int size_score = 5;
+int size_score = 4;
 int size_time = 4;
 int size_GameOver = 5;
 int size_retry = 4;
@@ -54,11 +54,11 @@ void draw_pixel(int x, int y, int color) {
   }
 }
 
-void draw_pixel_size(int x, int y, int size) {
+void draw_pixel_size(int x, int y, int size, int color) {
   int i, j;
   for (i = 0; i < size; i++){
     for (j = 0; j < size; j++){
-      draw_pixel(x-i, y-j, 63519);
+      draw_pixel(x-i, y-j, color);
     }
   }
 }
@@ -129,7 +129,7 @@ int char_width(font_descriptor_t* fdes, int ch) {
   return width;
 }
 
-void draw_char(int x, int y, font_descriptor_t* fdes, char ch, int size) {
+void draw_char(int x, int y, font_descriptor_t* fdes, char ch, int size, int color) {
   int w = char_width(fdes, ch);
   if (w > 0) {
     const font_bits_t *ptr;
@@ -146,7 +146,7 @@ void draw_char(int x, int y, font_descriptor_t* fdes, char ch, int size) {
       font_bits_t val = *ptr;
       for (j = 0; j < w; j++){
         if ((val&0x8000) != 0) {
-          draw_pixel_size(x+size*j, y+size*i, size);
+          draw_pixel_size(x+size*j, y+size*i, size, color);
         }
         val<<=1;
       }
@@ -159,7 +159,7 @@ void draw_score(int score){
     int y = 20;
     int x = 380;
     if (score==0){
-        draw_char(x, y, fdes, '0', size_score);
+        draw_char(x, y, fdes, '0', size_score, 63519);
         return;
     }
     char str[3] = "0";
@@ -171,7 +171,7 @@ void draw_score(int score){
         idx++;
     }
     for (int i = idx-1; i >= 0; i--){
-        draw_char(x, y, fdes, str[i], size_score);
+        draw_char(x, y, fdes, str[i], size_score, 63519);
         x+=size_score*char_width(fdes, str[i])+2;
     }
 }
@@ -180,7 +180,7 @@ void draw_time(int sec){
   int y = 127;
   int x = 380;
   if (sec==0){
-      draw_char(x, y, fdes, '0', size_time);
+      draw_char(x, y, fdes, '0', size_time, 63519);
       return;
   }
   char str[3] = "0";
@@ -192,7 +192,7 @@ void draw_time(int sec){
       idx++;
   }
   for (int i = idx-1; i >= 0; i--){
-      draw_char(x, y, fdes, str[i], size_time);
+      draw_char(x, y, fdes, str[i], size_time, 63519);
       x+=size_time*char_width(fdes, str[i])+2;
   }
 }
@@ -207,13 +207,13 @@ void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
   char *ch = str;
   int x = 54;
   for (int i=0; i<9; i++) {
-      draw_char(x, 30, fdes, *ch, size_GameOver);
+      draw_char(x, 30, fdes, *ch, size_GameOver, 63519);
       x+=size_GameOver*char_width(fdes, *ch)+2;
       ch++;
   }
   x = 220;
   if (score==0){
-      draw_char(x, 224, fdes, '0', size_score);
+      draw_char(x, 224, fdes, '0', size_score, 63519);
       return;
   }
   char str1[3] = "0";
@@ -225,14 +225,14 @@ void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
       idx++;
   }
   for (int i = idx-1; i >= 0; i--){
-      draw_char(x, 110, fdes, str1[i], size_score);
+      draw_char(x, 110, fdes, str1[i], size_score, 63519);
       x+=size_score*char_width(fdes, str1[i])+2;
   }
   char RETRY[] = "RETRY"; // 5
   char *RE = RETRY;
   x = 142-(24*retry);
   for (int i=0; i<5; i++) {
-      draw_char(x, 180, fdes, *RE, retry+size_retry);
+      draw_char(x, 180, fdes, *RE, retry+size_retry, 63519+(2016*retry));
       x+=(size_retry+retry)*char_width(fdes, *RE)+2;
       RE++;
   }
@@ -240,7 +240,7 @@ void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
   char *QU = QUIT;
   x = 173-(13*quit);
   for (int i=0; i<4; i++) {
-      draw_char(x, 250, fdes, *QU, quit+size_quit);
+      draw_char(x, 250, fdes, *QU, quit+size_quit, 63519+(2016*quit));
       x+=(size_quit+quit)*char_width(fdes, *QU)+2;
       QU++;
   }
