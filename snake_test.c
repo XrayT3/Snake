@@ -58,6 +58,8 @@ int main() {
     snake = initSnake(16, 14, 5, 5);
     food = initFood(10, 10);
 
+    goto Menu;
+
     int start, now, sec, ns;
     start_game:
     start = clock();
@@ -110,6 +112,7 @@ int main() {
         draw_Menu(fb, standard, demo);
     }
 
+    Menu:
     ch = '1';
     while (ch!=' ')
     {
