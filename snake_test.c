@@ -55,8 +55,8 @@ int main() {
     food = initFood(10, 10);
 
     int start, now, sec, ns;
-    start = clock();
     retry_game:
+    start = clock();
     while (snake.life) {
         now = clock();
         ns = (now-start) / 1000;
@@ -96,12 +96,11 @@ int main() {
     }
     if (retry==1){
         snake = initSnake(16, 14, 5, 5);
-        // snake.life = true;
         goto retry_game;
     }
     else
     {
-        printf("quit\n");
+        draw_Menu();
     }
     
 

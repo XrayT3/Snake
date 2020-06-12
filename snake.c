@@ -25,6 +25,8 @@ int size_time = 4;
 int size_GameOver = 5;
 int size_retry = 4;
 int size_quit = 4;
+int size_standard = 5;
+int size_demo = 5;
 
 snake_t initSnake(int displayWidth, int displayHeight, int initSnakeX, int initSnakeY) {
 
@@ -248,6 +250,35 @@ void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
       QU++;
   }
 
+  // draw LCD
+    parlcd_write_cmd(parlcd_mem_base, 0x2c);
+    for (ptr = 0; ptr < 480*320 ; ptr++) {
+        parlcd_write_data(parlcd_mem_base, fb[ptr]);
+    }
+}
+
+void draw_Menu(unsigned short *fb1, int standard, int demo){
+  int ptr;
+  fb = fb1;
+  for (ptr = 0; ptr < 320*480 ; ptr++) {
+        fb[ptr]=0u;
+  }
+  char str[] = "STANDARD"; // 8
+  char *ch = str;
+  int x = 20;
+  for (int i=0; i<8; i++) {
+      draw_char(x, 10, fdes, *ch, size_standard+standard, 63519+(2016*standard));
+      x+=(size_standard+standard)*char_width(fdes, *ch)+2;
+      ch++;
+  }
+  char str1[] = "DEMO"; // 8
+  char *ch1 = str1;
+  x = 160;
+  for (int i=0; i<8; i++) {
+      draw_char(x, 10, fdes, *ch1, size_demo+demo, 63519+(2016*demo));
+      x+=(size_demo+demo)*char_width(fdes, *ch1)+2;
+      ch1++;
+  }
   // draw LCD
     parlcd_write_cmd(parlcd_mem_base, 0x2c);
     for (ptr = 0; ptr < 480*320 ; ptr++) {
