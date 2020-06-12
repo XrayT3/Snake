@@ -17,7 +17,7 @@
 
 unsigned short *fb;
 int scale = 5;
-int speed = 100;
+int speed = 250;
 
 int main() {
     unsigned char *mem_base;
