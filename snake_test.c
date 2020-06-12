@@ -81,6 +81,7 @@ int main() {
     }
     sleep(1);
     draw_EndGame(fb, snake.score, retry, quit);
+    ch = '1';
     while (ch!=' ')
     {
         int r = read(0, &ch, 1);
