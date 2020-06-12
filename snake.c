@@ -16,6 +16,9 @@
 unsigned short *fb;
 font_descriptor_t* fdes = &font_winFreeSystem14x16;
 unsigned char *parlcd_mem_base;
+unsigned char *mem_base;
+uint32_t rgb_knobs_value;
+
 int size_cell = 20;
 int size_score = 4;
 int size_time = 4;
@@ -306,8 +309,6 @@ void moveSnakeAI(snake_t *snake, food_t *food, desk_t *desk) {
     //logic part--------
     snakeStep(snake);
 
-    
-
     if (checkCollisions(snake, desk)) {
 
         printf("Game over!\n");
@@ -333,6 +334,11 @@ void snakeEats(food_t *food, snake_t *snake, desk_t *desk, int lastCoordX, int l
     ) {
 
         snake->score += 1;
+        rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
+        rgb_knobs_value = 255; // blue
+
+        *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
+        *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
         increaseSnake(snake, lastCoordX, lastCoordY);
         updateFood(desk, food, snake);
     }
@@ -416,6 +422,13 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned shor
             }
         }
     }
+
+    // LED
+    rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
+    rgb_knobs_value = 65280; // green
+
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
 
     // draw LCD
     parlcd_write_cmd(parlcd_mem_base, 0x2c);
