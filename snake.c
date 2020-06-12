@@ -219,9 +219,11 @@ void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
   x = 220;
   printf("1\n");
   if (score==0){
-      draw_char(x, 100, fdes, '0', size_score, 63519);
+      draw_char(x, 100, fdes, "0", size_score, 63519);
+      printf("1.2\n");
       return;
   }
+  printf("1.5\n");
   char str1[3] = "0";
   int idx = 0;
   printf("2\n");
