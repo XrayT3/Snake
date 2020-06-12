@@ -29,6 +29,8 @@ int main() {
     uint32_t val_line=5;
     uint32_t rgb_knobs_value;
     int i;
+    int start, now, sec, ns;
+    char ch = '1';
 
     static struct termios oldt, newt;
     tcgetattr( STDIN_FILENO, &oldt); 
@@ -60,7 +62,6 @@ int main() {
 
     goto Menu;
 
-    int start, now, sec, ns;
     start_game:
     start = clock();
     while (snake.life) {
@@ -81,7 +82,6 @@ int main() {
     }
     sleep(1);
     draw_EndGame(fb, snake.score, retry, quit);
-    char ch = '1';
     while (ch!=' ')
     {
         int r = read(0, &ch, 1);
