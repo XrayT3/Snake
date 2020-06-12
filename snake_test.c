@@ -46,11 +46,11 @@ int main() {
     if (mem_base == NULL)
         exit(1);
 
-    // rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
-    // rgb_knobs_value = 16711935; //pink
+    rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
+    rgb_knobs_value = 16711935; //pink
 
-    // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
-    // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
 
     snake_t snake;
     desk_t desk;
@@ -59,38 +59,9 @@ int main() {
     desk = initDesk(16, 14, 1, 1);
     snake = initSnake(16, 14, 5, 5);
     food = initFood(10, 10);
-
-    draw_Menu1(fb, standard, demo);
-    goto start;
-
-    Menu:
-    draw_Menu(fb, standard, demo);
-    start:
-    ch = '1';
-    while (ch!=' ')
-    {
-        int r = read(0, &ch, 1);
-        if (r==1)
-        {   
-            if (ch == 'w') {
-                standard = 1 - standard;
-                demo = 1 - demo;
-                draw_Menu(fb, standard, demo);
-            }
-            else if (ch == 's') {
-                standard = 1 - standard;
-                demo = 1 - demo;
-                draw_Menu(fb, standard, demo);
-            }
-            else if (ch == ' ') {
-                break;
-            }
-        }
-    }
         
-    snake = initSnake(16, 14, 5, 5);
-
     start_game:
+    snake = initSnake(16, 14, 5, 5);
     start = clock();
     while (snake.life) {
         now = clock();
@@ -135,10 +106,30 @@ int main() {
         snake = initSnake(16, 14, 5, 5);
         goto start_game;
     }
-    else {
-        goto Menu;
-    }
     
+    draw_Menu(fb, standard, demo);
+    ch = '1';
+    while (ch!=' ')
+    {
+        int r = read(0, &ch, 1);
+        if (r==1)
+        {   
+            if (ch == 'w') {
+                standard = 1 - standard;
+                demo = 1 - demo;
+                draw_Menu(fb, standard, demo);
+            }
+            else if (ch == 's') {
+                standard = 1 - standard;
+                demo = 1 - demo;
+                draw_Menu(fb, standard, demo);
+            }
+            else if (ch == ' ') {
+                break;
+            }
+        }
+    }
+    goto start_game;
 
     rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
     rgb_knobs_value =16711935; //purple
