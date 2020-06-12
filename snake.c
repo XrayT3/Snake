@@ -265,16 +265,16 @@ void draw_Menu(unsigned short *fb1, int standard, int demo){
   }
   char str[] = "STANDARD"; // 8
   char *ch = str;
-  int x = 20;
+  int x = 49-(standard*36);
   for (int i=0; i<8; i++) {
-      draw_char(x, 10, fdes, *ch, size_standard+standard, 63519+(2016*standard));
+      draw_char(x, 50, fdes, *ch, size_standard+standard, 63519+(2016*standard));
       x+=(size_standard+standard)*char_width(fdes, *ch)+2;
       ch++;
   }
-  char str1[] = "DEMO"; // 8
+  char str1[] = "DEMO"; // 4
   char *ch1 = str1;
-  x = 134;
-  for (int i=0; i<8; i++) {
+  x = 134-(23*demo);
+  for (int i=0; i<4; i++) {
       draw_char(x, 170, fdes, *ch1, size_demo+demo, 63519+(2016*demo));
       x+=(size_demo+demo)*char_width(fdes, *ch1)+2;
       ch1++;
