@@ -59,6 +59,8 @@ int main() {
     desk = initDesk(16, 14, 1, 1);
     snake = initSnake(16, 14, 5, 5);
     food = initFood(10, 10);
+
+    goto Menu;
         
     start_game:
     snake = initSnake(16, 14, 5, 5);
@@ -107,7 +109,7 @@ int main() {
         snake = initSnake(16, 14, 5, 5);
         goto start_game;
     }
-    
+    Menu:
     draw_Menu(fb, standard, demo);
     ch = '1';
     while (ch!=' ')
