@@ -217,12 +217,14 @@ void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
       ch++;
   }
   x = 220;
+  printf("1\n");
   if (score==0){
       draw_char(x, 100, fdes, '0', size_score, 63519);
       return;
   }
   char str1[3] = "0";
   int idx = 0;
+  printf("2\n");
   while (score!=0)
   {
       str1[idx] = score % 10 + '0';
@@ -236,11 +238,13 @@ void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
   char RETRY[] = "RETRY"; // 5
   char *RE = RETRY;
   x = 142-(24*retry);
+  printf("3\n");
   for (int i=0; i<5; i++) {
       draw_char(x, 180, fdes, *RE, retry+size_retry, 63519+(2016*retry));
       x+=(size_retry+retry)*char_width(fdes, *RE)+2;
       RE++;
   }
+  printf("4\n");
   char QUIT[] = "QUIT"; // 4
   char *QU = QUIT;
   x = 173-(13*quit);
