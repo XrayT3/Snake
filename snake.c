@@ -27,6 +27,7 @@ int size_retry = 4;
 int size_quit = 4;
 int size_standard = 5;
 int size_demo = 5;
+int size_speed = 5;
 
 snake_t initSnake(int displayWidth, int displayHeight, int initSnakeX, int initSnakeY) {
 
@@ -289,6 +290,46 @@ void draw_Menu(unsigned short *fb1, int standard, int demo){
     parlcd_write_cmd(parlcd_mem_base, 0x2c);
     for (ptr = 0; ptr < 480*320 ; ptr++) {
         parlcd_write_data(parlcd_mem_base, fb[ptr]);
+    }
+}
+
+void draw_speed_ctrl(unsigned short *fb1, int slow, int medium, int fast){
+    int ptr;
+    fb = fb1;
+    for (ptr = 0; ptr < 320*480 ; ptr++) {
+            fb[ptr]=0u;
+    }
+    char str[] = "Set speed"; // 9
+    char *ch = str;
+    int x = 49;
+    for (int i=0; i<9; i++) {
+        draw_char(x, 20, fdes, *ch, size_speed, 63519);
+        x+=size_speed*char_width(fdes, *ch)+2;
+        ch++;
+    }
+    char str1[] = "Slow"; // 4
+    char *ch1 = str1;
+    x = 49;
+    for (int i=0; i<4; i++) {
+        draw_char(x, 50, fdes, *ch1, 4, 63519+(2016*slow));
+        x+=4*char_width(fdes, *ch1)+2;
+        ch1++;
+    }
+    char str2[] = "Medium"; // 6
+    char *ch2 = str2;
+    x = 49;
+    for (int i=0; i<6; i++) {
+        draw_char(x, 150, fdes, *ch2, 4, 63519+(2016*medium));
+        x+=4*char_width(fdes, *ch2)+2;
+        ch2++;
+    }
+    char str3[] = "Fast"; // 4
+    char *ch3 = str3;
+    x = 49;
+    for (int i=0; i<4; i++) {
+        draw_char(x, 250, fdes, *ch3, 4, 63519+(2016*fast));
+        x+=4*char_width(fdes, *ch3)+2;
+        ch3++;
     }
 }
 

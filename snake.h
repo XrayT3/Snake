@@ -51,6 +51,8 @@ void draw_EndGame(unsigned short *fb1, int score, int retry, int quit);
 
 void draw_Menu(unsigned short *fb1, int standard, int demo);
 
+void draw_speed_ctrl(unsigned short *fb1, int slow, int medium, int fast);
+
 void moveSnakeManual(snake_t *snake, food_t *food, desk_t *desk);
 
 void moveSnakeAI(snake_t *snake, food_t *food, desk_t *desk);

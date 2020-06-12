@@ -22,6 +22,10 @@ int standard = 0;
 int demo = 1;
 int retry = 1;
 int quit = 0;
+int slow = 1;
+int medium = 0;
+int fast = 0;
+int a, b, c;
 
 int main() {
     unsigned char *mem_base;
@@ -46,11 +50,11 @@ int main() {
     if (mem_base == NULL)
         exit(1);
 
-    rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
-    rgb_knobs_value = 16711935; //pink
+    // rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
+    // rgb_knobs_value = 16711935; //pink
 
-    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
-    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
+    // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
+    // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
 
     snake_t snake;
     desk_t desk;
@@ -58,12 +62,41 @@ int main() {
 
     desk = initDesk(16, 14, 1, 1);
     snake = initSnake(16, 14, 5, 5);
+    // snake2 = initSnake(16, 14, 10, 10);
     food = initFood(10, 10);
 
     goto Menu;
         
     start_game:
     snake = initSnake(16, 14, 5, 5);
+    draw_speed_ctrl(fb, slow, medium, fast);
+    ch = '1';
+    while (ch!=' ')
+    {
+        int r = read(0, &ch, 1);
+        if (r==1)
+        {   
+            a = slow;
+            b = medium;
+            c = fast;
+            if (ch == 's') {
+                slow = c;
+                medium = a;
+                fast = b;
+                draw_speed_ctrl(fb, slow, medium, fast);
+            }
+            else if (ch == 'w') {
+                slow = b;
+                medium = c;
+                fast = a;
+                draw_speed_ctrl(fb, slow, medium, fast);
+            }
+            else if (ch == ' ') {
+                break;
+            }
+        }
+    }
+    speed = 100*fast + 250*medium + 500*slow;
     start = clock();
     while (snake.life) {
         now = clock();
@@ -147,16 +180,16 @@ int main() {
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
 
     // LED Line
-    val_line = 15;
+    // val_line = 15;
     // val_line = 1227133513;
-    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
-    struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 50 * 1000 * 1000};
-    for (i=0; i<30; i++) {
-        *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
-        val_line<<=1;
-        //printf("LED val 0x%x\n", val_line);
-        clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
-    }
+    // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
+    // struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 50 * 1000 * 1000};
+    // for (i=0; i<30; i++) {
+    //     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
+    //     val_line<<=1;
+    //     //printf("LED val 0x%x\n", val_line);
+    //     clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+    // }
     
     // parlcd_mem_base = map_phys_address(PARLCD_REG_BASE_PHYS, PARLCD_REG_SIZE, 0);
     // if (parlcd_mem_base == NULL)
