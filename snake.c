@@ -270,6 +270,7 @@ void draw_Menu(unsigned short *fb1, int standard, int demo){
   for (ptr = 0; ptr < 320*480 ; ptr++) {
         fb[ptr]=0u;
   }
+  printf("1\n");
   char str[] = "STANDARD"; // 8
   char *ch = str;
   int x = 49-(standard*36);
@@ -278,6 +279,7 @@ void draw_Menu(unsigned short *fb1, int standard, int demo){
       x+=(size_standard+standard)*char_width(fdes, *ch)+2;
       ch++;
   }
+  printf("2\n");
   char str1[] = "DEMO"; // 4
   char *ch1 = str1;
   x = 134-(23*demo);
@@ -286,12 +288,14 @@ void draw_Menu(unsigned short *fb1, int standard, int demo){
       x+=(size_demo+demo)*char_width(fdes, *ch1)+2;
       ch1++;
   }
+  printf("3\n");
   // draw LCD
     parlcd_write_cmd(parlcd_mem_base, 0x2c);
     for (ptr = 0; ptr < 480*320 ; ptr++) {
         parlcd_write_data(parlcd_mem_base, fb[ptr]);
     }
 
+    printf("4\n");
     //draw LED
     rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
     rgb_knobs_value =16711935; //purple
