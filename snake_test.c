@@ -60,8 +60,12 @@ int main() {
     snake = initSnake(16, 14, 5, 5);
     food = initFood(10, 10);
 
+    draw_Menu1(fb, standard, demo);
+    goto start;
+
     Menu:
     draw_Menu(fb, standard, demo);
+    start:
     ch = '1';
     while (ch!=' ')
     {

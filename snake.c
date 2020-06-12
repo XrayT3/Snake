@@ -263,6 +263,35 @@ void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
 }
 
+void draw_Menu1(unsigned short *fb1, int standard, int demo){
+  int ptr;
+  fb = fb1;
+  for (ptr = 0; ptr < 320*480 ; ptr++) {
+        fb[ptr]=0u;
+  }
+  char str[] = "STANDARD"; // 8
+  char *ch = str;
+  int x = 49-(standard*36);
+  for (int i=0; i<8; i++) {
+      draw_char(x, 50, fdes, *ch, size_standard+standard, 63519+(2016*standard));
+      x+=(size_standard+standard)*char_width(fdes, *ch)+2;
+      ch++;
+  }
+  char str1[] = "DEMO"; // 4
+  char *ch1 = str1;
+  x = 134-(23*demo);
+  for (int i=0; i<4; i++) {
+      draw_char(x, 170, fdes, *ch1, size_demo+demo, 63519+(2016*demo));
+      x+=(size_demo+demo)*char_width(fdes, *ch1)+2;
+      ch1++;
+  }
+  // draw LCD
+    parlcd_write_cmd(parlcd_mem_base, 0x2c);
+    for (ptr = 0; ptr < 480*320 ; ptr++) {
+        parlcd_write_data(parlcd_mem_base, fb[ptr]);
+    }
+}
+
 void draw_Menu(unsigned short *fb1, int standard, int demo){
   int ptr;
   fb = fb1;
