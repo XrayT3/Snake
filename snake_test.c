@@ -118,15 +118,24 @@ int main() {
             drawDesk(desk, snake, food, sec, fb);
             if (standard==1){
                 moveSnakeManual(snake, food, desk);
-            }
+                printf("Manual\n\r");            }
             else
             {
                 moveSnakeAI(snake, food, desk);
+                printf("AI\n\r");
             }
+        }
+        parlcd_write_cmd(parlcd_mem_base, 0x2c);
+        for (ptr = 0; ptr < 480*320 ; ptr++) {
+            parlcd_write_data(parlcd_mem_base, fb[ptr]);
         }
     }
     sleep(1);
     draw_EndGame(fb, snake->score, retry, quit);
+    parlcd_write_cmd(parlcd_mem_base, 0x2c);
+    for (ptr = 0; ptr < 480*320 ; ptr++) {
+        parlcd_write_data(parlcd_mem_base, fb[ptr]);
+    }
     ch = '1';
     while (ch!=' ')
     {
@@ -147,6 +156,10 @@ int main() {
                 break;
             }
         }
+        parlcd_write_cmd(parlcd_mem_base, 0x2c);
+        for (ptr = 0; ptr < 480*320 ; ptr++) {
+            parlcd_write_data(parlcd_mem_base, fb[ptr]);
+        }
     }
 
     if (retry==1){
@@ -156,10 +169,10 @@ int main() {
     Menu:
     draw_Menu(fb, standard, demo);
     // draw LCD
-    // parlcd_write_cmd(parlcd_mem_base, 0x2c);
-    // for (ptr = 0; ptr < 480*320 ; ptr++) {
-    //     parlcd_write_data(parlcd_mem_base, fb[ptr]);
-    // }
+    parlcd_write_cmd(parlcd_mem_base, 0x2c);
+    for (ptr = 0; ptr < 480*320 ; ptr++) {
+        parlcd_write_data(parlcd_mem_base, fb[ptr]);
+    }
     //draw LED
     rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
     rgb_knobs_value = 16711935; //purple
@@ -186,10 +199,10 @@ int main() {
             }
         }
         // draw LCD
-        // parlcd_write_cmd(parlcd_mem_base, 0x2c);
-        // for (ptr = 0; ptr < 480*320 ; ptr++) {
-        //     parlcd_write_data(parlcd_mem_base, fb[ptr]);
-        // }
+        parlcd_write_cmd(parlcd_mem_base, 0x2c);
+        for (ptr = 0; ptr < 480*320 ; ptr++) {
+            parlcd_write_data(parlcd_mem_base, fb[ptr]);
+        }
     }
     goto start_game;
 
