@@ -19,7 +19,7 @@ unsigned char *parlcd_mem_base;
 unsigned char *mem_base;
 uint32_t rgb_knobs_value;
 
-// int size_cell = 20;
+int size_cell_d = 20;
 // int size_score = 4;
 // int size_time = 4;
 // int size_GameOver = 5;
