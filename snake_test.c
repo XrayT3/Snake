@@ -65,6 +65,12 @@ int main() {
     // snake2 = initSnake(16, 14, 10, 10);
     food = initFood(10, 10);
 
+    // draw LCD
+    parlcd_write_cmd(parlcd_mem_base, 0x2c);
+    for (ptr = 0; ptr < 480*320 ; ptr++) {
+        parlcd_write_data(parlcd_mem_base, 0);
+    }
+
     goto Menu;
         
     start_game:
