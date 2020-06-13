@@ -26,6 +26,7 @@ int slow = 1;
 int medium = 0;
 int fast = 0;
 int a, b, c;
+int ptr;
 
 int main() {
     unsigned char *mem_base;
