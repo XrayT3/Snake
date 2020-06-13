@@ -529,18 +529,18 @@ void snakeController(snake_t *snake, desk_t *desk, food_t *food) {
     dx = food->coord[0] - snake->snake_skeleton[0].coords[0];
     dy = food->coord[1] - snake->snake_skeleton[0].coords[1];
 
-    printf("Snake actual direction: %d\n\r", snake->direction);
+    // printf("Snake actual direction: %d\n\r", snake->direction);
 
     if (obstacleBeforeSnake(snake, desk) && obstacleLeftOfSnake(snake, desk)) {
             
         snakeTurnRight(snake);
-        printf("Obstacle front and left\n\r");
+        // printf("Obstacle front and left\n\r");
     }
 
     else if (obstacleBeforeSnake(snake, desk) && obstacleRightOfSnake(snake, desk)) {
         
         snakeTurnLeft(snake);
-        printf("Obstacle front and right\n\r");
+        // printf("Obstacle front and right\n\r");
     }
 
     else if (obstacleBeforeSnake(snake, desk)) {
