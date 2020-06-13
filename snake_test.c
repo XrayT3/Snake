@@ -67,7 +67,7 @@ int main() {
 
     desk = initDesk(16, 14, 1, 1);
     snake = initSnakeAI(16, 14, 5, 5);
-    // snake2 = initSnake(16, 14, 10, 10);
+    snake2 = initSnakeAI(16, 14, 10, 10);
     food = initFood(10, 10);
 
     // draw LCD
@@ -116,12 +116,15 @@ int main() {
         if (ns % speed == 0){
             printf("%d\n", ns);
             drawDesk(desk, snake, food, sec, fb);
+            drawDesk(desk, snake2, food, sec, fb);
             if (standard==1){
                 moveSnakeManual(snake, food, desk);
+                moveSnakeManual(snake2, food, desk);
                 printf("Manual\n\r");            }
             else
             {
                 moveSnakeAI(snake, food, desk);
+                moveSnakeAI(snake2, food, desk);
                 printf("AI\n\r");
             }
         }
