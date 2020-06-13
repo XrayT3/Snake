@@ -128,6 +128,7 @@ int main() {
             else
             {
                 moveSnakeAITwoSnakes(snake, snake2, food, desk);
+                moveSnakeAITwoSnakes(snake2, snake, food, desk);
                 drawDesk2(desk, snake, snake2, food, sec, fb);
             }
         }
