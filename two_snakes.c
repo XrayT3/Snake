@@ -6,6 +6,8 @@
 void moveSnakeManualTwoSnakes(snake_t *snake, snake_t *secondSnake, food_t *food, desk_t *desk) {
 
     //inputs part-------
+    char ch;
+    int r = read(0, &ch, 1);
 
     int lastCoords[2] = {
         snake->snake_skeleton[snake->length].coords[0],
@@ -18,12 +20,15 @@ void moveSnakeManualTwoSnakes(snake_t *snake, snake_t *secondSnake, food_t *food
         snake->snake_skeleton[k].coords[1] = snake->snake_skeleton[k - 1].coords[1];
     }
 
-    //CHANGE!!!!!!!!!!
-    // if (input == snake->turnLeft)
-    //     snakeTurnLeft(snake);
-    // else if (input == snake->turnRight)
-    //     snakeTurnRight(snake);
-
+    if (r==1)
+    {   
+        if (ch == 'a') {
+          snakeTurnLeft(snake);
+        }
+        else if (ch == 'd') {
+          snakeTurnRight(snake);
+        }
+    }
 
     //logic part--------
     snakeStep(snake);

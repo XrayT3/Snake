@@ -64,19 +64,20 @@ int main() {
     // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
 
     snake_t *snake;
-    // snake_t *snake2;
+    snake_t *snake2;
     desk_t *desk;
     food_t *food;
 
     desk = initDesk(16, 14, 1, 1);
     snake = initSnakeAI(16, 14, 5, 5);
-    // snake2 = initSnakeAI(16, 14, 10, 10);
+    snake2 = initSnakeAI(16, 14, 10, 10);
     food = initFood(10, 10);
 
     goto Menu;
         
     start_game:
     snake = initSnakeAI(16, 14, 5, 5);
+    desk->gameOver = 0;
     draw_speed_ctrl(fb, slow, medium, fast);
 
     ch = '1';
