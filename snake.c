@@ -311,7 +311,7 @@ void draw_speed_ctrl(unsigned short *fb1, int slow, int medium, int fast){
     char *ch1 = str1;
     x = 49;
     for (int i=0; i<4; i++) {
-        draw_char(x, 100, fdes, *ch1, 4, 63519+(2016*slow));
+        draw_char(x, 130, fdes, *ch1, 4, 63519+(2016*slow));
         x+=4*char_width(fdes, *ch1)+2;
         ch1++;
     }
@@ -319,7 +319,7 @@ void draw_speed_ctrl(unsigned short *fb1, int slow, int medium, int fast){
     char *ch2 = str2;
     x = 49;
     for (int i=0; i<6; i++) {
-        draw_char(x, 200, fdes, *ch2, 4, 63519+(2016*medium));
+        draw_char(x, 190, fdes, *ch2, 4, 63519+(2016*medium));
         x+=4*char_width(fdes, *ch2)+2;
         ch2++;
     }
