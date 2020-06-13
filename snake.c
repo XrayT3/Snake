@@ -478,7 +478,7 @@ int checkCollisions(snake_t *snake, desk_t *desk) {
     return ret;
 }
 
-unsigned short * drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned short *fb1) {
+void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned short *fb1) {
     // parlcd_mem_base = map_phys_address(PARLCD_REG_BASE_PHYS, PARLCD_REG_SIZE, 0);
     
     int ptr;
