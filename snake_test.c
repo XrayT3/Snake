@@ -124,17 +124,20 @@ int main() {
                 // moveSnakeAI(snake2, food, desk);
             }
         }
-        rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
-        rgb_knobs_value = 65280; // green
-
         if (snake->score != score){
-            printf("Blue\n");
             score = snake->score;
             rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
             rgb_knobs_value = 255; // blue
+            *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
+            *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
         }
-        *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
-        *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
+        else
+        {
+            rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
+            rgb_knobs_value = 65280; // green
+            *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
+            *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
+        }
     }
     sleep(1);
     draw_EndGame(fb, snake->score, retry, quit);
