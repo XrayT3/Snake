@@ -97,19 +97,19 @@ int main() {
     }
     speed = 100*fast + 250*medium + 500*slow;
     start = clock();
-    while (snake.life) {
+    while (snake->life) {
         now = clock();
         ns = (now-start) / 1000;
         sec = ns / 1000;
         if (ns % speed == 0){
             printf("%d\n", ns);
-            drawDesk(&desk, &snake, &food, sec, fb);
+            drawDesk(desk, snake, food, sec, fb);
             if (standard==1){
-                moveSnakeManual(&snake, &food, &desk);
+                moveSnakeManual(snake, food, desk);
             }
             else
             {
-                moveSnakeAI(&snake, &food, &desk);
+                moveSnakeAI(snake, food, desk);
             }
         }
     }
