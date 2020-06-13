@@ -78,7 +78,7 @@ int main() {
     start_game:
     snake = initSnakeAI(16, 14, 5, 5);
     draw_speed_ctrl(fb, slow, medium, fast);
-    
+
     ch = '1';
     while (ch!=' ')
     {
@@ -107,6 +107,11 @@ int main() {
     }
     speed = 100*fast + 250*medium + 500*slow;
     start = clock();
+    rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
+    rgb_knobs_value = 65280; //green
+
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
     while (snake->life) {
         now = clock();
         ns = (now-start) / 1000;
