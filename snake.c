@@ -281,7 +281,7 @@ void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
 }
 
 void draw_Menu(unsigned short *fb1, int standard, int demo){
-    // parlcd_mem_base = map_phys_address(PARLCD_REG_BASE_PHYS, PARLCD_REG_SIZE, 0);
+    parlcd_mem_base = map_phys_address(PARLCD_REG_BASE_PHYS, PARLCD_REG_SIZE, 0);
     int ptr;
     fb = fb1;
     for (ptr = 0; ptr < 320*480 ; ptr++) {
