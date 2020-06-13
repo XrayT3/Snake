@@ -300,11 +300,13 @@ void draw_Menu(unsigned short *fb1, int standard, int demo){
       x+=(size_demo+demo)*char_width(fdes, *ch1)+2;
       ch1++;
   }
+  printf("1\n");
   // draw LCD
     parlcd_write_cmd(parlcd_mem_base, 0x2c);
     for (ptr = 0; ptr < 480*320 ; ptr++) {
         parlcd_write_data(parlcd_mem_base, fb[ptr]);
     }
+    printf("2\n");
 }
 
 void draw_speed_ctrl(unsigned short *fb1, int slow, int medium, int fast){
