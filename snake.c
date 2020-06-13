@@ -364,10 +364,8 @@ void freeSnake(snake_t *snake) {
 }
 
 void moveSnakeManual(snake_t *snake, food_t *food, desk_t *desk) {
-
-    //inputs part-------
-    int input;
-    input = getch();
+    char ch;
+    int r = read(0, &ch, 1);
 
     int lastCoords[2] = {
         snake->snake_skeleton[snake->length].coords[0],
@@ -375,19 +373,21 @@ void moveSnakeManual(snake_t *snake, food_t *food, desk_t *desk) {
     };
 
     for (int k = snake->length; k > 0; k--) {
-
         snake->snake_skeleton[k].coords[0] = snake->snake_skeleton[k - 1].coords[0];
         snake->snake_skeleton[k].coords[1] = snake->snake_skeleton[k - 1].coords[1];
     }
-
-    if (input == KEY_LEFT) 
-        snakeTurnLeft(snake);
-    else if (input == KEY_RIGHT)
-        snakeTurnRight(snake);
+    if (r==1)
+    {   
+        if (ch == 'a') {
+          snakeTurnLeft(snake);
+        }
+        else if (ch == 'd') {
+          snakeTurnRight(snake);
+        }
+    }
 
     //logic part--------
     snakeStep(snake);
-
     if (
         checkWallsCollisions(snake, desk)   ||
         checkItselfCollisions(snake)        
@@ -399,6 +399,7 @@ void moveSnakeManual(snake_t *snake, food_t *food, desk_t *desk) {
     }
 
     snakeEats(food, snake, desk, lastCoords[0], lastCoords[1]);
+
 }
 
 void moveSnakeAI(snake_t *snake, food_t *food, desk_t *desk) {
