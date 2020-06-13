@@ -100,7 +100,7 @@ void snakeEats(food_t *food, snake_t *snake, desk_t *desk, int lastCoordX, int l
 //Check if snake didn't collide with walls or with itself during one move
 int checkCollisions(snake_t *snake, desk_t *desk);
 
-void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned short *fb1);
+unsigned short * drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned short *fb1);
 
 //Update snake food's location when snake's got a point
 void updateFood(desk_t *desk, food_t *food, snake_t *snake);

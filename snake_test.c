@@ -62,13 +62,13 @@ int main() {
     // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
 
     snake_t *snake;
-    snake_t *snake2;
+    // snake_t *snake2;
     desk_t *desk;
     food_t *food;
 
     desk = initDesk(16, 14, 1, 1);
     snake = initSnakeAI(16, 14, 5, 5);
-    snake2 = initSnakeAI(16, 14, 10, 10);
+    // snake2 = initSnakeAI(16, 14, 10, 10);
     food = initFood(10, 10);
 
     // draw LCD
@@ -116,23 +116,23 @@ int main() {
         sec = ns / 1000;
         if (ns % speed == 0){
             printf("%d\n", ns);
-            drawDesk(desk, snake, food, sec, fb);
-            drawDesk(desk, snake2, food, sec, fb);
+            fb = drawDesk(desk, snake, food, sec, fb);
+            // drawDesk(desk, snake2, food, sec, fb);
             if (standard==1){
                 moveSnakeManual(snake, food, desk);
-                moveSnakeManual(snake2, food, desk);
+                // moveSnakeManual(snake2, food, desk);
                 printf("Manual\n\r");            }
             else
             {
                 moveSnakeAI(snake, food, desk);
-                moveSnakeAI(snake2, food, desk);
+                // moveSnakeAI(snake2, food, desk);
                 printf("AI\n\r");
             }
         }
-        // parlcd_write_cmd(parlcd_mem_base, 0x2c);
-        // for (ptr = 0; ptr < 480*320 ; ptr++) {
-        //     parlcd_write_data(parlcd_mem_base, fb[ptr]);
-        // }
+        parlcd_write_cmd(parlcd_mem_base, 0x2c);
+        for (ptr = 0; ptr < 480*320 ; ptr++) {
+            parlcd_write_data(parlcd_mem_base, fb[ptr]);
+        }
     }
     sleep(1);
     draw_EndGame(fb, snake->score, retry, quit);

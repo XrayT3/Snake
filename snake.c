@@ -478,8 +478,8 @@ int checkCollisions(snake_t *snake, desk_t *desk) {
     return ret;
 }
 
-void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned short *fb1) {
-    parlcd_mem_base = map_phys_address(PARLCD_REG_BASE_PHYS, PARLCD_REG_SIZE, 0);
+unsigned short * drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned short *fb1) {
+    // parlcd_mem_base = map_phys_address(PARLCD_REG_BASE_PHYS, PARLCD_REG_SIZE, 0);
     
     int ptr;
     fb = fb1;
@@ -519,10 +519,11 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned shor
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
 
     // draw LCD
-    parlcd_write_cmd(parlcd_mem_base, 0x2c);
-    for (ptr = 0; ptr < 480*320 ; ptr++) {
-        parlcd_write_data(parlcd_mem_base, fb[ptr]);
-    }
+    // parlcd_write_cmd(parlcd_mem_base, 0x2c);
+    // for (ptr = 0; ptr < 480*320 ; ptr++) {
+    //     parlcd_write_data(parlcd_mem_base, fb[ptr]);
+    // }
+    return fb;
 }
 
 void snakeStep(snake_t *snake) {
