@@ -111,7 +111,7 @@ int main() {
         ns = (now-start) / 1000;
         sec = ns / 1000;
         if (ns % speed == 0){
-            printf("%d\n", ns);
+            // printf("%d\n", ns);
             drawDesk(desk, snake, food, sec, fb);
             // drawDesk(desk, snake2, food, sec, fb);
             if (standard==1){
@@ -136,10 +136,16 @@ int main() {
     }
     sleep(1);
     draw_EndGame(fb, snake->score, retry, quit);
-    parlcd_write_cmd(parlcd_mem_base, 0x2c);
-    for (ptr = 0; ptr < 480*320 ; ptr++) {
-        parlcd_write_data(parlcd_mem_base, fb[ptr]);
-    }
+    // draw LED
+    rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
+    rgb_knobs_value =16711680; //red
+
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
+    // parlcd_write_cmd(parlcd_mem_base, 0x2c);
+    // for (ptr = 0; ptr < 480*320 ; ptr++) {
+    //     parlcd_write_data(parlcd_mem_base, fb[ptr]);
+    // }
     ch = '1';
     while (ch!=' ')
     {
@@ -160,10 +166,10 @@ int main() {
                 break;
             }
         }
-        parlcd_write_cmd(parlcd_mem_base, 0x2c);
-        for (ptr = 0; ptr < 480*320 ; ptr++) {
-            parlcd_write_data(parlcd_mem_base, fb[ptr]);
-        }
+        // parlcd_write_cmd(parlcd_mem_base, 0x2c);
+        // for (ptr = 0; ptr < 480*320 ; ptr++) {
+        //     parlcd_write_data(parlcd_mem_base, fb[ptr]);
+        // }
     }
 
     if (retry==1){

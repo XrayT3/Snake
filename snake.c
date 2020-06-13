@@ -160,7 +160,7 @@ void draw_char(int x, int y, font_descriptor_t* fdes, char ch, int size, int col
       int bw = (fdes->maxwidth+15)/16;
       ptr = fdes->bits + (ch-fdes->firstchar)*bw*fdes->height;
     }
-    printf("Znak %c na %i, %i, sirka %i\n", ch, x, y, w);
+    // printf("Znak %c na %i, %i, sirka %i\n", ch, x, y, w);
     int i, j;
     for (i = 0; i < fdes->height; i++){
       font_bits_t val = *ptr;
@@ -271,13 +271,6 @@ void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
     for (ptr = 0; ptr < 480*320 ; ptr++) {
         parlcd_write_data(parlcd_mem_base, fb[ptr]);
     }
-
-    // draw LED
-    rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
-    rgb_knobs_value =16711680; //red
-
-    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
-    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
 }
 
 void draw_Menu(unsigned short *fb1, int standard, int demo){
