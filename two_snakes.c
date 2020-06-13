@@ -1,10 +1,11 @@
 #include "snake.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+
 void moveSnakeManualTwoSnakes(snake_t *snake, snake_t *secondSnake, food_t *food, desk_t *desk) {
 
     //inputs part-------
-    int input;
-    input = getch();
 
     int lastCoords[2] = {
         snake->snake_skeleton[snake->length].coords[0],
@@ -23,10 +24,6 @@ void moveSnakeManualTwoSnakes(snake_t *snake, snake_t *secondSnake, food_t *food
     // else if (input == snake->turnRight)
     //     snakeTurnRight(snake);
 
-    if (input == KEY_LEFT) 
-        snakeTurnLeft(snake);
-    else if (input == KEY_RIGHT)
-        snakeTurnRight(snake);
 
     //logic part--------
     snakeStep(snake);
