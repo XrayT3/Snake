@@ -195,7 +195,7 @@ void draw_score(int score){
 }
 
 void draw_score2(int score){
-    int y = 260;
+    int y = 240;
     int x = 380;
     if (score==0){
         draw_char(x, y, fdes, '0', size_score+1, 63519);
