@@ -19,15 +19,15 @@ unsigned char *parlcd_mem_base;
 unsigned char *mem_base;
 uint32_t rgb_knobs_value;
 
-int size_cell = 20;
-int size_score = 4;
-int size_time = 4;
-int size_GameOver = 5;
-int size_retry = 4;
-int size_quit = 4;
-int size_standard = 5;
-int size_demo = 5;
-int size_speed = 5;
+// int size_cell = 20;
+// int size_score = 4;
+// int size_time = 4;
+// int size_GameOver = 5;
+// int size_retry = 4;
+// int size_quit = 4;
+// int size_standard = 5;
+// int size_demo = 5;
+// int size_speed = 5;
 
 desk_t *initDesk(int width, int height, int startX, int startY) {
 
