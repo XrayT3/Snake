@@ -114,7 +114,7 @@ int main() {
         }
     }
     sleep(1);
-    draw_EndGame(fb, snake.score, retry, quit);
+    draw_EndGame(fb, snake->score, retry, quit);
     ch = '1';
     while (ch!=' ')
     {
@@ -124,12 +124,12 @@ int main() {
             if (ch == 'w') {
                 retry = 1 - retry;
                 quit = 1 - quit;
-                draw_EndGame(fb, snake.score, retry, quit);
+                draw_EndGame(fb, snake->score, retry, quit);
             }
             else if (ch == 's') {
                 retry = 1 - retry;
                 quit = 1 - quit;
-                draw_EndGame(fb, snake.score, retry, quit);
+                draw_EndGame(fb, snake->score, retry, quit);
             }
             else if (ch == ' ') {
                 break;
@@ -138,7 +138,7 @@ int main() {
     }
 
     if (retry==1){
-        snake = initSnake(16, 14, 5, 5);
+        snake = initSnakeAI(16, 14, 5, 5);
         goto start_game;
     }
     Menu:
