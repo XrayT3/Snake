@@ -35,6 +35,8 @@ int main() {
     uint32_t rgb_knobs_value;
     int start, now, sec, ns;
     char ch = '1';
+    int score = 0;
+    int score2 = 0;
 
     static struct termios oldt, newt;
     tcgetattr( STDIN_FILENO, &oldt); 
@@ -123,6 +125,10 @@ int main() {
             }
         }
         rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
+        if (snake->score != score){
+            score = snake->score;
+            rgb_knobs_value = 255; // blue
+        }
         rgb_knobs_value = 65280; // green
 
         *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
