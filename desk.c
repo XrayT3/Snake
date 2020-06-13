@@ -65,7 +65,7 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned shor
                 (j == food->coord[0]) &&
                 (i == food->coord[1])
             )
-            draw_food(j*size_cell, i*size_cell); // food
+            draw_food(j*size_cell_d, i*size_cell_d); // food
             else{
                 for (int k = 0; k < snake->length; k++) {
 
