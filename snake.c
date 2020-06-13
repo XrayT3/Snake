@@ -218,6 +218,9 @@ void draw_time(int sec){
 }
 
 void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
+  parlcd_mem_base = map_phys_address(PARLCD_REG_BASE_PHYS, PARLCD_REG_SIZE, 0);
+  parlcd_hx8357_init(parlcd_mem_base);
+
   int ptr;
   fb = fb1;
   for (ptr = 0; ptr < 320*480 ; ptr++) {
@@ -279,6 +282,8 @@ void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
 }
 
 void draw_Menu(unsigned short *fb1, int standard, int demo){
+    parlcd_mem_base = map_phys_address(PARLCD_REG_BASE_PHYS, PARLCD_REG_SIZE, 0);
+    parlcd_hx8357_init(parlcd_mem_base);
     int ptr;
     fb = fb1;
     for (ptr = 0; ptr < 320*480 ; ptr++) {
@@ -300,17 +305,16 @@ void draw_Menu(unsigned short *fb1, int standard, int demo){
         x+=(size_demo+demo)*char_width(fdes, *ch1)+2;
         ch1++;
     }
-    printf("1\n");
     // draw LCD
-    // parlcd_write_cmd(parlcd_mem_base, 0x2c);
-    // for (ptr = 0; ptr < 480*320 ; ptr++) {
-    //     parlcd_write_data(parlcd_mem_base, fb[ptr]);
-    // }
-    printf("2\n");
-    // return fb1;
+    parlcd_write_cmd(parlcd_mem_base, 0x2c);
+    for (ptr = 0; ptr < 480*320 ; ptr++) {
+        parlcd_write_data(parlcd_mem_base, fb[ptr]);
+    }
 }
 
 void draw_speed_ctrl(unsigned short *fb1, int slow, int medium, int fast){
+    parlcd_mem_base = map_phys_address(PARLCD_REG_BASE_PHYS, PARLCD_REG_SIZE, 0);
+    parlcd_hx8357_init(parlcd_mem_base);
     int ptr;
     fb = fb1;
     for (ptr = 0; ptr < 320*480 ; ptr++) {
@@ -502,7 +506,9 @@ int checkCollisions(snake_t *snake, desk_t *desk) {
 // }
 
 void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned short *fb1) {
-
+    parlcd_mem_base = map_phys_address(PARLCD_REG_BASE_PHYS, PARLCD_REG_SIZE, 0);
+    parlcd_hx8357_init(parlcd_mem_base);
+    
     int ptr;
     fb = fb1;
     for (ptr = 0; ptr < 480*320 ; ptr++) {
