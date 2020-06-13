@@ -21,7 +21,6 @@ typedef struct {
 
 //Snake data type
 typedef struct {
-    
     int length;
     int max_length;
     int score;
