@@ -301,11 +301,11 @@ void draw_Menu(unsigned short *fb1, int standard, int demo){
       ch1++;
   }
   printf("1\n");
-//   // draw LCD
-//     parlcd_write_cmd(parlcd_mem_base, 0x2c);
-//     for (ptr = 0; ptr < 480*320 ; ptr++) {
-//         parlcd_write_data(parlcd_mem_base, fb[ptr]);
-//     }
+  // draw LCD
+    parlcd_write_cmd(parlcd_mem_base, 0x2c);
+    for (ptr = 0; ptr < 480*320 ; ptr++) {
+        parlcd_write_data(parlcd_mem_base, fb[ptr]);
+    }
     printf("2\n");
 }
 
@@ -500,51 +500,51 @@ int checkCollisions(snake_t *snake, desk_t *desk) {
 //     return *desk;
 // }
 
-// void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned short *fb1) {
+void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned short *fb1) {
 
-//     int ptr;
-//     fb = fb1;
-//     for (ptr = 0; ptr < 480*320 ; ptr++) {
-//         fb[ptr] = 0;
-//     }
-//     draw_score(snake->score);
-//     draw_time(sec);
-//     draw_wall(16, 14); // dobavit parametry
+    int ptr;
+    fb = fb1;
+    for (ptr = 0; ptr < 480*320 ; ptr++) {
+        fb[ptr] = 0;
+    }
+    draw_score(snake->score);
+    draw_time(sec);
+    draw_wall(16, 14); // dobavit parametry
 
-//     for (int i = desk->startY; i < desk->endY; i ++) {
-//         for (int j = desk->startX; j < desk->endX; j++) {
-//             if (
-//                 (j == food->coord[0]) &&
-//                 (i == food->coord[1])
-//             )
-//             draw_food(j*size_cell, i*size_cell); // food
-//             else{
-//                 for (int k = 0; k < snake->length; k++) {
+    for (int i = desk->startY; i < desk->endY; i ++) {
+        for (int j = desk->startX; j < desk->endX; j++) {
+            if (
+                (j == food->coord[0]) &&
+                (i == food->coord[1])
+            )
+            draw_food(j*size_cell, i*size_cell); // food
+            else{
+                for (int k = 0; k < snake->length; k++) {
 
-//                     if (
-//                         j == (snake->snake_skeleton[k].coords[0]) &&
-//                         i == (snake->snake_skeleton[k].coords[1]) 
-//                     )
-//                     draw_snake(j*size_cell, i*size_cell); // snake
-//                 }
-//             }
-//         }
-//     }
+                    if (
+                        j == (snake->snake_skeleton[k].coords[0]) &&
+                        i == (snake->snake_skeleton[k].coords[1]) 
+                    )
+                    draw_snake(j*size_cell, i*size_cell); // snake
+                }
+            }
+        }
+    }
 
-//     // LED
-//     mem_base = map_phys_address(SPILED_REG_BASE_PHYS, SPILED_REG_SIZE, 0);
-//     rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
-//     rgb_knobs_value = 65280; // green
+    // LED
+    mem_base = map_phys_address(SPILED_REG_BASE_PHYS, SPILED_REG_SIZE, 0);
+    rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
+    rgb_knobs_value = 65280; // green
 
-//     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
-//     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
 
-//     // draw LCD
-//     parlcd_write_cmd(parlcd_mem_base, 0x2c);
-//     for (ptr = 0; ptr < 480*320 ; ptr++) {
-//         parlcd_write_data(parlcd_mem_base, fb[ptr]);
-//     }
-// }
+    // draw LCD
+    parlcd_write_cmd(parlcd_mem_base, 0x2c);
+    for (ptr = 0; ptr < 480*320 ; ptr++) {
+        parlcd_write_data(parlcd_mem_base, fb[ptr]);
+    }
+}
 
 void snakeStep(snake_t *snake) {
 
