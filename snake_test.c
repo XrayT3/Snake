@@ -32,7 +32,6 @@ int main() {
     unsigned char *parlcd_mem_base;
     uint32_t val_line=5;
     uint32_t rgb_knobs_value;
-    int i;
     int start, now, sec, ns;
     char ch = '1';
 
@@ -56,9 +55,9 @@ int main() {
     // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
     // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
 
-    snake_t snake;
-    desk_t desk;
-    food_t food;
+    snake_t *snake;
+    desk_t *desk;
+    food_t *food;
 
     desk = initDesk(16, 14, 1, 1);
     snake = initSnakeAI(16, 14, 5, 5);
@@ -68,7 +67,7 @@ int main() {
     goto Menu;
         
     start_game:
-    snake = initSnake(16, 14, 5, 5);
+    snake = initSnakeAI(16, 14, 5, 5);
     draw_speed_ctrl(fb, slow, medium, fast);
     ch = '1';
     while (ch!=' ')
@@ -201,7 +200,11 @@ int main() {
     //     parlcd_write_data(parlcd_mem_base, fb[ptr]);
     // }
 
+    //clean up after game is over
+    freeDesk(desk);
+    freeSnake(snake);
+    freeFood(food);
+
     tcsetattr( STDIN_FILENO, TCSANOW, &oldt);
     return 0;
-
 }
