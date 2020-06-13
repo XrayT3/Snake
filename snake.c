@@ -32,7 +32,6 @@ int size_speed = 5;
 snake_t *initSnake(int displayWidth, int displayHeight, int initSnakeX, int initSnakeY, char turnLeft, char turnRight) {
 
     snake_t *snake = (snake_t *)malloc(sizeof(snake_t));
-    snake->life = true;
     snake->length = INIT_LEN;
     snake->max_length = displayWidth * displayHeight;
     snake->score = 0;
@@ -54,7 +53,6 @@ snake_t *initSnake(int displayWidth, int displayHeight, int initSnakeX, int init
 snake_t *initSnakeAI(int displayWidth, int displayHeight, int initSnakeX, int initSnakeY) {
 
     snake_t *snake = (snake_t *)malloc(sizeof(snake_t));
-    snake->life = true;
     snake->length = INIT_LEN;
     snake->max_length = displayWidth * displayHeight;
     snake->score = 0;
@@ -419,10 +417,13 @@ void moveSnakeAI(snake_t *snake, food_t *food, desk_t *desk) {
     //logic part--------
     snakeStep(snake);
 
-    if (checkCollisions(snake, desk)) {
+    if (
+        checkWallsCollisions(snake, desk)   ||
+        checkItselfCollisions(snake)        
+    ) {
 
-        printf("Game over!\n");
-        snake->life = false;
+        printf("Gameover!\n");
+        desk->gameOver = 1;
         //change to gameover menu
     }
 

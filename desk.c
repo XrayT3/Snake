@@ -7,28 +7,6 @@
 
 #include "snake.h"
 
-// #include "mzapo_parlcd.h"
-// #include "mzapo_phys.h"
-// #include "mzapo_regs.h"
-// #include "font_types.h"
-// #include "font_prop14x16.c"
-
-// unsigned short *fb;
-// font_descriptor_t* fdes = &font_winFreeSystem14x16;
-// unsigned char *parlcd_mem_base;
-// unsigned char *mem_base;
-// uint32_t rgb_knobs_value;
-
-// int size_cell_d = 20;
-// int size_score = 4;
-// int size_time = 4;
-// int size_GameOver = 5;
-// int size_retry = 4;
-// int size_quit = 4;
-// int size_standard = 5;
-// int size_demo = 5;
-// int size_speed = 5;
-
 desk_t *initDesk(int width, int height, int startX, int startY) {
 
     desk_t *desk = (desk_t *)malloc(sizeof(desk_t));

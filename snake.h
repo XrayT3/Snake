@@ -88,6 +88,8 @@ void freeDesk(desk_t *desk);
 //Snake makes its move per one frame according to player's commands
 void moveSnakeManual(snake_t *snake, food_t *food, desk_t *desk);
 
+void moveSnakeAITwoSnakes(snake_t *snake, snake_t *secondSnake, food_t *food, desk_t *desk);
+
 //Snake makes its move per one frame according to AI's commands
 void moveSnakeAI(snake_t *snake, food_t *food, desk_t *desk);
 
@@ -97,8 +99,11 @@ void increaseSnake(snake_t *snake, int coordX, int coordY);
 //Check if snake can get a point during one move
 void snakeEats(food_t *food, snake_t *snake, desk_t *desk, int lastCoordX, int lastCoordY);
 
-//Check if snake didn't collide with walls or with itself during one move
-int checkCollisions(snake_t *snake, desk_t *desk);
+int checkWallsCollisions(snake_t *snake, desk_t *desk);
+
+int checkItselfCollisions(snake_t *snake);
+
+int checkOtherSnakeCollisions(snake_t *snake, snake_t *secondSnake);
 
 void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned short *fb1);
 
@@ -131,3 +136,11 @@ int snakeLeftOfSnake(snake_t *snake);
 int snakeRightOfSnake(snake_t *snake);
 
 int checkFieldOccupation(snake_t *snake, desk_t *desk);
+
+int obstacleBeforeSnakeTwoSnakes(snake_t *snake, snake_t *otherSnake, desk_t *desk);
+
+int snakeLeftOfSnakeTwoSnakes(snake_t *snake, snake_t *otherSnake);
+
+int snakeRightOfSnakeTwoSnakes(snake_t *snake, snake_t *otherSnake);
+
+void snakeControllerTwoSnakes(snake_t *snake, snake_t *otherSnake, desk_t *desk, food_t *food);
