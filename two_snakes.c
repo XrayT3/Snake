@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h> 
 
 void moveSnakeManualTwoSnakes(snake_t *snake, snake_t *secondSnake, food_t *food, desk_t *desk) {
 
