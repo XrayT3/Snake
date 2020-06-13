@@ -44,6 +44,16 @@ typedef struct {
     int gameOver;
 } desk_t;
 
+void draw_score(int score);
+
+void draw_time(int sec);
+
+void draw_wall(int c, int r);
+
+void draw_food(int x, int y);
+
+void draw_snake(int x, int y);
+
 void draw_pixel(int x, int y, int color);
 
 void draw_pixel_size(int x, int y, int size, int color);
