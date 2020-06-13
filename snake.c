@@ -519,10 +519,10 @@ unsigned short * drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, u
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
 
     // draw LCD
-    // parlcd_write_cmd(parlcd_mem_base, 0x2c);
-    // for (ptr = 0; ptr < 480*320 ; ptr++) {
-    //     parlcd_write_data(parlcd_mem_base, fb[ptr]);
-    // }
+    parlcd_write_cmd(parlcd_mem_base, 0x2c);
+    for (ptr = 0; ptr < 480*320 ; ptr++) {
+        parlcd_write_data(parlcd_mem_base, fb[ptr]);
+    }
     return fb;
 }
 

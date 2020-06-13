@@ -116,23 +116,22 @@ int main() {
         sec = ns / 1000;
         if (ns % speed == 0){
             printf("%d\n", ns);
-            fb = drawDesk(desk, snake, food, sec, fb);
+            drawDesk(desk, snake, food, sec, fb);
             // drawDesk(desk, snake2, food, sec, fb);
             if (standard==1){
                 moveSnakeManual(snake, food, desk);
                 // moveSnakeManual(snake2, food, desk);
-                printf("Manual\n\r");            }
+            }
             else
             {
                 moveSnakeAI(snake, food, desk);
                 // moveSnakeAI(snake2, food, desk);
-                printf("AI\n\r");
             }
         }
-        parlcd_write_cmd(parlcd_mem_base, 0x2c);
-        for (ptr = 0; ptr < 480*320 ; ptr++) {
-            parlcd_write_data(parlcd_mem_base, fb[ptr]);
-        }
+        // parlcd_write_cmd(parlcd_mem_base, 0x2c);
+        // for (ptr = 0; ptr < 480*320 ; ptr++) {
+        //     parlcd_write_data(parlcd_mem_base, fb[ptr]);
+        // }
     }
     sleep(1);
     draw_EndGame(fb, snake->score, retry, quit);
