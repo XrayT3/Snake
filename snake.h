@@ -105,6 +105,8 @@ int checkOtherSnakeCollisions(snake_t *snake, snake_t *secondSnake);
 
 void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned short *fb1);
 
+void drawDesk2(desk_t *desk, snake_t *snake, snake_t *snake2, food_t *food, int sec, unsigned short *fb1);
+
 //Update snake food's location when snake's got a point
 void updateFood(desk_t *desk, food_t *food, snake_t *snake);
 

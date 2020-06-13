@@ -194,6 +194,27 @@ void draw_score(int score){
     }
 }
 
+void draw_score2(int score){
+    int y = 260;
+    int x = 380;
+    if (score==0){
+        draw_char(x, y, fdes, '0', size_score+1, 63519);
+        return;
+    }
+    char str[3] = "0";
+    int idx = 0;
+    while (score!=0)
+    {
+        str[idx] = score % 10 + '0';
+        score /= 10;
+        idx++;
+    }
+    for (int i = idx-1; i >= 0; i--){
+        draw_char(x, y, fdes, str[i], size_score+1, 63519);
+        x+=size_score*char_width(fdes, str[i])+2;
+    }
+}
+
 void draw_time(int sec){
   int y = 127;
   int x = 380;
@@ -504,6 +525,50 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned shor
                         i == (snake->snake_skeleton[k].coords[1]) 
                     )
                     draw_snake(j*size_cell, i*size_cell); // snake
+                }
+            }
+        }
+    }
+
+    // draw LCD
+    parlcd_write_cmd(parlcd_mem_base, 0x2c);
+    for (ptr = 0; ptr < 480*320 ; ptr++) {
+        parlcd_write_data(parlcd_mem_base, fb[ptr]);
+    }
+}
+
+void drawDesk2(desk_t *desk, snake_t *snake, snake_t *snake2, food_t *food, int sec, unsigned short *fb1) {
+    int ptr;
+    fb = fb1;
+    for (ptr = 0; ptr < 480*320 ; ptr++) {
+        fb[ptr] = 0;
+    }
+    draw_score(snake->score);
+    draw_score2(snake2->score);
+    draw_time(sec);
+    draw_wall(16, 14); // dobavit parametry
+
+    for (int i = desk->startY; i < desk->endY; i ++) {
+        for (int j = desk->startX; j < desk->endX; j++) {
+            if (
+                (j == food->coord[0]) &&
+                (i == food->coord[1])
+            )
+            draw_food(j*size_cell, i*size_cell); // food
+            else{
+                for (int k = 0; k < snake->length; k++) {
+                    if (
+                        j == (snake->snake_skeleton[k].coords[0]) &&
+                        i == (snake->snake_skeleton[k].coords[1]) 
+                    )
+                    draw_snake(j*size_cell, i*size_cell); // snake
+                }
+                for (int k = 0; k < snake2->length; k++) {
+                    if (
+                        j == (snake2->snake_skeleton[k].coords[0]) &&
+                        i == (snake2->snake_skeleton[k].coords[1]) 
+                    )
+                    draw_snake(j*size_cell, i*size_cell); // snake2
                 }
             }
         }
