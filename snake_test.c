@@ -155,7 +155,7 @@ int main() {
     }
     Menu:
     printf("0\n");
-    fb = draw_Menu(fb, standard, demo);
+    draw_Menu(fb, standard, demo);
     // draw LCD
     parlcd_write_cmd(parlcd_mem_base, 0x2c);
     for (ptr = 0; ptr < 480*320 ; ptr++) {
@@ -178,12 +178,12 @@ int main() {
             if (ch == 'w') {
                 standard = 1 - standard;
                 demo = 1 - demo;
-                fb = draw_Menu(fb, standard, demo);
+                draw_Menu(fb, standard, demo);
             }
             else if (ch == 's') {
                 standard = 1 - standard;
                 demo = 1 - demo;
-                fb = draw_Menu(fb, standard, demo);
+                draw_Menu(fb, standard, demo);
             }
             else if (ch == ' ') {
                 break;
