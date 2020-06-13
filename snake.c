@@ -515,8 +515,8 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned shor
     draw_time(sec);
     draw_wall(16, 14); // dobavit parametry
 
-    for (int i = desk->startY; i < desk->endY; i ++) {
-        for (int j = desk->startX; j < desk->endX; j++) {
+    for (int i = desk->startY + 1; i < desk->endY; i ++) {
+        for (int j = desk->startX; j < desk->endX + 1; j++) {
             if (
                 (j == food->coord[0]) &&
                 (i == food->coord[1])
