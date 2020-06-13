@@ -301,11 +301,11 @@ void draw_Menu(unsigned short *fb1, int standard, int demo){
       ch1++;
   }
   printf("1\n");
-  // draw LCD
-    parlcd_write_cmd(parlcd_mem_base, 0x2c);
-    for (ptr = 0; ptr < 480*320 ; ptr++) {
-        parlcd_write_data(parlcd_mem_base, fb[ptr]);
-    }
+//   // draw LCD
+//     parlcd_write_cmd(parlcd_mem_base, 0x2c);
+//     for (ptr = 0; ptr < 480*320 ; ptr++) {
+//         parlcd_write_data(parlcd_mem_base, fb[ptr]);
+//     }
     printf("2\n");
 }
 

@@ -144,6 +144,11 @@ int main() {
     Menu:
     printf("0\n");
     draw_Menu(fb, standard, demo);
+    // draw LCD
+    parlcd_write_cmd(parlcd_mem_base, 0x2c);
+    for (ptr = 0; ptr < 480*320 ; ptr++) {
+        parlcd_write_data(parlcd_mem_base, fb[ptr]);
+    }
     //draw LED
     printf("3\n");
     rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
@@ -171,6 +176,11 @@ int main() {
             else if (ch == ' ') {
                 break;
             }
+        }
+        // draw LCD
+        parlcd_write_cmd(parlcd_mem_base, 0x2c);
+        for (ptr = 0; ptr < 480*320 ; ptr++) {
+            parlcd_write_data(parlcd_mem_base, fb[ptr]);
         }
     }
     goto start_game;
