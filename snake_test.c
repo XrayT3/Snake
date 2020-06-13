@@ -62,6 +62,7 @@ int main() {
     // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
 
     snake_t *snake;
+    snake_t *snake2;
     desk_t *desk;
     food_t *food;
 
