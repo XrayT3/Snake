@@ -61,7 +61,7 @@ int main() {
     food_t food;
 
     desk = initDesk(16, 14, 1, 1);
-    snake = initSnake(16, 14, 5, 5);
+    snake = initSnakeAI(16, 14, 5, 5);
     // snake2 = initSnake(16, 14, 10, 10);
     food = initFood(10, 10);
 
