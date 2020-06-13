@@ -4,6 +4,7 @@
 #define RIGHT 2221
 #define INIT_LEN 2
 
+#include <stdbool.h>
 #include "font_types.h"
 
 //Snake food data type
@@ -21,6 +22,7 @@ typedef struct {
 
 //Snake data type
 typedef struct {
+    bool life;
     int length;
     int max_length;
     int score;

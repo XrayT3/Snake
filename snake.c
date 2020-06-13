@@ -32,6 +32,7 @@ int size_speed = 5;
 snake_t *initSnake(int displayWidth, int displayHeight, int initSnakeX, int initSnakeY, char turnLeft, char turnRight) {
 
     snake_t *snake = (snake_t *)malloc(sizeof(snake_t));
+    snake->life = true;
     snake->length = INIT_LEN;
     snake->max_length = displayWidth * displayHeight;
     snake->score = 0;
@@ -53,6 +54,7 @@ snake_t *initSnake(int displayWidth, int displayHeight, int initSnakeX, int init
 snake_t *initSnakeAI(int displayWidth, int displayHeight, int initSnakeX, int initSnakeY) {
 
     snake_t *snake = (snake_t *)malloc(sizeof(snake_t));
+    snake->life = true;
     snake->length = INIT_LEN;
     snake->max_length = displayWidth * displayHeight;
     snake->score = 0;

@@ -97,7 +97,7 @@ int main() {
     }
     speed = 100*fast + 250*medium + 500*slow;
     start = clock();
-    while (desk->gameOver) {
+    while (snake->life) {
         now = clock();
         ns = (now-start) / 1000;
         sec = ns / 1000;
