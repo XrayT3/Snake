@@ -479,8 +479,6 @@ int checkCollisions(snake_t *snake, desk_t *desk) {
 }
 
 void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned short *fb1) {
-    // parlcd_mem_base = map_phys_address(PARLCD_REG_BASE_PHYS, PARLCD_REG_SIZE, 0);
-    
     int ptr;
     fb = fb1;
     for (ptr = 0; ptr < 480*320 ; ptr++) {
@@ -511,7 +509,7 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned shor
     }
 
     // LED
-    // mem_base = map_phys_address(SPILED_REG_BASE_PHYS, SPILED_REG_SIZE, 0);
+    mem_base = map_phys_address(SPILED_REG_BASE_PHYS, SPILED_REG_SIZE, 0);
     // rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
     // rgb_knobs_value = 65280; // green
 
