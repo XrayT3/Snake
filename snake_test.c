@@ -62,13 +62,13 @@ int main() {
     // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
 
     snake_t *snake;
-    // snake_t *snake2;
+    snake_t *snake2;
     desk_t *desk;
     food_t *food;
 
     desk = initDesk(16, 14, 1, 1);
     snake = initSnakeAI(16, 14, 5, 5);
-    // snake2 = initSnakeAI(16, 14, 10, 10);
+    snake2 = initSnakeAI(16, 14, 10, 10);
     food = initFood(10, 10);
 
     goto Menu;
@@ -111,15 +111,15 @@ int main() {
         if (ns % speed == 0){
             printf("%d\n", ns);
             drawDesk(desk, snake, food, sec, fb);
-            // drawDesk(desk, snake2, food, sec, fb);
+            drawDesk(desk, snake2, food, sec, fb);
             if (standard==1){
                 moveSnakeManual(snake, food, desk);
-                // moveSnakeManual(snake2, food, desk);
+                moveSnakeManual(snake2, food, desk);
             }
             else
             {
                 moveSnakeAI(snake, food, desk);
-                // moveSnakeAI(snake2, food, desk);
+                moveSnakeAI(snake2, food, desk);
             }
         }
         rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
