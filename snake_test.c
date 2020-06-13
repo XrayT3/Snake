@@ -78,6 +78,7 @@ int main() {
     start_game:
     snake = initSnakeAI(16, 14, 5, 5);
     draw_speed_ctrl(fb, slow, medium, fast);
+    
     ch = '1';
     while (ch!=' ')
     {
@@ -123,20 +124,6 @@ int main() {
                 moveSnakeAI(snake, food, desk);
                 // moveSnakeAI(snake2, food, desk);
             }
-        }
-        if (snake->score != score){
-            score = snake->score;
-            rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
-            rgb_knobs_value = 255; // blue
-            *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
-            *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
-        }
-        else
-        {
-            rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
-            rgb_knobs_value = 65280; // green
-            *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
-            *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
         }
     }
     sleep(1);
