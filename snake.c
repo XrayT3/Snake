@@ -443,7 +443,7 @@ void snakeEats(food_t *food, snake_t *snake, desk_t *desk, int lastCoordX, int l
     ) {
 
         snake->score += 1;
-        // mem_base = map_phys_address(SPILED_REG_BASE_PHYS, SPILED_REG_SIZE, 0);
+        mem_base = map_phys_address(SPILED_REG_BASE_PHYS, SPILED_REG_SIZE, 0);
         rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
         rgb_knobs_value = 255; // blue
 
