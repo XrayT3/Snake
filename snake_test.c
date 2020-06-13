@@ -71,12 +71,6 @@ int main() {
     // snake2 = initSnakeAI(16, 14, 10, 10);
     food = initFood(10, 10);
 
-    // draw LCD
-    // parlcd_write_cmd(parlcd_mem_base, 0x2c);
-    // for (ptr = 0; ptr < 480*320 ; ptr++) {
-    //     parlcd_write_data(parlcd_mem_base, 0);
-    // }
-
     goto Menu;
         
     start_game:
@@ -128,10 +122,6 @@ int main() {
                 // moveSnakeAI(snake2, food, desk);
             }
         }
-        // parlcd_write_cmd(parlcd_mem_base, 0x2c);
-        // for (ptr = 0; ptr < 480*320 ; ptr++) {
-        //     parlcd_write_data(parlcd_mem_base, fb[ptr]);
-        // }
     }
     sleep(1);
     draw_EndGame(fb, snake->score, retry, quit);
@@ -171,11 +161,6 @@ int main() {
     }
     Menu:
     draw_Menu(fb, standard, demo);
-    // draw LCD
-    // parlcd_write_cmd(parlcd_mem_base, 0x2c);
-    // for (ptr = 0; ptr < 480*320 ; ptr++) {
-    //     parlcd_write_data(parlcd_mem_base, fb[ptr]);
-    // }
     //draw LED
     rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
     rgb_knobs_value = 16711935; //purple
@@ -201,11 +186,6 @@ int main() {
                 break;
             }
         }
-        // draw LCD
-        // parlcd_write_cmd(parlcd_mem_base, 0x2c);
-        // for (ptr = 0; ptr < 480*320 ; ptr++) {
-        //     parlcd_write_data(parlcd_mem_base, fb[ptr]);
-        // }
     }
     goto start_game;
 
