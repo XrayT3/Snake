@@ -38,8 +38,6 @@ int main() {
     uint32_t rgb_knobs_value;
     int start, now, sec, ns;
     char ch = '1';
-    int score = 0;
-    int score2 = 0;
 
     static struct termios oldt, newt;
     tcgetattr( STDIN_FILENO, &oldt); 
@@ -66,10 +64,8 @@ int main() {
     struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 50 * 1000 * 1000};
     for (i=0; i<10; i++) {
         *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
-        // val_line<<=1;
         val_line += pow(2, p);
         p+=3;
-        //printf("LED val 0x%x\n", val_line);
         clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
     }
 
@@ -80,7 +76,7 @@ int main() {
 
     desk = initDesk(16, 14, 1, 1);
     snake = initSnakeAI(16, 14, 5, 5);
-    snake2 = initSnakeAI(16, 14, 10, 10);
+    // snake2 = initSnakeAI(16, 14, 10, 10);
     food = initFood(10, 10);
 
     goto Menu;
@@ -129,7 +125,7 @@ int main() {
         sec = ns / 1000;
         if (ns % speed == 0){
             // printf("%d\n", ns);
-            // drawDesk(desk, snake, food, sec, fb);
+            drawDesk(desk, snake, food, sec, fb);
             // drawDesk(desk, snake2, food, sec, fb);
             if (standard==1){
                 moveSnakeManual(snake, food, desk);
@@ -137,9 +133,10 @@ int main() {
             }
             else
             {
-                moveSnakeAITwoSnakes(snake, snake2, food, desk);
-                moveSnakeAITwoSnakes(snake2, snake, food, desk);
-                drawDesk2(desk, snake, snake2, food, sec, fb);
+                moveSnakeAI(snake, food, dask);
+                // moveSnakeAITwoSnakes(snake, snake2, food, desk);
+                // moveSnakeAITwoSnakes(snake2, snake, food, desk);
+                // drawDesk2(desk, snake, snake2, food, sec, fb);
             }
         }
     }
@@ -250,7 +247,7 @@ int main() {
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 4;
     clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 0;
-    
+
     parlcd_write_cmd(parlcd_mem_base, 0x2c);
     for (ptr = 0; ptr < 480*320 ; ptr++) {
         parlcd_write_data(parlcd_mem_base, 0);
