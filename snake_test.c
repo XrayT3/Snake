@@ -20,7 +20,7 @@ int scale = 5;
 int speed = 100;
 int standard = 0;
 int demo = 1;
-int exit = 0;
+int Exit = 0;
 int retry = 1;
 int quit = 0;
 int slow = 1;
@@ -196,17 +196,17 @@ int main() {
         {   
             a = standard;
             b = demo;
-            c = exit;
+            c = Exit;
             if (ch == 'w') {
                 standard = c;
                 demo = a;
-                exit = b;
+                Exit = b;
                 draw_Menu(fb, standard, demo);
             }
             else if (ch == 's') {
                 standard = b;
                 demo = c;
-                exit = a;
+                Exit = a;
                 draw_Menu(fb, standard, demo);
             }
             else if (ch == ' ') {
@@ -215,7 +215,7 @@ int main() {
         }
     }
     
-    if (1-exit){
+    if (1-Exit){
         goto start_game;
     }
 
