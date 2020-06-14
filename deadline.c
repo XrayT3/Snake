@@ -11,7 +11,7 @@
 #include "font_prop14x16.c"
 font_descriptor_t* fdes = &font_winFreeSystem14x16;
 unsigned short *fb;
-int size_dead = 0;
+int size_dead = 4;
 int ptr;
 
 void draw_pixel(int x, int y, int color) {
@@ -124,7 +124,7 @@ int main(){
     printf("%d\n", 23-u->tm_hour);
     printf("%d\n", 60-u->tm_min);
 
-    while (101)
+    while (1)
     {
         printf("1");
         // current time
