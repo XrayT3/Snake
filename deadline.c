@@ -93,6 +93,8 @@ int main(){
         fb[ptr]=0u;
     }
 
+    val_line = 4;
+    double p = 5;
     for (int i=0; i<10; i++) {
         *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
         val_line += pow(2, p);
