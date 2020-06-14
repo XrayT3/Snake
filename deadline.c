@@ -93,6 +93,11 @@ int main(){
         fb[ptr]=0u;
     }
 
+    rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
+    rgb_knobs_value = 16711680; //red
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
+
     val_line = 4;
     double p = 5;
     for (int i=0; i<10; i++) {
@@ -103,13 +108,12 @@ int main(){
     }
 
 
-    // char str[] = "DEADLINE"; // 8
-    char str[] = "11111111"; // 8
+    char str[] = "DEADLINE"; // 8
     char *ch = str;
     int x = 20;
     // int x = 49-(standard*36); centr
     for (int i=0; i<8; i++) {
-        draw_char(x, 20, *ch, size_dead, 63519);
+        draw_char(x, 20, *ch, size_dead, 31);
         x+=size_dead*char_width(*ch)+2;
         ch++;
     }
@@ -123,32 +127,64 @@ int main(){
     ttime = time (NULL);
     u = localtime(&ttime);
     printf("Deadline\n");
-    printf("%d\n", 23-u->tm_hour);
-    printf("%d\n", 60-u->tm_min);
+    printf("%d\n", 23-u->tm_min);
+    printf("%d\n", 60-u->tm_sec);
 
     while (1)
     {
-        printf("1");
         // current time
         ttime = time (NULL);
-        printf("2");
         u = localtime(&ttime);
-        printf("3");
-        *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 1227133513;
-        printf("4");
-        clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
-        printf("5");
-        *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 1687308580;
-        clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
-        *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 843654290;
-        clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
-        *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 421827145;
-        clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
-    }
-    
 
-    // printf ("Current time: %s\n", ctime (&ttime) );
-    // printf("%d\n", u->tm_hour);
-    // printf("%d\n", u->tm_min);
+        x = 220;
+        if (u->tm_min==0){
+            draw_char(x, 200, '0', 4, 63519); // size_score = 4;
+        }
+        char str1[3] = "0";
+        int idx = 0;
+        while (u->tm_min!=0)
+        {
+            str1[idx] = u->tm_min % 10 + '0';
+            u->tm_min /= 10;
+            idx++;
+        }
+        for (int i = idx-1; i >= 0; i--){
+            draw_char(x, 200, str1[i], 4, 63519); // size_score = 4;
+            x+=4*char_width(str1[i])+2; // size_score = 4;
+        }
+
+        x = 220;
+        if (u->tm_sec==0){
+            draw_char(x, 300, '0', 4, 63519); // size_score = 4;
+        }
+        char str2[3] = "0";
+        int idx2 = 0;
+        while (u->tm_sec!=0)
+        {
+            str2[idx2] = u->tm_sec % 10 + '0';
+            u->tm_sec /= 10;
+            idx2++;
+        }
+        for (int i = idx2-1; i >= 0; i--){
+            draw_char(x, 300, str2[i], 4, 63519); // size_score = 4;
+            x+=4*char_width(str2[i])+2; // size_score = 4;
+        }
+
+        
+        // draw LCD
+        parlcd_write_cmd(parlcd_mem_base, 0x2c);
+        for (ptr = 0; ptr < 480*320 ; ptr++) {
+            parlcd_write_data(parlcd_mem_base, fb[ptr]);
+        }
+
+        // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 1227133513;
+        // clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+        // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 1687308580;
+        // clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+        // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 843654290;
+        // clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+        // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 421827145;
+        // clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+    }
     return 0;
 }
