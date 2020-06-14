@@ -226,18 +226,31 @@ int main() {
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
 
-    p= 29;
-    for (i=0; i<10; i++) {
-        printf("%d\n", p);
-        printf("%d\n", val_line);
-        *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
-        // val_line<<=1;
-        val_line -= pow(2, p);
-        p-=3;
-        //printf("LED val 0x%x\n", val_line);
-        clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
-    }
+    
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 1227133513;
+    clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 153391689;
+    clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 19173961;
+    clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 2396745;
+    clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 299593;
+    clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 37449;
+    clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 18724;
+    clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 2340;
+    clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 292;
+    clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 36;
+    clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 4;
+    clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 0;
+    
     parlcd_write_cmd(parlcd_mem_base, 0x2c);
     for (ptr = 0; ptr < 480*320 ; ptr++) {
         parlcd_write_data(parlcd_mem_base, 0);
