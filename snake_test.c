@@ -11,7 +11,7 @@
 #include <termios.h>
 
 #include "snake.h"
-#include "menu.h"
+// #include "menu.h"
 
 #include "mzapo_parlcd.h"
 #include "mzapo_phys.h"
