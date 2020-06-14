@@ -17,7 +17,6 @@
 #include "mzapo_regs.h"
 
 unsigned short *fb;
-// int scale = 5;
 int speed = 100;
 int standard = 0;
 int demo = 1;
@@ -70,13 +69,13 @@ int main() {
     }
 
     snake_t *snake;
-    // snake_t *snake2;
+    snake_t *snake2;
     desk_t *desk;
     food_t *food;
 
     desk = initDesk(16, 14, 1, 1);
     snake = initSnakeAI(16, 14, 5, 5);
-    // snake2 = initSnakeAI(16, 14, 10, 10);
+    snake2 = initSnakeAI(16, 14, 10, 10);
     food = initFood(10, 10);
 
     goto Menu;
@@ -116,7 +115,6 @@ int main() {
     start = clock();
     rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
     rgb_knobs_value = 65280; //green
-
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
     while (1-desk->gameOver) {
@@ -133,10 +131,10 @@ int main() {
             }
             else
             {
-                moveSnakeAI(snake, food, desk);
-                // moveSnakeAITwoSnakes(snake, snake2, food, desk);
-                // moveSnakeAITwoSnakes(snake2, snake, food, desk);
-                // drawDesk2(desk, snake, snake2, food, sec, fb);
+                // moveSnakeAI(snake, food, desk);
+                moveSnakeAITwoSnakes(snake, snake2, food, desk);
+                moveSnakeAITwoSnakes(snake2, snake, food, desk);
+                drawDesk2(desk, snake, snake2, food, sec, fb);
             }
         }
     }
@@ -145,7 +143,6 @@ int main() {
     // draw LED
     rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
     rgb_knobs_value =16711680; //red
-
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
     ch = '1';
@@ -211,7 +208,6 @@ int main() {
             }
         }
     }
-    
     if (1-Exit){
         goto start_game;
     }
@@ -223,7 +219,6 @@ int main() {
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
 
-    
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 1227133513;
     clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 153391689;
