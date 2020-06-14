@@ -151,10 +151,6 @@ int main() {
 
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
-    // parlcd_write_cmd(parlcd_mem_base, 0x2c);
-    // for (ptr = 0; ptr < 480*320 ; ptr++) {
-    //     parlcd_write_data(parlcd_mem_base, fb[ptr]);
-    // }
     ch = '1';
     while (ch!=' ')
     {
@@ -239,6 +235,10 @@ int main() {
         clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
     }
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 0;
+    parlcd_write_cmd(parlcd_mem_base, 0x2c);
+    for (ptr = 0; ptr < 480*320 ; ptr++) {
+        parlcd_write_data(parlcd_mem_base, 0);
+    }
 
     //clean up after game is over
     freeDesk(desk);
