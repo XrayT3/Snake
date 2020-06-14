@@ -12,11 +12,8 @@ snake_t *initSnake(int displayWidth, int displayHeight, int initSnakeX, int init
     snake->max_length = displayWidth * displayHeight;
     snake->score = 0;
     snake->direction = LEFT;
-
-    //TODO
-    //snake->turnLeft = turnLeft
-    //snake->turnRight = turnRight
-
+    snake->turnLeft = turnLeft;
+    snake->turnRight = turnRight;
     snake->snake_skeleton = (section_t *)malloc(sizeof(section_t) * snake->max_length);
     for (int i = 0; i < INIT_LEN; i++) {
 
@@ -65,10 +62,10 @@ void moveSnakeManual(snake_t *snake, food_t *food, desk_t *desk) {
     }
     if (r==1)
     {   
-        if (ch == 'a') {
+        if (ch == snake->turnLeft) {
           snakeTurnLeft(snake);
         }
-        else if (ch == 'd') {
+        else if (ch == snake->turnRight) {
           snakeTurnRight(snake);
         }
     }
@@ -81,7 +78,7 @@ void moveSnakeManual(snake_t *snake, food_t *food, desk_t *desk) {
     ) {
 
         // printf("Gameover!\n");
-        desk->gameOver = 1;
+        snake->gameOver = 1;
     }
 
     snakeEats(food, snake, desk, lastCoords[0], lastCoords[1]);
@@ -113,7 +110,7 @@ void moveSnakeAI(snake_t *snake, food_t *food, desk_t *desk) {
     ) {
 
         // printf("Gameover!\n");
-        desk->gameOver = 1;
+        snake->gameOver = 1;
         //change to gameover menu
     }
 

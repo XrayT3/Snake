@@ -43,7 +43,7 @@ void moveSnakeManualTwoSnakes(snake_t *snake, snake_t *secondSnake, food_t *food
     ) {
 
         printf("Gameover!\n");
-        desk->gameOver = 1;
+        snake->gameOver = 1;
         //change to gameover menu
     }
 
@@ -78,7 +78,7 @@ void moveSnakeAITwoSnakes(snake_t *snake, snake_t *secondSnake, food_t *food, de
     ) {
 
         printf("Gameover!\n");
-        desk->gameOver = 1;
+        snake->gameOver = 1;
         //change to gameover menu
     }
 

@@ -19,6 +19,7 @@ typedef struct {
     int direction;
     char turnLeft;
     char turnRight;
+    int gameOver;
     section_t *snake_skeleton;
 } snake_t;
 
@@ -31,5 +32,4 @@ typedef struct {
     int startY;
     int endX;
     int endY;
-    int gameOver;
 } desk_t;
