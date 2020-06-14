@@ -25,6 +25,7 @@ int medium = 0;
 int fast = 0;
 int a, b, c, ptr, i;
 uint32_t rgb_knobs_value;
+unsigned char *mem_base;
 
 void rgb_LED(int color){
 
@@ -35,7 +36,7 @@ void rgb_LED(int color){
 }
 
 int main() {
-    unsigned char *mem_base;
+    // unsigned char *mem_base;
     unsigned char *parlcd_mem_base;
     uint32_t val_line=5;
     // uint32_t rgb_knobs_value;
