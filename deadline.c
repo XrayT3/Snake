@@ -138,7 +138,7 @@ int main(){
 
         x = 220;
         if (u->tm_min==0){
-            draw_char(x, 50, '0', 4, 63488); // size_score = 4;
+            draw_char(x, 150, '0', 6, 63488); // size_score = 4;
         }
         char str1[3] = "0";
         int idx = 0;
@@ -149,13 +149,13 @@ int main(){
             idx++;
         }
         for (int i = idx-1; i >= 0; i--){
-            draw_char(x, 50, str1[i], 4, 63488); // size_score = 4;
-            x+=4*char_width(str1[i])+2; // size_score = 4;
+            draw_char(x, 150, str1[i], 6, 63488); // size_score = 4;
+            x+=6*char_width(str1[i])+2; // size_score = 4;
         }
 
         x = 220;
         if (u->tm_sec==0){
-            draw_char(x, 150, '0', 4, 63488); // size_score = 4;
+            draw_char(x, 250, '0', 6, 63488); // size_score = 4;
         }
         char str2[3] = "0";
         int idx2 = 0;
@@ -166,8 +166,8 @@ int main(){
             idx2++;
         }
         for (int i = idx2-1; i >= 0; i--){
-            draw_char(x, 150, str2[i], 4, 63488); // size_score = 4;
-            x+=4*char_width(str2[i])+2; // size_score = 4;
+            draw_char(x, 250, str2[i], 6, 63488); // size_score = 4;
+            x+=6*char_width(str2[i])+2; // size_score = 4;
         }
 
         
