@@ -64,7 +64,7 @@ void moveSnakeAITwoSnakes(snake_t *snake, snake_t *secondSnake, food_t *food, de
         snake->snake_skeleton[k].coords[1] = snake->snake_skeleton[k - 1].coords[1];
     }
 
-    snakeController(snake, desk, food);
+    snakeControllerTwoSnakes(snake, secondSnake, desk, food);
 
     //logic part--------
     snakeStep(snake);
