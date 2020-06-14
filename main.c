@@ -70,7 +70,7 @@ int main() {
     desk_t *desk;
     food_t *food;
     desk = initDesk(16, 14, 1, 1);
-    food = initFood(10, 10);
+    food = initFood(4, 4);
     snake = initSnake(16, 14, 5, 5, 'a', 'd');
     snake2 = initSnake(16, 14, 10, 10, 'j', 'l');
     snakeAI = initSnakeAI(16, 14, 5, 5);
@@ -110,6 +110,7 @@ int main() {
             }
         }
     }
+    // draw_set_players();
     speed = 100*fast + 250*medium + 500*slow;
     start = clock();
     rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
