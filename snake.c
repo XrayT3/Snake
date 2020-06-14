@@ -74,7 +74,7 @@ void moveSnakeManual(snake_t *snake, food_t *food, desk_t *desk) {
     //logic part--------
     snakeStep(snake);
     if (
-        checkWallsCollisions(snake, desk)   ||
+        checkCollisions(snake, desk)   ||
         checkItselfCollisions(snake)        
     ) {
 

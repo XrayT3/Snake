@@ -43,6 +43,8 @@ void increaseSnake(snake_t *snake, int coordX, int coordY);
 //Check if snake can get a point during one move
 void snakeEats(food_t *food, snake_t *snake, desk_t *desk, int lastCoordX, int lastCoordY);
 
+int checkCollisions(snake_t *snake, desk_t *desk);
+
 int checkWallsCollisions(snake_t *snake, desk_t *desk);
 
 int checkItselfCollisions(snake_t *snake);

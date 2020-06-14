@@ -78,6 +78,7 @@ int main() {
 
     goto Menu;
     start_game:
+    food = initFood(4, 4);
     snake = initSnake(16, 14, 5, 5, 'a', 'd');
     snake2 = initSnake(16, 14, 10, 10, 'j', 'l');
     snakeAI = initSnakeAI(16, 14, 5, 5);
