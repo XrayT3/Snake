@@ -20,7 +20,7 @@ unsigned char *parlcd_mem_base;
 unsigned char *mem_base;
 uint32_t rgb_knobs_value;
 
-// int size_cell = 20;
+int size_Cell = 20;
 // int size_score = 4;
 // int size_time = 4;
 int size_GameOver = 5;
@@ -254,7 +254,7 @@ void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
   }
   x = 220;
   if (score==0){
-      draw_char(x, 100, '0', size_score, 63519);
+      draw_char(x, 100, '0', 4, 63519); // size_score = 4;
   }
   char str1[3] = "0";
   int idx = 0;
@@ -525,7 +525,7 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned shor
                 (j == food->coord[0]) &&
                 (i == food->coord[1])
             )
-            draw_food(j*size_cell, i*size_cell); // food
+            draw_food(j*size_Cell, i*size_Cell); // food
             else{
                 for (int k = 0; k < snake->length; k++) {
 
@@ -533,7 +533,7 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned shor
                         j == (snake->snake_skeleton[k].coords[0]) &&
                         i == (snake->snake_skeleton[k].coords[1]) 
                     )
-                    draw_snake(j*size_cell, i*size_cell); // snake
+                    draw_snake(j*size_Cell, i*size_Cell); // snake
                 }
             }
         }
@@ -562,21 +562,21 @@ void drawDesk_2_snakes(desk_t *desk, snake_t *snake, snake_t *snake2, food_t *fo
                 (j == food->coord[0]) &&
                 (i == food->coord[1])
             )
-            draw_food(j*size_cell, i*size_cell); // food
+            draw_food(j*size_Cell, i*size_Cell); // food
             else{
                 for (int k = 0; k < snake->length; k++) {
                     if (
                         j == (snake->snake_skeleton[k].coords[0]) &&
                         i == (snake->snake_skeleton[k].coords[1]) 
                     )
-                    draw_snake(j*size_cell, i*size_cell); // snake
+                    draw_snake(j*size_Cell, i*size_Cell); // snake
                 }
                 for (int k = 0; k < snake2->length; k++) {
                     if (
                         j == (snake2->snake_skeleton[k].coords[0]) &&
                         i == (snake2->snake_skeleton[k].coords[1]) 
                     )
-                    draw_snake(j*size_cell, i*size_cell); // snake2
+                    draw_snake(j*size_Cell, i*size_Cell); // snake2
                 }
             }
         }
