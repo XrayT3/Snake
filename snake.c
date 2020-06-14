@@ -14,6 +14,7 @@ snake_t *initSnake(int displayWidth, int displayHeight, int initSnakeX, int init
     snake->direction = LEFT;
     snake->turnLeft = turnLeft;
     snake->turnRight = turnRight;
+    snake->gameOver = 0;
     snake->snake_skeleton = (section_t *)malloc(sizeof(section_t) * snake->max_length);
     for (int i = 0; i < INIT_LEN; i++) {
 
@@ -30,6 +31,7 @@ snake_t *initSnakeAI(int displayWidth, int displayHeight, int initSnakeX, int in
     snake->max_length = displayWidth * displayHeight;
     snake->score = 0;
     snake->direction = LEFT;
+    snake->gameOver = 0;
     snake->snake_skeleton = (section_t *)malloc(sizeof(section_t) * snake->max_length);
     for (int i = 0; i < INIT_LEN; i++) {
 

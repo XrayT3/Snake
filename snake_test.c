@@ -116,7 +116,7 @@ int main() {
     rgb_knobs_value = 65280; //green
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
-    while (1-desk->gameOver) {
+    while (1-snake->gameOver) {
         now = clock();
         ns = (now-start) / 1000;
         sec = ns / 1000;

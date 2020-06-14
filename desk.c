@@ -15,7 +15,6 @@ desk_t *initDesk(int width, int height, int startX, int startY) {
     desk->startY = startY;
     desk->endX = startX + width;
     desk->endY = startY + height;
-    desk->gameOver = 0;
     return desk;
 }
 
