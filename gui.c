@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "snake.h"
+#include "menu.h"
 
 #include "font_types.h"
 #include "font_prop14x16.c"
