@@ -124,7 +124,7 @@ int main() {
     speed = 100*fast + 250*medium + 500*slow;
     start = clock();
     rgb_LED(65280); //green
-    while (1-snake->gameOver & 1-snake2->gameOver) {
+    while ((1-snake->gameOver) & (1-snake2->gameOver)) {
         now = clock();
         ns = (now-start) / 1000;
         sec = ns / 1000;
