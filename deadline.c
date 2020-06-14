@@ -113,7 +113,7 @@ int main(){
     int x = 20;
     // int x = 49-(standard*36); centr
     for (int i=0; i<8; i++) {
-        draw_char(x, 20, *ch, size_dead, 31);
+        draw_char(x, 20, *ch, size_dead, 63488);
         x+=size_dead*char_width(*ch)+2;
         ch++;
     }
@@ -138,7 +138,7 @@ int main(){
 
         x = 220;
         if (u->tm_min==0){
-            draw_char(x, 200, '0', 4, 63519); // size_score = 4;
+            draw_char(x, 50, '0', 4, 63488); // size_score = 4;
         }
         char str1[3] = "0";
         int idx = 0;
@@ -149,13 +149,13 @@ int main(){
             idx++;
         }
         for (int i = idx-1; i >= 0; i--){
-            draw_char(x, 200, str1[i], 4, 63519); // size_score = 4;
+            draw_char(x, 50, str1[i], 4, 63488); // size_score = 4;
             x+=4*char_width(str1[i])+2; // size_score = 4;
         }
 
         x = 220;
         if (u->tm_sec==0){
-            draw_char(x, 300, '0', 4, 63519); // size_score = 4;
+            draw_char(x, 150, '0', 4, 63488); // size_score = 4;
         }
         char str2[3] = "0";
         int idx2 = 0;
@@ -166,7 +166,7 @@ int main(){
             idx2++;
         }
         for (int i = idx2-1; i >= 0; i--){
-            draw_char(x, 300, str2[i], 4, 63519); // size_score = 4;
+            draw_char(x, 150, str2[i], 4, 63488); // size_score = 4;
             x+=4*char_width(str2[i])+2; // size_score = 4;
         }
 
@@ -176,15 +176,6 @@ int main(){
         for (ptr = 0; ptr < 480*320 ; ptr++) {
             parlcd_write_data(parlcd_mem_base, fb[ptr]);
         }
-
-        // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 1227133513;
-        // clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
-        // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 1687308580;
-        // clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
-        // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 843654290;
-        // clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
-        // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 421827145;
-        // clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
     }
     return 0;
 }
