@@ -238,8 +238,6 @@ void draw_time(int sec){
 }
 
 void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
-//   parlcd_mem_base = map_phys_address(PARLCD_REG_BASE_PHYS, PARLCD_REG_SIZE, 0);
-
   int ptr;
   fb = fb1;
   for (ptr = 0; ptr < 320*480 ; ptr++) {
@@ -335,7 +333,6 @@ void draw_Menu(unsigned short *fb1, int standard, int demo, int exit){
 }
 
 void draw_speed_ctrl(unsigned short *fb1, int slow, int medium, int fast){
-    // parlcd_mem_base = map_phys_address(PARLCD_REG_BASE_PHYS, PARLCD_REG_SIZE, 0);
     int ptr;
     fb = fb1;
     for (ptr = 0; ptr < 320*480 ; ptr++) {
@@ -426,9 +423,8 @@ void moveSnakeManual(snake_t *snake, food_t *food, desk_t *desk) {
         checkItselfCollisions(snake)        
     ) {
 
-        printf("Gameover!\n");
+        // printf("Gameover!\n");
         desk->gameOver = 1;
-        //change to gameover menu
     }
 
     snakeEats(food, snake, desk, lastCoords[0], lastCoords[1]);
@@ -459,7 +455,7 @@ void moveSnakeAI(snake_t *snake, food_t *food, desk_t *desk) {
         checkItselfCollisions(snake)        
     ) {
 
-        printf("Gameover!\n");
+        // printf("Gameover!\n");
         desk->gameOver = 1;
         //change to gameover menu
     }
@@ -520,7 +516,7 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned shor
     }
     draw_score(snake->score);
     draw_time(sec);
-    draw_wall(16, 14); // dobavit parametry
+    draw_wall(16, 14);
 
     for (int i = desk->startY; i < desk->endY; i ++) {
         for (int j = desk->startX; j < desk->endX; j++) {
@@ -558,8 +554,7 @@ void drawDesk2(desk_t *desk, snake_t *snake, snake_t *snake2, food_t *food, int 
     draw_score(snake->score);
     draw_score2(snake2->score);
     draw_time(sec);
-    draw_wall(16, 14); // dobavit parametry
-
+    draw_wall(16, 14); 
     for (int i = desk->startY; i < desk->endY; i ++) {
         for (int j = desk->startX; j < desk->endX; j++) {
             if (

@@ -17,7 +17,7 @@
 #include "mzapo_regs.h"
 
 unsigned short *fb;
-int scale = 5;
+// int scale = 5;
 int speed = 100;
 int standard = 0;
 int demo = 1;
