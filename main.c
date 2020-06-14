@@ -27,8 +27,9 @@ int a, b, c, ptr, i;
 uint32_t rgb_knobs_value;
 unsigned char *mem_base;
 
-void rgb_LED(int color){
 
+
+void rgb_LED(int color){
     rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
     rgb_knobs_value = color;
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
@@ -36,10 +37,8 @@ void rgb_LED(int color){
 }
 
 int main() {
-    // unsigned char *mem_base;
     unsigned char *parlcd_mem_base;
     uint32_t val_line=5;
-    // uint32_t rgb_knobs_value;
     int start, now, sec, ns;
     char ch = '1';
 
@@ -125,10 +124,6 @@ int main() {
     speed = 100*fast + 250*medium + 500*slow;
     start = clock();
     rgb_LED(65280); //green
-    // rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
-    // rgb_knobs_value = 65280; //green
-    // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
-    // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
     while (1-snake->gameOver & 1-snake2->gameOver) {
         now = clock();
         ns = (now-start) / 1000;
@@ -153,12 +148,7 @@ int main() {
     sleep(1);
     int record = get_record(snake->score, snake2->score, snakeAI->score, snakeAI2->score);
     draw_EndGame(fb, record, retry, quit);
-    // draw LED
     rgb_LED(16711680); //red
-    // rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
-    // rgb_knobs_value =16711680; //red
-    // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
-    // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
     ch = '1';
     while (ch!=' ')
     {
@@ -186,12 +176,7 @@ int main() {
     }
     Menu:
     draw_Menu(fb, standard, demo, Exit);
-    //draw LED
     rgb_LED(16711935); //purple
-    // rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
-    // rgb_knobs_value = 16711935; //purple
-    // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
-    // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
     ch = '1';
     while (ch!=' ')
     {
@@ -224,11 +209,6 @@ int main() {
 
     // exit:
     rgb_LED(0); // off
-    // rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
-    // rgb_knobs_value = 0; // off
-
-    // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
-    // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
 
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 1227133513;
     clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
@@ -264,6 +244,7 @@ int main() {
     freeSnake(snakeAI);
     freeSnake(snakeAI2);
     freeFood(food);
+    free(fb);
 
     tcsetattr( STDIN_FILENO, TCSANOW, &oldt);
     return 0;
