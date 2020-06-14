@@ -113,7 +113,7 @@ int main(){
     int x = 30;
     // int x = 49-(standard*36); centr
     for (int i=0; i<8; i++) {
-        draw_char(x, 30, *ch, size_dead, 63488);
+        draw_char(x, 35, *ch, size_dead, 63488);
         x+=size_dead*char_width(*ch)+2;
         ch++;
     }
@@ -136,7 +136,7 @@ int main(){
         int sec = 60-u->tm_sec;
         x = 200;
         if (min==0){
-            draw_char(x, 170, '0', 6, 63488); // size_score = 4;
+            draw_char(x, 130, '0', 6, 63488); // size_score = 4;
         }
         char str1[3] = "0";
         int idx = 0;
@@ -147,13 +147,13 @@ int main(){
             idx++;
         }
         for (int i = idx-1; i >= 0; i--){
-            draw_char(x, 170, str1[i], 6, 63488); // size_score = 4;
+            draw_char(x, 130, str1[i], 6, 63488); // size_score = 4;
             x+=6*char_width(str1[i])+2; // size_score = 4;
         }
 
         x = 200;
         if (sec==0){
-            draw_char(x, 270, '0', 6, 63488); // size_score = 4;
+            draw_char(x, 230, '0', 6, 63488); // size_score = 4;
         }
         char str2[3] = "0";
         int idx2 = 0;
@@ -164,7 +164,7 @@ int main(){
             idx2++;
         }
         for (int i = idx2-1; i >= 0; i--){
-            draw_char(x, 270, str2[i], 6, 63488); // size_score = 4;
+            draw_char(x, 230, str2[i], 6, 63488); // size_score = 4;
             x+=6*char_width(str2[i])+2; // size_score = 4;
         }
 
