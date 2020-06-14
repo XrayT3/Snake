@@ -92,6 +92,15 @@ int main(){
     for (ptr = 0; ptr < 320*480 ; ptr++) {
         fb[ptr]=0u;
     }
+
+    for (int i=0; i<10; i++) {
+        *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
+        val_line += pow(2, p);
+        p+=3;
+        clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+    }
+
+
     // char str[] = "DEADLINE"; // 8
     char str[] = "11111111"; // 8
     char *ch = str;
@@ -101,6 +110,12 @@ int main(){
         draw_char(x, 20, *ch, size_dead, 63519);
         x+=size_dead*char_width(*ch)+2;
         ch++;
+    }
+
+    // draw LCD
+    parlcd_write_cmd(parlcd_mem_base, 0x2c);
+    for (ptr = 0; ptr < 480*320 ; ptr++) {
+        parlcd_write_data(parlcd_mem_base, fb[ptr]);
     }
 
     printf("Deadline\n");
