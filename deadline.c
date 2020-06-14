@@ -127,7 +127,7 @@ int main(){
     ttime = time (NULL);
     u = localtime(&ttime);
     printf("Deadline\n");
-    printf("%d\n", 23-u->tm_min);
+    printf("%d\n", 60-u->tm_min);
     printf("%d\n", 60-u->tm_sec);
 
     while (1)
@@ -135,17 +135,18 @@ int main(){
         // current time
         ttime = time (NULL);
         u = localtime(&ttime);
-
+        int min = 60-u->tm_min;
+        int sec = 60-u->tm_sec;
         x = 220;
-        if (u->tm_min==0){
+        if (min==0){
             draw_char(x, 150, '0', 6, 63488); // size_score = 4;
         }
         char str1[3] = "0";
         int idx = 0;
-        while (u->tm_min!=0)
+        while (min!=0)
         {
-            str1[idx] = u->tm_min % 10 + '0';
-            u->tm_min /= 10;
+            str1[idx] = min % 10 + '0';
+            min /= 10;
             idx++;
         }
         for (int i = idx-1; i >= 0; i--){
@@ -154,15 +155,15 @@ int main(){
         }
 
         x = 220;
-        if (u->tm_sec==0){
+        if (sec==0){
             draw_char(x, 250, '0', 6, 63488); // size_score = 4;
         }
         char str2[3] = "0";
         int idx2 = 0;
-        while (u->tm_sec!=0)
+        while (sec!=0)
         {
-            str2[idx2] = u->tm_sec % 10 + '0';
-            u->tm_sec /= 10;
+            str2[idx2] = sec % 10 + '0';
+            sec /= 10;
             idx2++;
         }
         for (int i = idx2-1; i >= 0; i--){
