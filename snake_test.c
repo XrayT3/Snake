@@ -182,7 +182,7 @@ int main() {
         goto start_game;
     }
     Menu:
-    draw_Menu(fb, standard, demo);
+    draw_Menu(fb, standard, demo, Exit);
     //draw LED
     rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
     rgb_knobs_value = 16711935; //purple
@@ -201,13 +201,13 @@ int main() {
                 standard = c;
                 demo = a;
                 Exit = b;
-                draw_Menu(fb, standard, demo);
+                draw_Menu(fb, standard, demo, Exit);
             }
             else if (ch == 's') {
                 standard = b;
                 demo = c;
                 Exit = a;
-                draw_Menu(fb, standard, demo);
+                draw_Menu(fb, standard, demo, Exit);
             }
             else if (ch == ' ') {
                 break;
