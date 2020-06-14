@@ -64,7 +64,7 @@ int main() {
     double p = 5;
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
     struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 20 * 1000 * 1000};
-    for (i=0; i<30; i++) {
+    for (i=0; i<10; i++) {
         *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
         // val_line<<=1;
         val_line += pow(2, p);
