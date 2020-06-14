@@ -154,9 +154,9 @@ int checkCollisions(snake_t *snake, desk_t *desk) {
     }
     if (
         snake->snake_skeleton[0].coords[0] == desk->startX  ||
-        snake->snake_skeleton[0].coords[0] == desk->endX    ||
+        snake->snake_skeleton[0].coords[0] == desk->endX-1  ||
         snake->snake_skeleton[0].coords[1] == desk->startY  ||
-        snake->snake_skeleton[0].coords[1] == desk->endY
+        snake->snake_skeleton[0].coords[1] == desk->endY-1
     ) {
         ret = 1;
     }
