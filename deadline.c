@@ -11,7 +11,7 @@
 #include "font_prop14x16.c"
 font_descriptor_t* fdes = &font_winFreeSystem14x16;
 unsigned short *fb;
-int size_dead = 4;
+int size_dead = 6;
 int ptr;
 
 void draw_pixel(int x, int y, int color) {
@@ -120,6 +120,8 @@ int main(){
         parlcd_write_data(parlcd_mem_base, fb[ptr]);
     }
 
+    ttime = time (NULL);
+    u = localtime(&ttime);
     printf("Deadline\n");
     printf("%d\n", 23-u->tm_hour);
     printf("%d\n", 60-u->tm_min);
@@ -148,9 +150,5 @@ int main(){
     // printf ("Current time: %s\n", ctime (&ttime) );
     // printf("%d\n", u->tm_hour);
     // printf("%d\n", u->tm_min);
-
-    printf("Deadline\n");
-    printf("%d\n", 23-u->tm_hour);
-    printf("%d\n", 60-u->tm_min);
     return 0;
 }
