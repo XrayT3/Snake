@@ -1,7 +1,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-// #include <unistd.h> 
 
 #include "snake.h"
 #include "gui.h"
@@ -169,12 +168,10 @@ void draw_speed_ctrl(unsigned short *fb1, int slow, int medium, int fast){
     for (ptr = 0; ptr < 480*320 ; ptr++) {
         parlcd_write_data(parlcd_mem_base, fb[ptr]);
     }
-
     // LED
     mem_base = map_phys_address(SPILED_REG_BASE_PHYS, SPILED_REG_SIZE, 0);
     rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
     rgb_knobs_value = 16711935; //pink
-
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
 }
@@ -198,7 +195,6 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned shor
             draw_food(j*size_Cell, i*size_Cell); // food
             else{
                 for (int k = 0; k < snake->length; k++) {
-
                     if (
                         j == (snake->snake_skeleton[k].coords[0]) &&
                         i == (snake->snake_skeleton[k].coords[1]) 
@@ -208,7 +204,6 @@ void drawDesk(desk_t *desk, snake_t *snake, food_t *food, int sec, unsigned shor
             }
         }
     }
-
     // draw LCD
     parlcd_write_cmd(parlcd_mem_base, 0x2c);
     for (ptr = 0; ptr < 480*320 ; ptr++) {
@@ -251,7 +246,6 @@ void drawDesk_2_snakes(desk_t *desk, snake_t *snake, snake_t *snake2, food_t *fo
             }
         }
     }
-
     // draw LCD
     parlcd_write_cmd(parlcd_mem_base, 0x2c);
     for (ptr = 0; ptr < 480*320 ; ptr++) {

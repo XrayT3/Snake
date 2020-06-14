@@ -6,7 +6,7 @@ CFLAGS =-g -std=gnu99 -O1 -Wall -lm
 CXXFLAGS = -g -std=gnu++11 -O1 -Wall
 LDFLAGS = -lrt -lpthread
 
-SOURCES = snake_test.c mzapo_phys.c mzapo_parlcd.c snake.c desk.c food.c two_snakes.c gui.c menu.c
+SOURCES = main.c mzapo_phys.c mzapo_parlcd.c snake.c desk.c food.c two_snakes.c gui.c menu.c
 #SOURCES += font_prop14x16.c font_rom8x16.c
 TARGET_EXE = main
 #TARGET_IP ?= 192.168.202.127

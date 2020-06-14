@@ -2,7 +2,6 @@
 #include "font_types.h"
 #include "snake_types.h"
 
-
 void draw_pixel(int x, int y, int color);
 
 void draw_EndGame(unsigned short *fb1, int score, int retry, int quit);
