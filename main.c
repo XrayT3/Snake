@@ -239,17 +239,18 @@ int main() {
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 4;
     clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 0;
-
+    printf("3\n");
     parlcd_write_cmd(parlcd_mem_base, 0x2c);
     for (ptr = 0; ptr < 480*320 ; ptr++) {
         parlcd_write_data(parlcd_mem_base, 0);
     }
-
+    printf("4\n");
     //clean up after game is over
     freeDesk(desk);
     freeSnake(snake);
     freeFood(food);
 
+    printf("5\n");
     tcsetattr( STDIN_FILENO, TCSANOW, &oldt);
     return 0;
 }
