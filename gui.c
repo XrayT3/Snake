@@ -83,7 +83,7 @@ void draw_snake(int x, int y) {
   }
 }
 
-int char_width(font_descriptor_t* fdes, int ch) {
+int char_width(int ch) {
   int width = 0;
   if ((ch >= fdes->firstchar) && (ch-fdes->firstchar < fdes->size)) {
     ch -= fdes->firstchar;
@@ -96,7 +96,7 @@ int char_width(font_descriptor_t* fdes, int ch) {
   return width;
 }
 
-void draw_char(int x, int y, font_descriptor_t* fdes, char ch, int size, int color) {
+void draw_char(int x, int y, char ch, int size, int color) {
   int w = char_width(fdes, ch);
   if (w > 0) {
     const font_bits_t *ptr;
@@ -126,7 +126,7 @@ void draw_score(int score){
     int y = 20;
     int x = 380;
     if (score==0){
-        draw_char(x, y, fdes, '0', size_score+1, 63519);
+        draw_char(x, y, '0', size_score+1, 63519);
         return;
     }
     char str[3] = "0";
@@ -138,8 +138,8 @@ void draw_score(int score){
         idx++;
     }
     for (int i = idx-1; i >= 0; i--){
-        draw_char(x, y, fdes, str[i], size_score+1, 63519);
-        x+=size_score*char_width(fdes, str[i])+2;
+        draw_char(x, y, str[i], size_score+1, 63519);
+        x+=size_score*char_width(str[i])+2;
     }
 }
 
@@ -147,7 +147,7 @@ void draw_score_2_snakes(int score){
     int y = 240;
     int x = 380;
     if (score==0){
-        draw_char(x, y, fdes, '0', size_score+1, 63519);
+        draw_char(x, y, '0', size_score+1, 63519);
         return;
     }
     char str[3] = "0";
@@ -159,8 +159,8 @@ void draw_score_2_snakes(int score){
         idx++;
     }
     for (int i = idx-1; i >= 0; i--){
-        draw_char(x, y, fdes, str[i], size_score+1, 63519);
-        x+=size_score*char_width(fdes, str[i])+2;
+        draw_char(x, y, str[i], size_score+1, 63519);
+        x+=size_score*char_width(str[i])+2;
     }
 }
 
@@ -168,7 +168,7 @@ void draw_time(int sec){
   int y = 127;
   int x = 380;
   if (sec==0){
-      draw_char(x, y, fdes, '0', size_time, 63519);
+      draw_char(x, y, '0', size_time, 63519);
       return;
   }
   char str[3] = "0";
@@ -180,7 +180,7 @@ void draw_time(int sec){
       idx++;
   }
   for (int i = idx-1; i >= 0; i--){
-      draw_char(x, y, fdes, str[i], size_time, 63519);
-      x+=size_time*char_width(fdes, str[i])+2;
+      draw_char(x, y, str[i], size_time, 63519);
+      x+=size_time*char_width(str[i])+2;
   }
 }

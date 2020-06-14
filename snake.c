@@ -248,13 +248,13 @@ void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
   char *ch = str;
   int x = 54;
   for (int i=0; i<9; i++) {
-      draw_char(x, 10, fdes, *ch, size_GameOver, 63519);
-      x+=size_GameOver*char_width(fdes, *ch)+2;
+      draw_char(x, 10, *ch, size_GameOver, 63519);
+      x+=size_GameOver*char_width(*ch)+2;
       ch++;
   }
   x = 220;
   if (score==0){
-      draw_char(x, 100, fdes, '0', size_score, 63519);
+      draw_char(x, 100, '0', size_score, 63519);
   }
   char str1[3] = "0";
   int idx = 0;
@@ -265,23 +265,23 @@ void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
       idx++;
   }
   for (int i = idx-1; i >= 0; i--){
-      draw_char(x, 100, fdes, str1[i], size_score, 63519);
-      x+=size_score*char_width(fdes, str1[i])+2;
+      draw_char(x, 100, str1[i], size_score, 63519);
+      x+=size_score*char_width(str1[i])+2;
   }
   char RETRY[] = "RETRY"; // 5
   char *RE = RETRY;
   x = 142-(24*retry);
   for (int i=0; i<5; i++) {
-      draw_char(x, 180, fdes, *RE, retry+size_retry, 63519+(2016*retry));
-      x+=(size_retry+retry)*char_width(fdes, *RE)+2;
+      draw_char(x, 180, *RE, retry+size_retry, 63519+(2016*retry));
+      x+=(size_retry+retry)*char_width(*RE)+2;
       RE++;
   }
   char QUIT[] = "QUIT"; // 4
   char *QU = QUIT;
   x = 173-(13*quit);
   for (int i=0; i<4; i++) {
-      draw_char(x, 250, fdes, *QU, quit+size_quit, 63519+(2016*quit));
-      x+=(size_quit+quit)*char_width(fdes, *QU)+2;
+      draw_char(x, 250, *QU, quit+size_quit, 63519+(2016*quit));
+      x+=(size_quit+quit)*char_width(*QU)+2;
       QU++;
   }
 
@@ -304,8 +304,8 @@ void draw_Menu(unsigned short *fb1, int standard, int demo, int exit){
     int x = 20;
     // int x = 49-(standard*36);
     for (int i=0; i<8; i++) {
-        draw_char(x, 20, fdes, *ch, size_standard+standard, 63519+(2016*standard));
-        x+=(size_standard+standard)*char_width(fdes, *ch)+2;
+        draw_char(x, 20, *ch, size_standard+standard, 63519+(2016*standard));
+        x+=(size_standard+standard)*char_width(*ch)+2;
         ch++;
     }
     char str1[] = "DEMO"; // 4
@@ -313,8 +313,8 @@ void draw_Menu(unsigned short *fb1, int standard, int demo, int exit){
     x = 20;
     // x = 134-(23*demo);
     for (int i=0; i<4; i++) {
-        draw_char(x, 130, fdes, *ch1, size_demo+demo, 63519+(2016*demo));
-        x+=(size_demo+demo)*char_width(fdes, *ch1)+2;
+        draw_char(x, 130, *ch1, size_demo+demo, 63519+(2016*demo));
+        x+=(size_demo+demo)*char_width(*ch1)+2;
         ch1++;
     }
     char str2[] = "EXIT"; // 4
@@ -322,8 +322,8 @@ void draw_Menu(unsigned short *fb1, int standard, int demo, int exit){
     x = 20;
     // x = 177-(15*exit);
     for (int i=0; i<4; i++) {
-        draw_char(x, 240, fdes, *ch2, size_exit+exit, 63519+(2016*exit));
-        x+=(size_exit+exit)*char_width(fdes, *ch2)+2;
+        draw_char(x, 240, *ch2, size_exit+exit, 63519+(2016*exit));
+        x+=(size_exit+exit)*char_width(*ch2)+2;
         ch2++;
     }
     // draw LCD
@@ -343,32 +343,32 @@ void draw_speed_ctrl(unsigned short *fb1, int slow, int medium, int fast){
     char *ch = str;
     int x = 49;
     for (int i=0; i<9; i++) {
-        draw_char(x, 20, fdes, *ch, size_speed, 63519);
-        x+=size_speed*char_width(fdes, *ch)+2;
+        draw_char(x, 20, *ch, size_speed, 63519);
+        x+=size_speed*char_width(*ch)+2;
         ch++;
     }
     char str1[] = "Slow"; // 4
     char *ch1 = str1;
     x = 49;
     for (int i=0; i<4; i++) {
-        draw_char(x, 130, fdes, *ch1, 4, 63519+(2016*slow));
-        x+=4*char_width(fdes, *ch1)+2;
+        draw_char(x, 130, *ch1, 4, 63519+(2016*slow));
+        x+=4*char_width(*ch1)+2;
         ch1++;
     }
     char str2[] = "Medium"; // 6
     char *ch2 = str2;
     x = 49;
     for (int i=0; i<6; i++) {
-        draw_char(x, 190, fdes, *ch2, 4, 63519+(2016*medium));
-        x+=4*char_width(fdes, *ch2)+2;
+        draw_char(x, 190, *ch2, 4, 63519+(2016*medium));
+        x+=4*char_width(*ch2)+2;
         ch2++;
     }
     char str3[] = "Fast"; // 4
     char *ch3 = str3;
     x = 49;
     for (int i=0; i<4; i++) {
-        draw_char(x, 250, fdes, *ch3, 4, 63519+(2016*fast));
-        x+=4*char_width(fdes, *ch3)+2;
+        draw_char(x, 250, *ch3, 4, 63519+(2016*fast));
+        x+=4*char_width(*ch3)+2;
         ch3++;
     }
     // draw LCD
