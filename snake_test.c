@@ -57,11 +57,15 @@ int main() {
         exit(1);
     parlcd_hx8357_init(parlcd_mem_base);
 
-    // rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
-    // rgb_knobs_value = 16711935; //pink
-
-    // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
-    // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
+    val_line = 15;
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
+    struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 50 * 1000 * 1000};
+    for (i=0; i<30; i++) {
+        *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
+        val_line<<=1;
+        //printf("LED val 0x%x\n", val_line);
+        clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+    }
 
     snake_t *snake;
     snake_t *snake2;
@@ -205,33 +209,23 @@ int main() {
     }
     goto start_game;
 
+    // exit:
     rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
-    rgb_knobs_value =16711935; //purple
+    rgb_knobs_value = 0; // off
 
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
 
     // LED Line
-    // val_line = 15;
-    // val_line = 1227133513;
-    // *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
-    // struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 50 * 1000 * 1000};
-    // for (i=0; i<30; i++) {
-    //     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
-    //     val_line<<=1;
-    //     //printf("LED val 0x%x\n", val_line);
-    //     clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
-    // }
+    val_line = 1227133513;
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
+    for (i=0; i<30; i++) {
+        *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
+        val_line>>=1;
+        //printf("LED val 0x%x\n", val_line);
+        clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+    }
     
-    // parlcd_mem_base = map_phys_address(PARLCD_REG_BASE_PHYS, PARLCD_REG_SIZE, 0);
-    // if (parlcd_mem_base == NULL)
-    //     exit(1);
-    // parlcd_hx8357_init(parlcd_mem_base);
-
-    // parlcd_write_cmd(parlcd_mem_base, 0x2c);
-    // for (ptr = 0; ptr < 480*320 ; ptr++) {
-    //     parlcd_write_data(parlcd_mem_base, fb[ptr]);
-    // }
 
     //clean up after game is over
     freeDesk(desk);
