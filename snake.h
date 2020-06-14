@@ -5,7 +5,7 @@
 #define INIT_LEN 2
 
 #include "font_types.h"
-#include "snake_types.h"
+#include "menu.h"
 
 // //Snake food data type
 // typedef struct {
