@@ -1,5 +1,5 @@
 #include "font_types.h"
-// #include "snake.h"
+#include "snake.h"
 
 void draw_pixel(int x, int y, int color);
 
