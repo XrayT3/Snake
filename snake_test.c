@@ -81,7 +81,7 @@ int main() {
     start_game:
     snake = initSnakeAI(16, 14, 5, 5);
     snake2 = initSnakeAI(16, 14, 10, 10);
-    desk->gameOver = 0;
+    snake->gameOver = 0;
     draw_speed_ctrl(fb, slow, medium, fast);
 
     ch = '1';
