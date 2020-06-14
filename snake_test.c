@@ -63,7 +63,7 @@ int main() {
     val_line = 4;
     double p = 5;
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
-    struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 40 * 1000 * 1000};
+    struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 50 * 1000 * 1000};
     for (i=0; i<10; i++) {
         *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
         // val_line<<=1;
@@ -226,7 +226,9 @@ int main() {
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
 
+    p-=3;
     for (i=0; i<10; i++) {
+        printf("i\n");
         *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
         // val_line<<=1;
         val_line -= pow(2, p);
