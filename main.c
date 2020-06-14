@@ -71,6 +71,10 @@ int main() {
     food_t *food;
     desk = initDesk(16, 14, 1, 1);
     food = initFood(10, 10);
+    snake = initSnake(16, 14, 5, 5, 'a', 'd');
+    snake2 = initSnake(16, 14, 10, 10, 'j', 'l');
+    snakeAI = initSnakeAI(16, 14, 5, 5);
+    snakeAI2 = initSnakeAI(16, 14, 10, 10);
 
     goto Menu;
     start_game:
@@ -117,9 +121,6 @@ int main() {
         ns = (now-start) / 1000;
         sec = ns / 1000;
         if (ns % speed == 0){
-            // printf("%d\n", ns);
-            // drawDesk(desk, snake, food, sec, fb);
-            // drawDesk(desk, snake2, food, sec, fb);
             if (standard==1){
                 moveSnakeManual(snake, food, desk);
                 // moveSnakeManual(snake2, food, desk);
@@ -137,7 +138,8 @@ int main() {
         }
     }
     sleep(1);
-    draw_EndGame(fb, snake->score, retry, quit);
+    int record = get_record(snake->score, snake2->score, snakeAI->score, snakeAI2->score);
+    draw_EndGame(fb, record, retry, quit);
     // draw LED
     rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
     rgb_knobs_value =16711680; //red
@@ -163,10 +165,6 @@ int main() {
                 break;
             }
         }
-        // parlcd_write_cmd(parlcd_mem_base, 0x2c);
-        // for (ptr = 0; ptr < 480*320 ; ptr++) {
-        //     parlcd_write_data(parlcd_mem_base, fb[ptr]);
-        // }
     }
 
     if (retry==1){
@@ -239,18 +237,18 @@ int main() {
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 4;
     clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 0;
-    printf("3\n");
     parlcd_write_cmd(parlcd_mem_base, 0x2c);
     for (ptr = 0; ptr < 480*320 ; ptr++) {
         parlcd_write_data(parlcd_mem_base, 0);
     }
-    printf("4\n");
     //clean up after game is over
     freeDesk(desk);
     freeSnake(snake);
+    freeSnake(snake2);
+    freeSnake(snakeAI);
+    freeSnake(snakeAI2);
     freeFood(food);
 
-    printf("5\n");
     tcsetattr( STDIN_FILENO, TCSANOW, &oldt);
     return 0;
 }

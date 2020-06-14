@@ -86,3 +86,5 @@ int snakeLeftOfSnakeTwoSnakes(snake_t *snake, snake_t *otherSnake);
 int snakeRightOfSnakeTwoSnakes(snake_t *snake, snake_t *otherSnake);
 
 void snakeControllerTwoSnakes(snake_t *snake, snake_t *otherSnake, desk_t *desk, food_t *food);
+
+int get_record(int a, int b, int c, int d);
