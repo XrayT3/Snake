@@ -12,10 +12,10 @@
 #include "mzapo_phys.h"
 #include "mzapo_regs.h"
 #include "font_types.h"
-#include "font_prop14x16.c"
+// #include "font_prop14x16.c"
 
 unsigned short *fb;
-font_descriptor_t* fdes = &font_winFreeSystem14x16;
+// font_descriptor_t* fdes = &font_winFreeSystem14x16;
 unsigned char *parlcd_mem_base;
 unsigned char *mem_base;
 uint32_t rgb_knobs_value;
@@ -553,7 +553,7 @@ void drawDesk_2_snakes(desk_t *desk, snake_t *snake, snake_t *snake2, food_t *fo
         fb[ptr] = 0;
     }
     draw_score(snake->score);
-    draw_score2(snake2->score);
+    draw_score_2_snakes(snake2->score);
     draw_time(sec);
     draw_wall(16, 14); 
     for (int i = desk->startY; i < desk->endY; i ++) {
