@@ -226,7 +226,7 @@ int main() {
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
 
-    p-=6;
+    p= 29;
     for (i=0; i<10; i++) {
         printf("%d\n", p);
         printf("%d\n", val_line);
