@@ -65,6 +65,8 @@ int main() {
 
     snake_t *snake;
     snake_t *snake2;
+    snake_t *snakeAI;
+    snake_t *snakeAI2;
     desk_t *desk;
     food_t *food;
     desk = initDesk(16, 14, 1, 1);
@@ -72,11 +74,12 @@ int main() {
 
     goto Menu;
     start_game:
-    snake = initSnakeAI(16, 14, 5, 5);
-    snake2 = initSnakeAI(16, 14, 10, 10);
+    snake = initSnake(16, 14, 5, 5, 'a', 'd');
+    snake2 = initSnake(16, 14, 10, 10, 'j', 'l');
+    snakeAI = initSnakeAI(16, 14, 5, 5);
+    snakeAI2 = initSnakeAI(16, 14, 10, 10);
     snake->gameOver = 0;
     draw_speed_ctrl(fb, slow, medium, fast);
-
     ch = '1';
     while (ch!=' ')
     {
@@ -115,18 +118,21 @@ int main() {
         sec = ns / 1000;
         if (ns % speed == 0){
             // printf("%d\n", ns);
-            drawDesk(desk, snake, food, sec, fb);
+            // drawDesk(desk, snake, food, sec, fb);
             // drawDesk(desk, snake2, food, sec, fb);
             if (standard==1){
                 moveSnakeManual(snake, food, desk);
                 // moveSnakeManual(snake2, food, desk);
+                drawDesk(desk, snake, food, sec, fb);
             }
             else
             {
-                // moveSnakeAI(snake, food, desk);
-                moveSnakeAITwoSnakes(snake, snake2, food, desk);
-                moveSnakeAITwoSnakes(snake2, snake, food, desk);
-                drawDesk_2_snakes(desk, snake, snake2, food, sec, fb);
+                moveSnakeAITwoSnakes(snakeAI, snakeAI2, food, desk);
+                moveSnakeAITwoSnakes(snakeAI2, snakeAI, food, desk);
+                drawDesk_2_snakes(desk, snakeAI, snakeAI2, food, sec, fb);
+                if (snakeAI->gameOver | snakeAI2->gameOver){
+                    break;
+                }
             }
         }
     }
