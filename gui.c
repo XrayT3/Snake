@@ -1,39 +1,86 @@
-#define _POSIX_C_SOURCE 200112L
-
-#include <stdlib.h>
 #include <stdio.h>
-#include <stdint.h>
-#include <time.h>
-#include <unistd.h>
+#include <stdlib.h>
+#include <unistd.h> 
 #include <termios.h>
 
-#include "mzapo_parlcd.h"
-#include "mzapo_phys.h"
-#include "mzapo_regs.h"
+#include "snake.h"
 
 #include "font_types.h"
 #include "font_prop14x16.c"
 
-unsigned short *fb;
-int scale = 4;
+font_descriptor_t* fdes = &font_winFreeSystem14x16;
 
-void draw_pixel(int x, int y) {
-  if (x>=0 && x<480 && y>=0 && y<320) {
-    fb[x+480*y] = 0x1f<<11;
-  }
-}
+int size_cell = 20;
+int size_score = 4;
+int size_time = 4;
+int size_GameOver = 5;
+int size_retry = 4;
+int size_quit = 4;
+int size_standard = 5;
+int size_demo = 5;
+int size_speed = 5;
+int size_exit = 4;
 
-void draw_pixel8(int x, int y) {
+void draw_pixel_size(int x, int y, int size, int color) {
   int i, j;
-  for (i = 0; i < scale; i++){
-    for (j = 0; j < scale; j++){
-      draw_pixel(x+i, y+i);
+  for (i = 0; i < size; i++){
+    for (j = 0; j < size; j++){
+      draw_pixel(x-i, y-j, color);
     }
   }
 }
 
-void draw_wall(int x, int y){
-    fb[x+480*y] = 0x1f<<11;
+void draw_wall(int c, int r) {
+  // up
+  for (int i = 0; i < c+1; i++){
+    for (int x = 0; x < size_cell; x++){
+      for(int y = size_cell/2; y < size_cell; y++){
+        draw_pixel(i*size_cell+x+(size_cell/4), 0+y, 65535);
+      }
+    }
+  }
+  // down
+  for (int i = 0; i < c+1; i++){
+    for (int x = 0; x < size_cell; x++){
+      for(int y = size_cell/2; y < size_cell; y++){
+        draw_pixel(i*size_cell+x+(size_cell/4), 300+y-(size_cell/2), 65535);
+      }
+    }
+  }
+  // left
+  for (int i = 1; i < r+1; i++){
+    for (int x = size_cell/2; x < size_cell; x++){
+      for(int y = 0; y < size_cell; y++){
+        draw_pixel(0+x, i*size_cell+y+(size_cell/4), 65535);
+      }
+    }
+  }
+  // right
+  for (int i = 1; i < r+1; i++){
+    for (int x = size_cell/2; x < size_cell; x++){
+      for(int y = 0; y < size_cell; y++){
+        draw_pixel(340+x-(size_cell/2), i*size_cell+y+(size_cell/4), 65535);
+      }
+    }
+  }
+}
+
+void draw_food(int x, int y) {
+  int i, j;
+  for (i = 0; i < size_cell; i++){
+    for (j = 0; j < size_cell; j++){
+      draw_pixel(x+i, y+j, 2016);
+    }
+  }
+}
+
+void draw_snake(int x, int y) {
+  int i, j;
+  for (i = 0; i < size_cell; i++){
+    for (j = 0; j < size_cell; j++){
+      draw_pixel(x+i, y+j, 31);
+    }
+  }
 }
 
 int char_width(font_descriptor_t* fdes, int ch) {
@@ -49,7 +96,7 @@ int char_width(font_descriptor_t* fdes, int ch) {
   return width;
 }
 
-void draw_char(int x, int y, font_descriptor_t* fdes, char ch) {
+void draw_char(int x, int y, font_descriptor_t* fdes, char ch, int size, int color) {
   int w = char_width(fdes, ch);
   if (w > 0) {
     const font_bits_t *ptr;
@@ -60,13 +107,13 @@ void draw_char(int x, int y, font_descriptor_t* fdes, char ch) {
       int bw = (fdes->maxwidth+15)/16;
       ptr = fdes->bits + (ch-fdes->firstchar)*bw*fdes->height;
     }
-    printf("Znak %c na %i, %i, sirka %i\n", ch, x, y, w);
+    // printf("Znak %c na %i, %i, sirka %i\n", ch, x, y, w);
     int i, j;
     for (i = 0; i < fdes->height; i++){
       font_bits_t val = *ptr;
       for (j = 0; j < w; j++){
         if ((val&0x8000) != 0) {
-          draw_pixel8(x+scale*j, y+scale*i);
+          draw_pixel_size(x+size*j, y+size*i, size, color);
         }
         val<<=1;
       }
@@ -75,101 +122,65 @@ void draw_char(int x, int y, font_descriptor_t* fdes, char ch) {
   }
 }
 
-int main(int argc, char *argv[]) {
-  unsigned char *mem_base;
-  unsigned char *parlcd_mem_base;
-  uint32_t val_line=5;
-  uint32_t rgb_knobs_value;
-  int i;
-  int ptr;
-
-  static struct termios oldt, newt;
-  tcgetattr( STDIN_FILENO, &oldt); 
-  newt = oldt; 
-  newt.c_lflag &= ~(ICANON); 
-  newt.c_cc[VMIN] = 0;
-  newt.c_cc[VTIME] = 0;
-  tcsetattr( STDIN_FILENO, TCSANOW, &newt);
-
-  fb  = (unsigned short *)malloc(320*480*2);
-
-  mem_base = map_phys_address(SPILED_REG_BASE_PHYS, SPILED_REG_SIZE, 0);
-
-  /* If mapping fails exit with error code */
-  if (mem_base == NULL)
-    exit(1);
-
-  rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
-  rgb_knobs_value = 255; //blue
-  rgb_knobs_value = 16711935; //pink
-
-  *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
-  *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
-
-  // LED Line
-  struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 10 * 1000 * 1000};
-  val_line = 15;
-  // val_line = 1227133513;
-  *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
-  clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
-  for (i=0; i<30; i++) {
-    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
-    val_line<<=1;
-    //printf("LED val 0x%x\n", val_line);
-    clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
-  }
-  val_line = 4026531840;
-  for (i=0; i<30; i++) {
-    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
-    val_line>>=1;
-    //printf("LED val 0x%x\n", val_line);
-    clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
-  }
-
-  
-  parlcd_mem_base = map_phys_address(PARLCD_REG_BASE_PHYS, PARLCD_REG_SIZE, 0);
-
-  if (parlcd_mem_base == NULL)
-    exit(1);
-
-  parlcd_hx8357_init(parlcd_mem_base);
-  
-  int x = 10;
-  char str1[]="START"; // 5
-  char str2[]="DEMO"; // 4
-  char str3[]="OPTIONS"; // 7
-  char *ch=str1;
-  char *ch2=str2;
-  char *ch3=str3;
-  font_descriptor_t* fdes = &font_winFreeSystem14x16;
-  for (ptr = 0; ptr < 320*480 ; ptr++) {
-    fb[ptr]=0u;
-  }
-  x = 150;
-  for (i=0; i<5; i++) {
-    draw_char(x, 20, fdes, *ch);
-    x+=scale*char_width(fdes, *ch)+2;
-    ch++;
-  }
-  x = 155;
-  for (i=0; i<4; i++) {
-    draw_char(x, 127, fdes, *ch2);
-    x+=scale*char_width(fdes, *ch2)+2;
-    ch2++;
-  }
-  x = 114;
-  for (i=0; i<7; i++) {
-    draw_char(x, 234, fdes, *ch3);
-    x+=scale*char_width(fdes, *ch3)+2;
-    ch3++;
-  }
-
-  parlcd_write_cmd(parlcd_mem_base, 0x2c);
-    for (ptr = 0; ptr < 480*320 ; ptr++) {
-        parlcd_write_data(parlcd_mem_base, fb[ptr]);
+void draw_score(int score){
+    int y = 20;
+    int x = 380;
+    if (score==0){
+        draw_char(x, y, fdes, '0', size_score+1, 63519);
+        return;
     }
+    char str[3] = "0";
+    int idx = 0;
+    while (score!=0)
+    {
+        str[idx] = score % 10 + '0';
+        score /= 10;
+        idx++;
+    }
+    for (int i = idx-1; i >= 0; i--){
+        draw_char(x, y, fdes, str[i], size_score+1, 63519);
+        x+=size_score*char_width(fdes, str[i])+2;
+    }
+}
 
-  tcsetattr( STDIN_FILENO, TCSANOW, &oldt);
+void draw_score_2_snakes(int score){
+    int y = 240;
+    int x = 380;
+    if (score==0){
+        draw_char(x, y, fdes, '0', size_score+1, 63519);
+        return;
+    }
+    char str[3] = "0";
+    int idx = 0;
+    while (score!=0)
+    {
+        str[idx] = score % 10 + '0';
+        score /= 10;
+        idx++;
+    }
+    for (int i = idx-1; i >= 0; i--){
+        draw_char(x, y, fdes, str[i], size_score+1, 63519);
+        x+=size_score*char_width(fdes, str[i])+2;
+    }
+}
 
-  return 0;
+void draw_time(int sec){
+  int y = 127;
+  int x = 380;
+  if (sec==0){
+      draw_char(x, y, fdes, '0', size_time, 63519);
+      return;
+  }
+  char str[3] = "0";
+  int idx = 0;
+  while (sec!=0)
+  {
+      str[idx] = sec % 10 + '0';
+      sec /= 10;
+      idx++;
+  }
+  for (int i = idx-1; i >= 0; i--){
+      draw_char(x, y, fdes, str[i], size_time, 63519);
+      x+=size_time*char_width(fdes, str[i])+2;
+  }
 }

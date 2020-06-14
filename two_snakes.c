@@ -50,7 +50,6 @@ void moveSnakeManualTwoSnakes(snake_t *snake, snake_t *secondSnake, food_t *food
     snakeEats(food, snake, desk, lastCoords[0], lastCoords[1]);
 }
 
-//CHANGED
 void moveSnakeAITwoSnakes(snake_t *snake, snake_t *secondSnake, food_t *food, desk_t *desk) {
 
     //inputs part-------
@@ -86,7 +85,6 @@ void moveSnakeAITwoSnakes(snake_t *snake, snake_t *secondSnake, food_t *food, de
     snakeEats(food, snake, desk, lastCoords[0], lastCoords[1]);
 }
 
-//ADDED
 int checkWallsCollisions(snake_t *snake, desk_t *desk) {
 
     if (
@@ -98,7 +96,6 @@ int checkWallsCollisions(snake_t *snake, desk_t *desk) {
     return 0;
 }
 
-//ADDED
 int checkItselfCollisions(snake_t *snake) {
 
     for (int k = 1; k < snake->length ; k++) {
@@ -111,7 +108,6 @@ int checkItselfCollisions(snake_t *snake) {
     return 0;
 }
 
-//ADDED
 int checkOtherSnakeCollisions(snake_t *snake, snake_t *secondSnake) {
 
     for (int k = 0; k < snake->length ; k++) {
@@ -229,7 +225,6 @@ int obstacleBeforeSnakeTwoSnakes(snake_t *snake, snake_t *otherSnake, desk_t *de
     return ret;
 }
 
-//ADDED
 int snakeLeftOfSnakeTwoSnakes(snake_t *snake, snake_t *otherSnake) {
 
     for (int k = 0; k < snake->length; k++) {
@@ -281,7 +276,6 @@ int snakeLeftOfSnakeTwoSnakes(snake_t *snake, snake_t *otherSnake) {
     return 0;
 }
 
-//ADDED
 int snakeRightOfSnakeTwoSnakes(snake_t *snake, snake_t *otherSnake) {
 
     for (int k = 0; k < snake->length; k++) {

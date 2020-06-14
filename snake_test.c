@@ -134,7 +134,7 @@ int main() {
                 // moveSnakeAI(snake, food, desk);
                 moveSnakeAITwoSnakes(snake, snake2, food, desk);
                 moveSnakeAITwoSnakes(snake2, snake, food, desk);
-                drawDesk2(desk, snake, snake2, food, sec, fb);
+                drawDesk_2_snakes(desk, snake, snake2, food, sec, fb);
             }
         }
     }
