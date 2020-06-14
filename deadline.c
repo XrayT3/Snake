@@ -126,12 +126,16 @@ int main(){
 
     while (101)
     {
+        printf("1");
         // current time
         ttime = time (NULL);
+        printf("2");
         u = localtime(&ttime);
-        
+        printf("3");
         *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 1227133513;
+        printf("4");
         clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
+        printf("5");
         *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 1687308580;
         clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
         *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 843654290;
