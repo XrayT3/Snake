@@ -318,7 +318,7 @@ void draw_Menu(unsigned short *fb1, int standard, int demo, int exit){
     }
     char str2[] = "EXIT"; // 4
     char *ch2 = str2;
-    x = 134-(23*exit);
+    x = 177-(15*exit);
     for (int i=0; i<4; i++) {
         draw_char(x, 240, fdes, *ch2, size_exit+exit, 63519+(2016*exit));
         x+=(size_exit+exit)*char_width(fdes, *ch2)+2;
