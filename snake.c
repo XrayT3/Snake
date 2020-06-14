@@ -28,7 +28,7 @@ int size_quit = 4;
 int size_standard = 5;
 int size_demo = 5;
 int size_speed = 5;
-int size_exit = 3;
+int size_exit = 4;
 
 snake_t *initSnake(int displayWidth, int displayHeight, int initSnakeX, int initSnakeY, char turnLeft, char turnRight) {
 
@@ -304,7 +304,7 @@ void draw_Menu(unsigned short *fb1, int standard, int demo, int exit){
     char *ch = str;
     int x = 49-(standard*36);
     for (int i=0; i<8; i++) {
-        draw_char(x, 30, fdes, *ch, size_standard+standard, 63519+(2016*standard));
+        draw_char(x, 20, fdes, *ch, size_standard+standard, 63519+(2016*standard));
         x+=(size_standard+standard)*char_width(fdes, *ch)+2;
         ch++;
     }
@@ -312,7 +312,7 @@ void draw_Menu(unsigned short *fb1, int standard, int demo, int exit){
     char *ch1 = str1;
     x = 134-(23*demo);
     for (int i=0; i<4; i++) {
-        draw_char(x, 150, fdes, *ch1, size_demo+demo, 63519+(2016*demo));
+        draw_char(x, 130, fdes, *ch1, size_demo+demo, 63519+(2016*demo));
         x+=(size_demo+demo)*char_width(fdes, *ch1)+2;
         ch1++;
     }
@@ -320,7 +320,7 @@ void draw_Menu(unsigned short *fb1, int standard, int demo, int exit){
     char *ch2 = str2;
     x = 134-(23*exit);
     for (int i=0; i<4; i++) {
-        draw_char(x, 250, fdes, *ch2, size_exit+exit, 63519+(2016*exit));
+        draw_char(x, 240, fdes, *ch2, size_exit+exit, 63519+(2016*exit));
         x+=(size_exit+exit)*char_width(fdes, *ch2)+2;
         ch2++;
     }
