@@ -97,7 +97,7 @@ int char_width(int ch) {
 }
 
 void draw_char(int x, int y, char ch, int size, int color) {
-  int w = char_width(fdes, ch);
+  int w = char_width(ch);
   if (w > 0) {
     const font_bits_t *ptr;
     if (fdes->offset) {
