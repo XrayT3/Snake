@@ -13,13 +13,6 @@ font_descriptor_t* fdes = &font_winFreeSystem14x16;
 int size_cell = 20;
 int size_score = 4;
 int size_time = 4;
-int size_GameOver = 5;
-int size_retry = 4;
-int size_quit = 4;
-int size_standard = 5;
-int size_demo = 5;
-int size_speed = 5;
-int size_exit = 4;
 
 void draw_pixel_size(int x, int y, int size, int color) {
   int i, j;
