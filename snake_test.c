@@ -70,7 +70,7 @@ int main() {
     }
 
     snake_t *snake;
-    snake_t *snake2;
+    // snake_t *snake2;
     desk_t *desk;
     food_t *food;
 
@@ -133,7 +133,7 @@ int main() {
             }
             else
             {
-                moveSnakeAI(snake, food, dask);
+                moveSnakeAI(snake, food, desk);
                 // moveSnakeAITwoSnakes(snake, snake2, food, desk);
                 // moveSnakeAITwoSnakes(snake2, snake, food, desk);
                 // drawDesk2(desk, snake, snake2, food, sec, fb);
