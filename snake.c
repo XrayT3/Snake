@@ -265,7 +265,7 @@ void draw_EndGame(unsigned short *fb1, int score, int retry, int quit){
       idx++;
   }
   for (int i = idx-1; i >= 0; i--){
-      draw_char(x, 100, str1[i], size_score, 63519);
+      draw_char(x, 100, str1[i], 4, 63519); // size_score = 4;
       x+=size_score*char_width(str1[i])+2;
   }
   char RETRY[] = "RETRY"; // 5
