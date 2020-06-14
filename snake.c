@@ -159,7 +159,7 @@ void draw_char(int x, int y, font_descriptor_t* fdes, char ch, int size, int col
       int bw = (fdes->maxwidth+15)/16;
       ptr = fdes->bits + (ch-fdes->firstchar)*bw*fdes->height;
     }
-    // printf("Znak %c na %i, %i, sirka %i\n", ch, x, y, w);
+    printf("Znak %c na %i, %i, sirka %i\n", ch, x, y, w);
     int i, j;
     for (i = 0; i < fdes->height; i++){
       font_bits_t val = *ptr;
