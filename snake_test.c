@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <stdbool.h>
+#include <math.h>
 #include <termios.h>
 
 #include "snake.h"
@@ -59,12 +60,15 @@ int main() {
         exit(1);
     parlcd_hx8357_init(parlcd_mem_base);
 
-    val_line = 15;
+    val_line = 4;
+    int p = 5;
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
     struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 20 * 1000 * 1000};
     for (i=0; i<30; i++) {
         *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
-        val_line<<=1;
+        // val_line<<=1;
+        val_line += pow(2, p);
+        p+=3;
         //printf("LED val 0x%x\n", val_line);
         clock_nanosleep(CLOCK_MONOTONIC, 0, &loop_delay, NULL);
     }
@@ -197,13 +201,13 @@ int main() {
             a = standard;
             b = demo;
             c = Exit;
-            if (ch == 'w') {
+            if (ch == 's') {
                 standard = c;
                 demo = a;
                 Exit = b;
                 draw_Menu(fb, standard, demo, Exit);
             }
-            else if (ch == 's') {
+            else if (ch == 'w') {
                 standard = b;
                 demo = c;
                 Exit = a;
