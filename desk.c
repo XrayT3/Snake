@@ -20,9 +20,7 @@ void freeDesk(desk_t *desk) {
 }
 
 int obstacleBeforeSnake(snake_t *snake, desk_t *desk) {
-
     int ret = 0;
-
     if (
         snake->direction == UP &&
         snake->snake_skeleton[0].coords[1] == (desk->startY + 1)
@@ -90,22 +88,18 @@ int obstacleBeforeSnake(snake_t *snake, desk_t *desk) {
 }
 
 int obstacleLeftOfSnake(snake_t *snake, desk_t *desk) {
-
     if (
         snake->direction == UP &&
         snake->snake_skeleton[0].coords[0] == (desk->startX + 1)
     )   return 1;
-    
     else if (
         snake->direction == DOWN &&
         snake->snake_skeleton[0].coords[0] == (desk->endX - 1)
     )   return 1;
-    
     else if (
         snake->direction == LEFT &&
         snake->snake_skeleton[0].coords[1] == (desk->endY - 1)
     )   return 1;
-    
     else if (
         snake->direction == RIGHT &&
         snake->snake_skeleton[0].coords[1] == (desk->startY + 1)
@@ -120,22 +114,18 @@ int obstacleRightOfSnake(snake_t *snake, desk_t *desk) {
         snake->direction == UP &&
         snake->snake_skeleton[0].coords[0] == (desk->endX - 1)
     )   return 1;
-    
     else if (
         snake->direction == DOWN &&
         snake->snake_skeleton[0].coords[0] == (desk->startX + 1)
     )   return 1;
-    
     else if (
         snake->direction == LEFT &&
         snake->snake_skeleton[0].coords[1] == (desk->startY + 1)
     )   return 1;
-
     else if (
         snake->direction == RIGHT &&
         snake->snake_skeleton[0].coords[1] == (desk->endY - 1)
     )   return 1;
-
     return 0;
 }
 
@@ -198,7 +188,6 @@ int snakeRightOfSnake(snake_t *snake) {
 int checkFieldOccupation(snake_t *snake, desk_t *desk) {
     
     int freeLeft = snake->max_length, freeRight = snake->max_length;
-
     for (int k = 1; k < snake->length; k++) {
 
         if (

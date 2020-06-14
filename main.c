@@ -27,8 +27,6 @@ int a, b, c, ptr, i;
 uint32_t rgb_knobs_value;
 unsigned char *mem_base;
 
-
-
 void rgb_LED(int color){
     rgb_knobs_value = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
     rgb_knobs_value = color;
@@ -249,4 +247,3 @@ int main() {
     tcsetattr( STDIN_FILENO, TCSANOW, &oldt);
     return 0;
 }
-
