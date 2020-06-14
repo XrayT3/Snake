@@ -129,7 +129,7 @@ int main(){
 
     while (1)
     {
-        for (ptr = 24000; ptr < 480*320 ; ptr++) {
+        for (ptr = 61920; ptr < 480*320 ; ptr++) {
             fb[ptr] = 0;
         }
         // current time
