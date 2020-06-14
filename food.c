@@ -37,7 +37,7 @@ void updateFood(desk_t *desk, food_t *food, snake_t *snake) {
         )   goto calculate;
     }
 
-    printf("New coords: %d %d\n", newX, newY);
+    // printf("New coords: %d %d\n", newX, newY);
     food->coord[0] = newX;
     food->coord[1] = newY;
 }
