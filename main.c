@@ -118,7 +118,7 @@ int main() {
     rgb_knobs_value = 65280; //green
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = rgb_knobs_value;
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = rgb_knobs_value;
-    while (1-snake->gameOver) {
+    while (1-snake->gameOver & 1-snake2->gameOver) {
         now = clock();
         ns = (now-start) / 1000;
         sec = ns / 1000;
@@ -127,6 +127,9 @@ int main() {
                 moveSnakeManual(snake, food, desk);
                 // moveSnakeManual(snake2, food, desk);
                 drawDesk(desk, snake, food, sec, fb);
+                // if (snake->gameOver | snake2->gameOver){
+                //     break;
+                // }
             }
             else
             {
