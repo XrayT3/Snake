@@ -61,7 +61,7 @@ int main() {
     parlcd_hx8357_init(parlcd_mem_base);
 
     val_line = 4;
-    int p = 5;
+    double p = 5;
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = val_line;
     struct timespec loop_delay = {.tv_sec = 0, .tv_nsec = 20 * 1000 * 1000};
     for (i=0; i<30; i++) {
